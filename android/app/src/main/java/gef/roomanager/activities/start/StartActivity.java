@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import gef.roomanager.R;
 import gef.roomanager.activities.login.LoginActivity;
 
+/**
+ * Activity che si prende cura dell'avvio dell'applicazione
+ */
 public class StartActivity extends AppCompatActivity {
 
     @Override
