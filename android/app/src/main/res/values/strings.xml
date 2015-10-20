@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">RooManageR</string>
+    <string name="title_activity_login">Accedi</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Accedi</string>
+    <string name="action_sign_in_short">Accedi</string>
+    <string name="error_invalid_email">L\'email inserita non è valida</string>
+    <string name="error_invalid_password">La password non è valida</string>
+    <string name="error_incorrect_password">La password non è corretta</string>
+    <string name="error_field_required">Campo obbligatrio</string>
+    <string name="permission_rationale">"Questo permesso è necessario per leggere le mail dei tuoi contatti."
+    </string>
+    <string name="registrati">Registrati</string>
+</resources>
