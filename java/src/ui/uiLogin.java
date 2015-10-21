@@ -147,7 +147,10 @@ public class uiLogin extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, String.format("Benvenuto %s %s", obj.getValue().getNome(), obj.getValue().getCognome()));
                         break;
                     case StatusCodes.NOT_FOUND:
-                        JOptionPane.showMessageDialog(rootPane, "Attenzione! Username o password errata.");
+                        JOptionPane.showMessageDialog(rootPane, "Username o password errata.", "Attenzione!", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(rootPane, "Si è verificato un errore nel server. Riprova o contatta gli sviluppatori.", "Attenzione", JOptionPane.ERROR_MESSAGE);
                         break;
                 }
             }
