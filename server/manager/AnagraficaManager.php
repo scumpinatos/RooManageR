@@ -1,5 +1,6 @@
 <?php
-require_once '../db/entity/Anagrafica.php';
+
+require_once 'entity/Anagrafica.php';
 require_once 'CRUD.php';
 
 /**
@@ -16,9 +17,7 @@ class AnagraficaManager extends CRUD {
 
         $this->open();
         $query = 'INSERT INTO anagrafica VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")';
-        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), $obj->getCognome(), $obj->getDataNascita(),
-            $obj->getIndirizzo(), $obj->getNazionalita(), $obj->getNumeroDocumento(), $obj->getTipoDocumento(), $obj->getTelefono(),
-            $obj->getCellulare(), $obj->getEmail());
+        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), $obj->getCognome(), $obj->getDataNascita(), $obj->getIndirizzo(), $obj->getNazionalita(), $obj->getNumeroDocumento(), $obj->getTipoDocumento(), $obj->getTelefono(), $obj->getCellulare(), $obj->getEmail());
         $result = mysql_query($query);
         $this->close();
 
@@ -26,18 +25,18 @@ class AnagraficaManager extends CRUD {
     }
 
     function update($obj) {
-        if (!($obj instanceof Anagrafica))
+        if (!($obj instanceof Anagrafica)) {
             return false;
+        }
 
-        if (!$this->read($obj))
+        if (!$this->read($obj)) {
             return false;
+        }
 
         $this->open();
         $query = 'UPDATE anagrafica SET codicefiscale = "%s", nome = "%s", cognome = "%s", datanascita = "%s", indirizzo = "%s"' .
-            ', nazionalita = "%s", numerodocumento = "%s", tipodocumento = "%s", telefono = "%s", cellulare = "%s", email = "%s"';
-        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), $obj->getCognome(), $obj->getDataNascita(),
-            $obj->getIndirizzo(), $obj->getNazionalita(), $obj->getNumeroDocumento(), $obj->getTipoDocumento(), $obj->getTelefono(),
-            $obj->getCellulare(), $obj->getEmail());
+                ', nazionalita = "%s", numerodocumento = "%s", tipodocumento = "%s", telefono = "%s", cellulare = "%s", email = "%s"';
+        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), $obj->getCognome(), $obj->getDataNascita(), $obj->getIndirizzo(), $obj->getNazionalita(), $obj->getNumeroDocumento(), $obj->getTipoDocumento(), $obj->getTelefono(), $obj->getCellulare(), $obj->getEmail());
         $result = mysql_query($query);
         $this->close();
 
@@ -49,8 +48,14 @@ class AnagraficaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'SELECT * FROM anagrafica WHERE codicefiscale = "%s"';
-        $query = sprintf($query, $obj->getCodiceFiscale());
+        if (!empty($obj->getCodiceFiscale())) {
+            $query = 'SELECT * FROM anagrafica WHERE codicefiscale = "%s"';
+            $query = sprintf($query, $obj->getCodiceFiscale());
+        } else {
+            $query = 'SELECT * FROM anagrafica WHERE email = "%s" AND password = "%s"';
+            $query = sprintf($query, $obj->getEmail(), $obj->getPassword());
+        }
+        
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -116,4 +121,5 @@ class AnagraficaManager extends CRUD {
 
         return $toReturn;
     }
+
 }
