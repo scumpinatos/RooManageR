@@ -16,13 +16,12 @@ import java.net.URL;
  */
 public abstract class WebManager {
     
-    public static String getResponse(String parameters) throws ProtocolException, MalformedURLException, IOException, HttpException {
+    public String getResponse(String parameters) throws ProtocolException, MalformedURLException, IOException, HttpException {
         String url = "http://localhost/server/index.php";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
-        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -31,7 +30,7 @@ public abstract class WebManager {
         wr.close();
         
         int responseCode = con.getResponseCode();
-        if(responseCode != 200) {
+        if(responseCode != StatusCodes.SUCCESS) {
             throw new HttpException(responseCode);
         }
         

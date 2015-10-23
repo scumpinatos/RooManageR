@@ -16,16 +16,16 @@ import web.WebManager;
  *
  * @author ScumpinatoS
  */
-public class AnagraficaManager {
+public class AnagraficaManager extends WebManager {
 
-    public void login(String email, String password, Listener<Pair<Integer, Anagrafica>> callback) {
+    public void login(String cf, String password, Listener<Pair<Integer, Anagrafica>> callback) {
         Runnable loginRunnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    String response = WebManager.getResponse(
-                            String.format("opCode=%s&email=%s&password=%s",
-                                    "1", email, password)
+                    String response = getResponse(
+                            String.format("opCode=%s&cf=%s&password=%s",
+                                    "1", cf, password)
                     );
                     Anagrafica anagrafica = new ObjectMapper().readValue(response, Anagrafica.class);
                     callback.result(new Pair<>(StatusCodes.SUCCESS, anagrafica));
@@ -41,5 +41,9 @@ public class AnagraficaManager {
         
         new Thread(loginRunnable).start();
     }
-
+    
+    public void inserisci(Anagrafica anagrafica, Listener<Integer> callback) {
+        
+    }
+    
 }
