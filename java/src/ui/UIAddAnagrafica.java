@@ -22,6 +22,7 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCodiceFiscale = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -29,10 +30,17 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCognome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jTextFieldGiorno = new javax.swing.JTextField();
+        jTextFieldMese = new javax.swing.JTextField();
+        jTextFieldAnno = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldIndirizzo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jComboBoxNazionalita = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        jRadioButtonCartaIdentita = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldNumeroDocumento = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -41,12 +49,9 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jTextFieldCellulare = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jComboBoxNazionalita = new javax.swing.JComboBox();
-        jComboBoxTipoDocumento = new javax.swing.JComboBox();
         jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAnnulla = new javax.swing.JButton();
+        jButtonConferma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,8 +73,19 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Nazionalita");
 
+        jComboBoxNazionalita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Tipo Documento");
+
+        buttonGroup1.add(jRadioButtonCartaIdentita);
+        jRadioButtonCartaIdentita.setText("Carta d'identità");
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Patente");
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Passaporto");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Numero Documento");
@@ -83,16 +99,12 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Email *");
 
-        jComboBoxNazionalita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBoxTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel12.setText("Inserire ALMENO UNO dei valori contrassegnati con *");
 
-        jButton1.setText("Annulla");
+        jButtonAnnulla.setText("Annulla");
 
-        jButton2.setText("Conferma");
+        jButtonConferma.setText("Conferma");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,15 +117,11 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(jButtonAnnulla)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))
+                                .addComponent(jButtonConferma))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBoxTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,7 +130,11 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jFormattedTextField1))
+                                            .addComponent(jTextFieldGiorno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTextFieldMese, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTextFieldAnno))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,7 +166,14 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jRadioButton2)
+                                            .addComponent(jRadioButtonCartaIdentita)
+                                            .addComponent(jRadioButton3))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(0, 9, Short.MAX_VALUE))))
         );
@@ -176,7 +195,9 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldGiorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAnno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -185,11 +206,15 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jComboBoxNazionalita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButtonCartaIdentita)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jComboBoxTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jRadioButton2)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextFieldNumeroDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -209,9 +234,9 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonAnnulla)
+                    .addComponent(jButtonConferma))
+                .addContainerGap())
         );
 
         pack();
@@ -230,11 +255,10 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButtonAnnulla;
+    private javax.swing.JButton jButtonConferma;
     private javax.swing.JComboBox jComboBoxNazionalita;
-    private javax.swing.JComboBox jComboBoxTipoDocumento;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -247,11 +271,17 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButtonCartaIdentita;
+    private javax.swing.JTextField jTextFieldAnno;
     private javax.swing.JTextField jTextFieldCellulare;
     private javax.swing.JTextField jTextFieldCodiceFiscale;
     private javax.swing.JTextField jTextFieldCognome;
     private javax.swing.JTextField jTextFieldEmail;
+    private javax.swing.JTextField jTextFieldGiorno;
     private javax.swing.JTextField jTextFieldIndirizzo;
+    private javax.swing.JTextField jTextFieldMese;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldNumeroDocumento;
     private javax.swing.JTextField jTextFieldTelefono;
