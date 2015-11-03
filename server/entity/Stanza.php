@@ -10,6 +10,8 @@ class Stanza {
     private $idStruttura;
     private $numero;
     private $tipo;
+    private $agibile;
+    private $libera;
 
     /**
      * Stanza constructor.
@@ -59,5 +61,31 @@ class Stanza {
         $this->tipo = $tipo;
     }
 
+    function getAgibile() {
+        return $this->agibile;
+    }
 
+    function getLibera() {
+        return $this->libera;
+    }
+
+    function setAgibile($agibile) {
+        $this->agibile = $agibile;
+        return $this;
+    }
+
+    function setLibera($libera) {
+        $this->libera = $libera;
+        return $this;
+    }
+    
+    function toArray() {
+        return array(
+            "idStruttura" => $this->idStruttura,
+            "numero" => $this->numero,
+            "tipo" => $this->tipo,
+            "agibile" => $this->agibile,
+            "libera" => $this->libera
+        );
+    }
 }

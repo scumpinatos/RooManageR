@@ -1,11 +1,18 @@
 
 package entities;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author Giandomenico
  */
 public class Anagrafica {
+    
+    public final static int PROPRIETARIO = 1;
+    public final static int DIRIGENTE = 2;
+    public final static int PORTINAIO = 3;
     
     private String codicefiscale;
     private String nome;
@@ -18,6 +25,7 @@ public class Anagrafica {
     private String telefono;
     private String cellulare;
     private String email;
+    private int tipoMansione;
 
     public Anagrafica() {
     }
@@ -108,6 +116,20 @@ public class Anagrafica {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getTipoMansione() {
+        return tipoMansione;
+    }
+
+    public void setTipoMansione(int tipoMansione) {
+        this.tipoMansione = tipoMansione;
+    }
+    
+    public int getEta() {
+        int now = new GregorianCalendar().getTime().getYear();
+        int nascita = new Date(datanascita).getYear();
+        return now - nascita;
     }
 
 }

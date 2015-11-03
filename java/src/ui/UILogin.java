@@ -128,6 +128,15 @@ public class UILogin extends javax.swing.JFrame {
                 switch (obj.getKey()) {
                     case StatusCodes.SUCCESS:
                         JOptionPane.showMessageDialog(rootPane, String.format("Benvenuto %s %s", obj.getValue().getNome(), obj.getValue().getCognome()));
+                        switch (obj.getValue().getTipoMansione()) {
+                            case Anagrafica.PORTINAIO:
+                                break;
+                            case Anagrafica.DIRIGENTE:
+                                break;
+                            case Anagrafica.PROPRIETARIO:
+                                new UIHomeProprietario().setVisible(true);
+                                break;
+                        }
                         break;
                     case StatusCodes.NOT_FOUND:
                         JOptionPane.showMessageDialog(rootPane, "Username o password errata.", "Attenzione!", JOptionPane.ERROR_MESSAGE);

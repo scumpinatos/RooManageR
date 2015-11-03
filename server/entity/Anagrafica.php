@@ -18,7 +18,6 @@ class Anagrafica {
     private $telefono;
     private $cellulare;
     private $email;
-    private $password;
 
     /**
      * Anagrafica constructor.
@@ -68,10 +67,6 @@ class Anagrafica {
 
     function getEmail() {
         return $this->email;
-    }
-
-    function getPassword() {
-        return $this->password;
     }
 
     function setCodiceFiscale($codiceFiscale) {
@@ -126,11 +121,6 @@ class Anagrafica {
 
     function setEmail($email) {
         $this->email = $email;
-        return $this;
-    }
-
-    function setPassword($password) {
-        $this->password = $password;
         return $this;
     }
 

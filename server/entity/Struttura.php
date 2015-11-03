@@ -11,6 +11,7 @@ class Struttura {
     private $indirizzo;
     private $codiceFiscaleAnagrafica;
     private $descrizione;
+    private $agibile;
 
     /**
      * Struttura constructor.
@@ -72,5 +73,24 @@ class Struttura {
      */
     public function setDescrizione($descrizione) {
         $this->descrizione = $descrizione;
+    }
+    
+    function getAgibile() {
+        return $this->agibile;
+    }
+
+    function setAgibile($agibile) {
+        $this->agibile = $agibile;
+        return $this;
+    }
+
+    function toArray() {
+        return array(
+            "id" => $this->id,
+            "indirizzo" => $this->indirizzo,
+            "codicefiscaleanagrafica" => $this->codiceFiscaleAnagrafica,
+            "descrizione" => $this->descrizione,
+            "agibile" => $this->agibile
+        );
     }
 }

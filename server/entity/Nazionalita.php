@@ -46,5 +46,10 @@ class Nazionalita {
         $this->valore = $valore;
     }
 
-
+    function toArray() {
+        return array(
+            "abbreviazione" => $this->abbreviazione,
+            "valore" => $this->valore
+        );
+    }
 }
