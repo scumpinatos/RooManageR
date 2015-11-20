@@ -92,7 +92,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="center-body">
                             <div class="row">
                                 <div class="col-sm-6 margin-bottom-30">
-                                    <a class="webapp-btn" href="index.html">
+                                    <a class="webapp-btn" href="gestisciRegistroClienti.php">
                                         <h3>Clienti</h3>
                                         <p>Gestisci il registro clienti</p>
                                     </a>
@@ -111,6 +111,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <p>Gestisci le tue strutture</p>
                                     </a>
                                 </div>
+                            <div class="col-sm-6 margin-bottom-30">
+                                    <a class="webapp-btn" href="credits.html">
+                                        <h3>Credits</h3>
+                                        <p>Visualizza i credits</p>
+                                    </a>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

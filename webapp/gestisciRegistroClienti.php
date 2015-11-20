@@ -42,10 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link rel="shortcut icon" href="favicon.ico"/>
     </head>
     <!-- END HEAD -->
-    <!-- BEGIN BODY -->
-    <body class="page-md page-quick-sidebar-over-content">
-
-        <!-- BEGIN MAIN LAYOUT -->
+    
     <!-- BEGIN BODY -->
     <body class="page-md page-quick-sidebar-over-content">
 
@@ -66,10 +63,10 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!-- BEGIN USER PROFILE -->
                             <div class="btn-group-img btn-group" style="margin-left: 4px">
                                 <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <img src="assets/admin/layout5/img/avatar1.jpg" alt="">
+                                    <img src="assets/admin/layout6/img/avatar1.jpg" alt="">
                                 </button>
                                 <ul class="dropdown-menu-v2" role="menu">
-                                    <li class="active">
+                                    <li>
                                         <a href="profile.html">Il mio profilo</a>
                                     </li>
                                     <li>
@@ -91,19 +88,12 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="portlet box grey-cascade" style="margin: 16px">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-globe"></i>Managed Table
+                    <i class="fa fa-users"></i>Registro Clienti
                 </div>
             </div>
             <div class="portlet-body">
                 <div class="table-toolbar">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="btn-group">
-                                <button id="sample_editable_1_new" class="btn green">
-                                    Add New <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="btn-group pull-right">
                                 <button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
@@ -152,7 +142,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <tbody>
                         <tr class="odd gradeX">
                             <td>
-                                <input type="checkbox" class="checkboxes" value="1"/>
+                                <input type="checkbox" onchange="javascript:alert(Ok")" class="checkboxes" value="1"/>
                             </td>
                             <td>
                                 shuxer
