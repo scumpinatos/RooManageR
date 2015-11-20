@@ -1,7 +1,0 @@
-@startuml
-:Emanuele: -- Init
-[-> Bob : init
-activate Bob
-Bob -> Alice : hello
-activate Alice
-@enduml
