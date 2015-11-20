@@ -7,14 +7,14 @@
  */
 class Anagrafica {
 
-    private $codiceFiscale;
+    private $codicefiscale;
     private $nome;
     private $cognome;
-    private $dataNascita;
+    private $datanascita;
     private $indirizzo;
     private $nazionalita;
-    private $numeroDocumento;
-    private $tipoDocumento;
+    private $numerodocumento;
+    private $tipodocumento;
     private $telefono;
     private $cellulare;
     private $email;
@@ -26,7 +26,7 @@ class Anagrafica {
     }
 
     function getCodiceFiscale() {
-        return $this->codiceFiscale;
+        return $this->codicefiscale;
     }
 
     function getNome() {
@@ -38,7 +38,7 @@ class Anagrafica {
     }
 
     function getDataNascita() {
-        return $this->dataNascita;
+        return $this->datanascita;
     }
 
     function getIndirizzo() {
@@ -50,11 +50,11 @@ class Anagrafica {
     }
 
     function getNumeroDocumento() {
-        return $this->numeroDocumento;
+        return $this->numerodocumento;
     }
 
     function getTipoDocumento() {
-        return $this->tipoDocumento;
+        return $this->tipodocumento;
     }
 
     function getTelefono() {
@@ -70,7 +70,7 @@ class Anagrafica {
     }
 
     function setCodiceFiscale($codiceFiscale) {
-        $this->codiceFiscale = $codiceFiscale;
+        $this->codicefiscale = $codiceFiscale;
         return $this;
     }
 
@@ -85,7 +85,7 @@ class Anagrafica {
     }
 
     function setDataNascita($dataNascita) {
-        $this->dataNascita = $dataNascita;
+        $this->datanascita = $dataNascita;
         return $this;
     }
 
@@ -100,12 +100,12 @@ class Anagrafica {
     }
 
     function setNumeroDocumento($numeroDocumento) {
-        $this->numeroDocumento = $numeroDocumento;
+        $this->numerodocumento = $numeroDocumento;
         return $this;
     }
 
     function setTipoDocumento($tipoDocumento) {
-        $this->tipoDocumento = $tipoDocumento;
+        $this->tipodocumento = $tipoDocumento;
         return $this;
     }
 
@@ -127,17 +127,16 @@ class Anagrafica {
     function toArray() {
         return array(
             "cellulare" => $this->cellulare,
-            "codiceFiscale" => $this->codiceFiscale,
+            "codiceFiscale" => $this->codicefiscale,
             "cognome" => $this->cognome,
-            "dataNascita" => $this->dataNascita,
+            "dataNascita" => $this->datanascita,
             "email" => $this->email,
             "indirizzo" => $this->indirizzo,
             "nazionalita" => $this->nazionalita,
             "nome" => $this->nome,
-            "numeroDocumento" => $this->numeroDocumento,
-            "password" => $this->password,
+            "numeroDocumento" => $this->numerodocumento,
             "telefono" => $this->telefono,
-            "tipoDocumento" => $this->tipoDocumento
+            "tipoDocumento" => $this->tipodocumento
         );
     }
 

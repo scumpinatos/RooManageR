@@ -9,7 +9,7 @@ class Struttura {
 
     private $id;
     private $indirizzo;
-    private $codiceFiscaleAnagrafica;
+    private $codicefiscaleanagrafica;
     private $descrizione;
     private $agibile;
 
@@ -51,14 +51,14 @@ class Struttura {
      * @return mixed
      */
     public function getCodiceFiscaleAnagrafica() {
-        return $this->codiceFiscaleAnagrafica;
+        return $this->codicefiscaleanagrafica;
     }
 
     /**
      * @param mixed $codiceFiscaleAnagrafica
      */
     public function setCodiceFiscaleAnagrafica($codiceFiscaleAnagrafica) {
-        $this->codiceFiscaleAnagrafica = $codiceFiscaleAnagrafica;
+        $this->codicefiscaleanagrafica = $codiceFiscaleAnagrafica;
     }
 
     /**
@@ -88,7 +88,7 @@ class Struttura {
         return array(
             "id" => $this->id,
             "indirizzo" => $this->indirizzo,
-            "codicefiscaleanagrafica" => $this->codiceFiscaleAnagrafica,
+            "codicefiscaleanagrafica" => $this->codicefiscaleanagrafica,
             "descrizione" => $this->descrizione,
             "agibile" => $this->agibile
         );

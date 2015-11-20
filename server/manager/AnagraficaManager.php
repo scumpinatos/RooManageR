@@ -1,6 +1,6 @@
 <?php
 
-require_once 'entity/Anagrafica.php';
+require_once '../entity/Anagrafica.php';
 require_once 'CRUD.php';
 
 /**
@@ -48,14 +48,8 @@ class AnagraficaManager extends CRUD {
             return false;
 
         $this->open();
-        if (!empty($obj->getCodiceFiscale())) {
-            $query = 'SELECT * FROM anagrafica WHERE codicefiscale = "%s"';
-            $query = sprintf($query, $obj->getCodiceFiscale());
-        } else {
-            $query = 'SELECT * FROM anagrafica WHERE email = "%s" AND password = "%s"';
-            $query = sprintf($query, $obj->getEmail(), $obj->getPassword());
-        }
-        
+        $query = 'SELECT * FROM anagrafica WHERE codicefiscale = "%s"';
+        $query = sprintf($query, $obj->getCodiceFiscale());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;

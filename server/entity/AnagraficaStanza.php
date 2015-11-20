@@ -103,4 +103,15 @@ class AnagraficaStanza {
     public function setCosto($costo) {
         $this->costo = $costo;
     }
+    
+    function toArray() {
+        return array(
+            "idstruttura" => $this->idstruttura,
+            "codicefiscaleanagrafica" => $this->codicefiscaleanagrafica,
+            "numerostanza" => $this->numerostanza,
+            "ingresso" => $this->ingresso,
+            "uscita" => $this->uscita,
+            "costo" => $this->costo
+        );
+    }
 }

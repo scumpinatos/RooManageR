@@ -1,5 +1,8 @@
 <?php
 
+require_once 'CRUD.php';
+require_once '../entity/Struttura.php';
+
 /**
  * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>
  * Date: 13/10/2015
@@ -94,4 +97,62 @@ class StrutturaManager extends CRUD {
 
         return $toReturn;
     }
+    
+    function getStruttureByAnagrafica($obj) {
+        if(!($obj instanceof Anagrafica))
+            return false;
+        
+        $this->open();
+        $query = 'SELECT * FROM struttura WHERE codicefiscaleanagrafica = "%s"';
+        $query = sprintf($query, $obj->getCodiceFiscale());
+        $result = mysql_query($query);
+        if (mysql_num_rows($result) <= 0)
+            return false;
+        $this->close();
+        
+        $toReturn = array();
+        for ($i = 0; $i < mysql_num_rows($result); $i++) {
+            $res = mysql_fetch_assoc($result);
+            $tmp = new Struttura();
+            $tmp->setId($res['id']);
+            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
+            $tmp->setIndirizzo($res['indirizzo']);
+            $tmp->setDescrizione($res['descrizione']);
+
+            $toReturn[$i] = $tmp;
+        }
+
+        return $toReturn;
+    }
+    
+    function getStanzeByStruttura($obj) {
+        if(!($obj instanceof Struttura))
+            return false;
+        
+        $this->open();
+        $query = 'SELECT * FROM stanza WHERE idstruttura = "%d"';
+        $query = sprintf($query, $obj->getId());
+        $result = mysql_query($query);
+        if (mysql_num_rows($result) <= 0)
+            return false;
+        $this->close();
+        
+        $toReturn = array();
+        for ($i = 0; $i < mysql_num_rows($result); $i++) {
+            $res = mysql_fetch_assoc($result);
+            $tmp = new Stanza();
+            $tmp->setIdStruttura($res['idstruttura']);
+            $tmp->setNumero($res['numero']);
+            $tmp->setTipo($res['tipo']);
+            $tmp->setDescrizione($res['descrizione']);
+            $tmp->setMq($res['mq']);
+            $tmp->setAgibile($res['agibile']);
+            $tmp->setLibera($res['libera']);
+
+            $toReturn[$i] = $tmp;
+        }
+
+        return $toReturn;
+    }
+    
 }

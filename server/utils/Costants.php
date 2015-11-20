@@ -1,4 +1,5 @@
 <?php
+
 // KEYS
 define("OPERATION_CODE", "opCode");
 define("EMAIL", "email");
@@ -15,3 +16,4 @@ define("REGISTRAZIONE", "2");
 define("GET_STRUTTURE", "3");
 define("GET_ANAGRAFICHE", "4");
 define("GET_CAMERE", "5");
+

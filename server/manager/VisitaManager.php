@@ -1,23 +1,18 @@
 <?php
 
 require_once 'CRUD.php';
-require_once '../entity/Stanza.php';
+require_once '../entity/Visita.php';
 
-/**
- * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>
- * Date: 13/10/2015
- * Time: 19:40
- */
-class StanzaManager extends CRUD {
+class VisitaManager extends CRUD {
 
     function insert($obj) {
-        if (!($obj instanceof Stanza)) {
+        if (!($obj instanceof Visita)) {
             return false;
         }
 
         $this->open();
-        $query = 'INSERT INTO stanza VALUES ("%s", "%s", "%s")';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero(), $obj->getTipo());
+        $query = 'INSERT INTO visita VALUES ("%s", "%s", "%s")';
+        $query = sprintf($query, $obj->getNumeroStanza(), $obj->getIdStruttura());
         $result = mysql_query($query);
         $this->close();
 
@@ -55,13 +50,9 @@ class StanzaManager extends CRUD {
         $this->close();
 
         $toReturn = new Stanza();
-        $tmp->setIdStruttura($res['idstruttura']);
-        $tmp->setNumero($res['numero']);
-        $tmp->setTipo($res['tipo']);
-        $tmp->setDescrizione($res['descrizione']);
-        $tmp->setMq($res['mq']);
-        $tmp->setAgibile($res['agibile']);
-        $tmp->setLibera($res['libera']);
+        $toReturn->setIdStruttura($res['idstruttura']);
+        $toReturn->setNumero($res['numero']);
+        $toReturn->setTipo($res['tipo']);
 
         return $toReturn;
     }
@@ -81,7 +72,7 @@ class StanzaManager extends CRUD {
 
     function readAll() {
         $this->open();
-        $query = 'SELECT * FROM stanza';
+        $query = 'SELECT * FROM visita';
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -90,19 +81,17 @@ class StanzaManager extends CRUD {
         $toReturn = array();
         for ($i = 0; $i < mysql_num_rows($result); $i++) {
             $res = mysql_fetch_assoc($result);
-            $tmp = new Stanza();
+            $tmp = new Visita();
             $tmp->setIdStruttura($res['idstruttura']);
-            $tmp->setNumero($res['numero']);
-            $tmp->setTipo($res['tipo']);
-            $tmp->setDescrizione($res['descrizione']);
-            $tmp->setMq($res['mq']);
-            $tmp->setAgibile($res['agibile']);
-            $tmp->setLibera($res['libera']);
+            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
+            $tmp->setNumeroStanza($res['numerostanza']);
+            $tmp->setId($res['id']);
+            $tmp->setIngresso($res['ingresso']);
+            $tmp->setUscita($res['uscita']);
 
             $toReturn[$i] = $tmp;
         }
 
         return $toReturn;
     }
-
 }

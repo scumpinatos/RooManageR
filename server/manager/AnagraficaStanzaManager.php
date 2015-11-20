@@ -1,5 +1,7 @@
 <?php
 
+require_once '../entity/AnagraficaStanza.php';
+
 /**
  * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>
  * Date: 13/10/2015

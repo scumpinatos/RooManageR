@@ -7,11 +7,13 @@
  */
 class Stanza {
 
-    private $idStruttura;
+    private $idstruttura;
     private $numero;
     private $tipo;
     private $agibile;
     private $libera;
+    private $descrizione;
+    private $mq;
 
     /**
      * Stanza constructor.
@@ -23,14 +25,14 @@ class Stanza {
      * @return mixed
      */
     public function getIdStruttura() {
-        return $this->idStruttura;
+        return $this->idstruttura;
     }
 
     /**
      * @param mixed $idStruttura
      */
     public function setIdStruttura($idStruttura) {
-        $this->idStruttura = $idStruttura;
+        $this->idstruttura = $idStruttura;
     }
 
     /**
@@ -79,13 +81,32 @@ class Stanza {
         return $this;
     }
     
+    function getDescrizione() {
+        return $this->descrizione;
+    }
+
+    function getMq() {
+        return $this->mq;
+    }
+
+    function setDescrizione($descrizione) {
+        $this->descrizione = $descrizione;
+    }
+
+    function setMq($mq) {
+        $this->mq = $mq;
+    }
+
+        
     function toArray() {
         return array(
-            "idStruttura" => $this->idStruttura,
+            "idStruttura" => $this->idstruttura,
             "numero" => $this->numero,
             "tipo" => $this->tipo,
             "agibile" => $this->agibile,
-            "libera" => $this->libera
+            "libera" => $this->libera,
+            "descrizione" => $this->descrizione,
+            "mq" => $this->mq
         );
     }
 }
