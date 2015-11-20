@@ -26,18 +26,18 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN THEME STYLES -->
         <!-- DOC: To use 'material design' style just load 'components-md.css' stylesheet instead of 'components.css' in the below style tag -->
-        <link href="../../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/admin/layout6/css/layout.css" rel="stylesheet" type="text/css"/>
-        <link href="../../assets/admin/layout6/css/custom.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
+        <link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/admin/layout6/css/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/admin/layout6/css/custom.css" rel="stylesheet" type="text/css"/>
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico"/>
     </head>
@@ -46,42 +46,6 @@ License: You must have a valid license purchased only from themeforest(the above
     <body class="page-md page-quick-sidebar-over-content">
 
         <!-- BEGIN MAIN LAYOUT -->
-        <!-- HEADER BEGIN -->
-        <header class="page-header">
-            <nav class="navbar" role="navigation">
-                <div class="container-fluid">
-                    <div class="havbar-header">
-                        <!-- BEGIN LOGO -->
-                        <?php include("./incs/headerNav.php"); ?>
-                        <!-- END LOGO -->
-
-                        <!-- BEGIN TOPBAR ACTIONS -->
-                        <div class="topbar-actions">
-                            <span style="color: white">Benvenuto, <strong style="font-size: 120%">Malinconico Francesco</strong></span> 
-
-                            <!-- BEGIN USER PROFILE -->
-                            <div class="btn-group-img btn-group" style="margin-left: 4px">
-                                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <img src="../../assets/admin/layout5/img/avatar1.jpg" alt="">
-                                </button>
-                                <ul class="dropdown-menu-v2" role="menu">
-                                    <li class="active">
-                                        <a href="profile.html">Il mio profilo</a>
-                                    </li>
-                                    <li>
-                                        <a href="login.html">Log Out</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- END USER PROFILE -->
-                        </div>
-                        <!-- END TOPBAR ACTIONS -->
-                    </div>
-                </div>
-                <!--/container-->
-            </nav>
-        </header>
-        <!-- HEADER END -->
     <!-- BEGIN BODY -->
     <body class="page-md page-quick-sidebar-over-content">
 
@@ -124,20 +88,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- HEADER END -->
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-        <div class="portlet box grey-cascade">
+        <div class="portlet box grey-cascade" style="margin: 16px">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-globe"></i>Managed Table
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse">
-                    </a>
-                    <a href="#portlet-config" data-toggle="modal" class="config">
-                    </a>
-                    <a href="javascript:;" class="reload">
-                    </a>
-                    <a href="javascript:;" class="remove">
-                    </a>
                 </div>
             </div>
             <div class="portlet-body">
@@ -176,16 +130,16 @@ License: You must have a valid license purchased only from themeforest(the above
                     <thead>
                         <tr>
                             <th class="table-checkbox">
-                                <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"/>
+                                
                             </th>
                             <th>
-                                Username
+                                Codice Fiscale
+                            </th>
+                            <th>
+                                Nominativo
                             </th>
                             <th>
                                 Email
-                            </th>
-                            <th>
-                                Points
                             </th>
                             <th>
                                 Joined
