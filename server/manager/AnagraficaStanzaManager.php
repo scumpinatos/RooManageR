@@ -1,6 +1,6 @@
 <?php
 
-require_once '../webapp/server/entity/AnagraficaStanza.php';
+require_once '../server/entity/AnagraficaStanza.php';
 require_once 'CRUD.php';
 
 /**

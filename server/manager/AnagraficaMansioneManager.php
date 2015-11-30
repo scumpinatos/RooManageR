@@ -1,7 +1,7 @@
 <?php
 
 require_once 'CRUD.php';
-require_once '../webapp/server/entity/AnagraficaMansione.php';
+require_once '../server/entity/AnagraficaMansione.php';
 
 class AnagraficaMansioneManager extends CRUD {
 
@@ -42,8 +42,8 @@ class AnagraficaMansioneManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'SELECT * FROM anagraficamansione WHERE codicefiscaleanagrafica = "%s" AND password = "%s"';
-        $query = sprintf($query, $obj->getCodicefiscaleanagrafica(), $obj->getPassword());
+        $query = 'SELECT * FROM anagraficamansione WHERE codicefiscaleanagrafica = "%s"';
+        $query = sprintf($query, $obj->getCodicefiscaleanagrafica());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -100,4 +100,27 @@ class AnagraficaMansioneManager extends CRUD {
         return $toReturn;
     }
 
+    function login($obj) {
+        if (!($obj instanceof AnagraficaMansione))
+            return false;
+
+        $this->open();
+        $query = 'SELECT * FROM anagraficamansione WHERE codicefiscaleanagrafica = "%s" AND password = "%s"';
+        $query = sprintf($query, $obj->getCodicefiscaleanagrafica(), $obj->getPassword());
+        $result = mysql_query($query);
+        if (mysql_num_rows($result) <= 0)
+            return false;
+
+        $res = mysql_fetch_assoc($result);
+        $this->close();
+
+        $toReturn = new AnagraficaMansione();
+        $toReturn->setId($res['id']);
+        $toReturn->setCodicefiscaleanagrafica($res['codicefiscaleanagrafica']);
+        $toReturn->setPassword($res['password']);
+        $toReturn->setIdstruttura($res['idstruttura']);
+        $toReturn->setTipomansione($res['tipomansione']);
+
+        return $toReturn;
+    }
 }

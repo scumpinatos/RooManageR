@@ -7,7 +7,7 @@
  */
 class AnagraficaStanza {
 
-    private $codicefiscaleanagrafica;
+    private $codiceFiscaleAnagrafica;
     private $numerostanza;
     private $idstruttura;
     private $ingresso;
@@ -24,14 +24,14 @@ class AnagraficaStanza {
      * @return mixed
      */
     public function getCodicefiscaleanagrafica() {
-        return $this->codicefiscaleanagrafica;
+        return $this->codiceFiscaleAnagrafica;
     }
 
     /**
      * @param mixed $codicefiscaleanagrafica
      */
     public function setCodicefiscaleanagrafica($codicefiscaleanagrafica) {
-        $this->codicefiscaleanagrafica = $codicefiscaleanagrafica;
+        $this->codiceFiscaleAnagrafica = $codicefiscaleanagrafica;
     }
 
     /**
@@ -107,7 +107,7 @@ class AnagraficaStanza {
     function toArray() {
         return array(
             "idstruttura" => $this->idstruttura,
-            "codicefiscaleanagrafica" => $this->codicefiscaleanagrafica,
+            "codicefiscaleanagrafica" => $this->codiceFiscaleAnagrafica,
             "numerostanza" => $this->numerostanza,
             "ingresso" => $this->ingresso,
             "uscita" => $this->uscita,

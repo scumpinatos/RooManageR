@@ -1,4 +1,4 @@
-package web;
+package web_services;
 
 import exceptions.HttpException;
 import java.io.BufferedReader;
@@ -9,33 +9,38 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import constants.StatusCodes;
 
 /**
  *
  * @author ScumpinatoS
  */
-public abstract class WebManager {
+public abstract class HttpConnection {
     
     public String getResponse(String parameters) throws ProtocolException, MalformedURLException, IOException, HttpException {
-        String url = "http://localhost/server/index.php";
+        
+        // APERTURA CONNESSIONE
+        String url = "http://localhost/RooManageR/server/index.php";
         URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        HttpURLConnection connessione = (HttpURLConnection) obj.openConnection();
+        connessione.setRequestProperty("User-Agent", "Mozilla/5.0");
+        
+        // SETTAGGIO TIPO DI RICHIESTA ED INSERIMENTO DATI
+        connessione.setRequestMethod("POST");
+        connessione.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(connessione.getOutputStream());
         wr.writeBytes(parameters);
         wr.flush();
         wr.close();
         
-        int responseCode = con.getResponseCode();
+        // CONTROLLO STATUS CODE
+        int responseCode = connessione.getResponseCode();
         if(responseCode != StatusCodes.SUCCESS) {
             throw new HttpException(responseCode);
         }
         
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
+        // LETTURA RISPOSTA DEL SERVER
+        BufferedReader in = new BufferedReader(new InputStreamReader(connessione.getInputStream()));
         String inputLine;
         StringBuilder response = new StringBuilder();
 

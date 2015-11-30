@@ -1,7 +1,7 @@
 <?php
 
 require_once 'CRUD.php';
-require_once '../webapp/server/entity/Stanza.php';
+require_once '../entity/Stanza.php';
 
 /**
  * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>

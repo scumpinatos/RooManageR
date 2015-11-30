@@ -1,7 +1,7 @@
 <?php
 
 require_once 'CRUD.php';
-require_once '../webapp/server/entity/Visita.php';
+require_once '../entity/Visita.php';
 
 class VisitaManager extends CRUD {
 

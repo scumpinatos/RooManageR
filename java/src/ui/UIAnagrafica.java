@@ -1,18 +1,31 @@
 package ui;
 
+import constants.Documents;
+import entities.Anagrafica;
+
 /**
  *
  * @author Giandomenico
  */
-public class UIAddAnagrafica extends javax.swing.JFrame {
+public class UIAnagrafica extends javax.swing.JFrame {
 
     /**
      * Creates new form UiAddNazionalita
      */
-    public UIAddAnagrafica() {
+    public UIAnagrafica() {
         initComponents();
     }
 
+    public void visualizza(Anagrafica input) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                UIAnagrafica view = new UIAnagrafica();
+                view.popola(input);
+                view.setVisible(true);
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -22,7 +35,7 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCodiceFiscale = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -39,8 +52,8 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jComboBoxNazionalita = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jRadioButtonCartaIdentita = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButtonPatente = new javax.swing.JRadioButton();
+        jRadioButtonPassaporto = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldNumeroDocumento = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -49,7 +62,7 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jTextFieldCellulare = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        jLabelNota = new javax.swing.JLabel();
         jButtonAnnulla = new javax.swing.JButton();
         jButtonConferma = new javax.swing.JButton();
 
@@ -78,14 +91,14 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Tipo Documento");
 
-        buttonGroup1.add(jRadioButtonCartaIdentita);
+        buttonGroup.add(jRadioButtonCartaIdentita);
         jRadioButtonCartaIdentita.setText("Carta d'identità");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Patente");
+        buttonGroup.add(jRadioButtonPatente);
+        jRadioButtonPatente.setText("Patente");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Passaporto");
+        buttonGroup.add(jRadioButtonPassaporto);
+        jRadioButtonPassaporto.setText("Passaporto");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Numero Documento");
@@ -99,8 +112,8 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Email *");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel12.setText("Inserire ALMENO UNO dei valori contrassegnati con *");
+        jLabelNota.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabelNota.setText("Inserire ALMENO UNO dei valori contrassegnati con *");
 
         jButtonAnnulla.setText("Annulla");
 
@@ -113,7 +126,7 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -171,9 +184,9 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButton2)
+                                            .addComponent(jRadioButtonPatente)
                                             .addComponent(jRadioButtonCartaIdentita)
-                                            .addComponent(jRadioButton3))))
+                                            .addComponent(jRadioButtonPassaporto))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(0, 9, Short.MAX_VALUE))))
         );
@@ -210,10 +223,10 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                 .addComponent(jRadioButtonCartaIdentita)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButtonPatente)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton3)
+                .addComponent(jRadioButtonPassaporto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -231,7 +244,7 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel12)
+                .addComponent(jLabelNota)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnulla)
@@ -242,27 +255,16 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UIAddAnagrafica().setVisible(true);
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton jButtonAnnulla;
     private javax.swing.JButton jButtonConferma;
     private javax.swing.JComboBox jComboBoxNazionalita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -271,9 +273,10 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JLabel jLabelNota;
     private javax.swing.JRadioButton jRadioButtonCartaIdentita;
+    private javax.swing.JRadioButton jRadioButtonPassaporto;
+    private javax.swing.JRadioButton jRadioButtonPatente;
     private javax.swing.JTextField jTextFieldAnno;
     private javax.swing.JTextField jTextFieldCellulare;
     private javax.swing.JTextField jTextFieldCodiceFiscale;
@@ -286,4 +289,52 @@ public class UIAddAnagrafica extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNumeroDocumento;
     private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
+
+    public void popola(Anagrafica input) {
+
+        jTextFieldNome.setText(input.getNome());
+        jTextFieldNome.setEditable(false);
+        jTextFieldCognome.setText(input.getCognome());
+        jTextFieldCognome.setEditable(false);
+        jTextFieldCodiceFiscale.setText(input.getCodiceFiscale());
+        jTextFieldCodiceFiscale.setEditable(false);
+        jTextFieldIndirizzo.setText(input.getIndirizzo());
+        jTextFieldIndirizzo.setEditable(false);
+        jTextFieldCellulare.setText(input.getCellulare());
+        jTextFieldCellulare.setEditable(false);
+        jTextFieldNumeroDocumento.setText(input.getNumeroDocumento());
+        jTextFieldNumeroDocumento.setEditable(false);
+        jTextFieldTelefono.setText(input.getTelefono());
+        jTextFieldTelefono.setEditable(false);
+        jTextFieldEmail.setText(input.getEmail());
+        jTextFieldEmail.setEditable(false);
+        
+        // TIPO DOCUMENTO
+        switch(input.getTipoDocumento()) {
+            case Documents.CARTA_IDENTITA:
+                jRadioButtonCartaIdentita.setSelected(true);
+                jRadioButtonPassaporto.setEnabled(false);
+                jRadioButtonPatente.setEnabled(false);
+                break;
+            case Documents.PATENTE:
+                jRadioButtonCartaIdentita.setEnabled(false);
+                jRadioButtonPassaporto.setEnabled(false);
+                jRadioButtonPatente.setSelected(true);
+                break;
+            case Documents.PASSAPORTO:
+                jRadioButtonCartaIdentita.setEnabled(false);
+                jRadioButtonPassaporto.setSelected(true);
+                jRadioButtonPatente.setEnabled(false);
+                break;      
+        }
+        jLabelNota.setText("* Campi NON obbligatori");
+        jButtonAnnulla.setVisible(false);
+        jButtonConferma.setText("Modifica");
+        
+        //jTextFieldGiorno;
+        //jTextFieldAnno;
+        //jTextFieldMese;
+
+    }
+
 }

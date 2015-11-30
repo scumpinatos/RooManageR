@@ -3,17 +3,17 @@
 class AnagraficaMansione {
     
     private $id;
-    private $codicefiscaleanagrafica;
+    private $codiceFiscaleAnagrafica;
     private $password;
-    private $idstruttura;
-    private $tipomansione;
+    private $idStruttura;
+    private $tipoMansione;
     
     function getId() {
         return $this->id;
     }
 
     function getCodicefiscaleanagrafica() {
-        return $this->codicefiscaleanagrafica;
+        return $this->codiceFiscaleAnagrafica;
     }
 
     function getPassword() {
@@ -21,39 +21,39 @@ class AnagraficaMansione {
     }
 
     function getIdstruttura() {
-        return $this->idstruttura;
+        return $this->idStruttura;
     }
 
     function getTipomansione() {
-        return $this->tipomansione;
+        return $this->tipoMansione;
     }
 
     function setId($id) {
         $this->id = $id;
     }
 
-    function setCodicefiscaleanagrafica($codicefiscaleanagrafica) {
-        $this->codicefiscaleanagrafica = $codicefiscaleanagrafica;
+    function setCodicefiscaleanagrafica($codiceFiscaleAnagrafica) {
+        $this->codiceFiscaleAnagrafica = $codiceFiscaleAnagrafica;
     }
 
     function setPassword($password) {
         $this->password = $password;
     }
 
-    function setIdstruttura($idstruttura) {
-        $this->idstruttura = $idstruttura;
+    function setIdstruttura($idStruttura) {
+        $this->idStruttura = $idStruttura;
     }
 
-    function setTipomansione($tipomansione) {
-        $this->tipomansione = $tipomansione;
+    function setTipomansione($tipoMansione) {
+        $this->tipoMansione = $tipoMansione;
     }
     
     function toArray() {
         return array(
             "id" => $this->id,
-            "codicefiscaleanagrafica" => $this->codicefiscaleanagrafica,
-            "idstruttura" => $this->idstruttura,
-            "tipomansione" => $this->tipomansione,
+            "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
+            "idStruttura" => $this->idStruttura,
+            "tipoMansione" => $this->tipoMansione,
             "password" => $this->password
         );
     }

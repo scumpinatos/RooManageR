@@ -1,7 +1,7 @@
 <?php
 
 require_once "CRUD.php";
-require_once '../webapp/server/entity/Nazionalita.php';
+require_once '../entity/Nazionalita.php';
 
 /**
  * Created by PhpStorm.

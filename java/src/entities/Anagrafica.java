@@ -10,32 +10,27 @@ import java.util.GregorianCalendar;
  */
 public class Anagrafica {
     
-    public final static int PROPRIETARIO = 1;
-    public final static int DIRIGENTE = 2;
-    public final static int PORTINAIO = 3;
-    
-    private String codicefiscale;
+    private String codiceFiscale;
     private String nome;
     private String cognome;
-    private long datanascita;
+    private long dataNascita;
     private String indirizzo;
     private String nazionalita;
-    private String numerodocumento;
-    private int tipodocumento;
+    private String numeroDocumento;
+    private int tipoDocumento;
     private String telefono;
     private String cellulare;
     private String email;
-    private int tipoMansione;
 
     public Anagrafica() {
     }
-    
-    public String getCodicefiscale() {
-        return codicefiscale;
+
+    public String getCodiceFiscale() {
+        return codiceFiscale;
     }
 
-    public void setCodicefiscale(String codicefiscale) {
-        this.codicefiscale = codicefiscale;
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 
     public String getNome() {
@@ -54,12 +49,12 @@ public class Anagrafica {
         this.cognome = cognome;
     }
 
-    public long getDatanascita() {
-        return datanascita;
+    public long getDataNascita() {
+        return dataNascita;
     }
 
-    public void setDatanascita(long datanascita) {
-        this.datanascita = datanascita;
+    public void setDataNascita(long dataNascita) {
+        this.dataNascita = dataNascita;
     }
 
     public String getIndirizzo() {
@@ -78,20 +73,20 @@ public class Anagrafica {
         this.nazionalita = nazionalita;
     }
 
-    public String getNumerodocumento() {
-        return numerodocumento;
+    public String getNumeroDocumento() {
+        return numeroDocumento;
     }
 
-    public void setNumerodocumento(String numerodocumento) {
-        this.numerodocumento = numerodocumento;
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 
-    public int getTipodocumento() {
-        return tipodocumento;
+    public int getTipoDocumento() {
+        return tipoDocumento;
     }
 
-    public void setTipodocumento(int tipodocumento) {
-        this.tipodocumento = tipodocumento;
+    public void setTipoDocumento(int tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     public String getTelefono() {
@@ -117,18 +112,12 @@ public class Anagrafica {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public int getTipoMansione() {
-        return tipoMansione;
-    }
-
-    public void setTipoMansione(int tipoMansione) {
-        this.tipoMansione = tipoMansione;
-    }
+    
+    
     
     public int getEta() {
         int now = new GregorianCalendar().getTime().getYear();
-        int nascita = new Date(datanascita).getYear();
+        int nascita = new Date(dataNascita).getYear();
         return now - nascita;
     }
 
