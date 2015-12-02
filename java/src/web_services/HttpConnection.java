@@ -1,4 +1,4 @@
-package webServices;
+package web_services;
 
 import exceptions.HttpException;
 import java.io.BufferedReader;

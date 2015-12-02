@@ -4,7 +4,7 @@ if (isset($_POST['opCode'])) {
 
     switch ($_POST['opCode']) {
 
-        case "1":
+        case "1": // LOGIN
             require_once '../server/manager/AnagraficaMansioneManager.php';
 
             $utente = new AnagraficaMansione();
@@ -14,14 +14,14 @@ if (isset($_POST['opCode'])) {
             $utente = $manager->login($utente);
             echo json_encode($utente->toArray());
             break;
-        case "2":
+        case "2": // READ ALL NAZIONALITA
             require_once '../server/manager/NazionalitaManager.php';
             
             $manager = new NazionalitaManager();
             $nazionalita = $manager->readAll();
             echo json_encode($nazionalita);
             break;
-        case "4":
+        case "5": // READ ANAGRAFICA
             require_once '../server/manager/AnagraficaManager.php';
 
             $utente = new Anagrafica();
@@ -30,7 +30,7 @@ if (isset($_POST['opCode'])) {
             $utente = $manager->read($utente);
             echo json_encode($utente->toArray());
             break;
-        case "5":
+        case "14": // GET STANZE BY ID STRUTTURA
             require_once '../server/manager/StrutturaManager.php';
 
             $struttura = new Struttura();
