@@ -1,6 +1,6 @@
 package ui;
 
-import web_services.AnagraficaManager;
+import webServices.AnagraficaManager;
 
 public class UILogin extends javax.swing.JFrame {
 
