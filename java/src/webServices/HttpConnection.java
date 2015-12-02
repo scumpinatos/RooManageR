@@ -1,4 +1,4 @@
-package web_services;
+package webServices;
 
 import exceptions.HttpException;
 import java.io.BufferedReader;
@@ -14,7 +14,7 @@ import constants.StatusCodes;
 
 public abstract class HttpConnection {
     
-    public String getResponse(String parameters) throws ProtocolException, MalformedURLException, IOException, HttpException {
+    public static String getResponse(String parameters) throws ProtocolException, MalformedURLException, IOException, HttpException {
         
         // APERTURA CONNESSIONE
         String url = "http://localhost/RooManageR/server/index.php";
