@@ -2,10 +2,10 @@
 -- version 4.4.14
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Creato il: Ott 21, 2015 alle 17:44
+-- Host: localhost
+-- Creato il: Dic 02, 2015 alle 16:37
 -- Versione del server: 5.6.26
--- Versione PHP: 5.6.12
+-- Versione PHP: 5.5.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
 --
 
 INSERT INTO `anagrafica` (`codicefiscale`, `nome`, `cognome`, `datanascita`, `indirizzo`, `nazionalita`, `numerodocumento`, `tipodocumento`, `telefono`, `cellulare`, `email`) VALUES
-('MLNFNC93T06F912F', 'Francesco', 'Malinconico', 0, 'Via Gerardo D orsi Calvanico', 'ITA', 'AEGiiandoogaayy', 2, '08999999999', '', 'giando@gay.com');
+('CODICEFISCALE', 'Proprietario', 'Cognome', 1111111111111, 'Via/Strada/Piazza', 'ITA', '', 0, '', '', ''),
+('ZZIGDM93B27C129E', 'Giandomenico', 'Izzo', 733186800000, 'Via Manzoni 61', 'ITA', 'A111110', 1, '0815367825', '3931135161', 'g.izzo24@studenti.unisa.it');
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,14 @@ CREATE TABLE IF NOT EXISTS `anagraficamansione` (
   `password` varchar(50) NOT NULL,
   `idstruttura` int(11) NOT NULL,
   `tipomansione` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `anagraficamansione`
+--
+
+INSERT INTO `anagraficamansione` (`id`, `codicefiscaleanagrafica`, `password`, `idstruttura`, `tipomansione`) VALUES
+(1, 'ZZIGDM93B27C129E', '123stella', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -92,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `nazionalita` (
 --
 
 INSERT INTO `nazionalita` (`abbreviazione`, `valore`) VALUES
-('ITA', 'Italiana');
+('ITA', 'Italiana, Italian');
 
 -- --------------------------------------------------------
 
@@ -103,8 +111,23 @@ INSERT INTO `nazionalita` (`abbreviazione`, `valore`) VALUES
 CREATE TABLE IF NOT EXISTS `stanza` (
   `idstruttura` int(11) NOT NULL,
   `numero` varchar(10) NOT NULL,
-  `tipo` int(11) NOT NULL
+  `tipo` int(11) NOT NULL,
+  `agibile` tinyint(1) NOT NULL,
+  `libera` tinyint(1) NOT NULL,
+  `descrizione` text NOT NULL,
+  `mq` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `stanza`
+--
+
+INSERT INTO `stanza` (`idstruttura`, `numero`, `tipo`, `agibile`, `libera`, `descrizione`, `mq`) VALUES
+(1, '1A', 1, 1, 1, 'Bella stanza 1', 25.5),
+(1, '2A', 1, 1, 1, 'Bella stanza 2', 25.5),
+(1, '3A', 1, 1, 1, 'Bella stanza 3', 25.5),
+(1, '4A', 1, 1, 1, 'Bella stanza 4', 25.5),
+(1, '5A', 1, 1, 1, 'Bella stanza 5', 25.5);
 
 -- --------------------------------------------------------
 
@@ -114,10 +137,19 @@ CREATE TABLE IF NOT EXISTS `stanza` (
 
 CREATE TABLE IF NOT EXISTS `struttura` (
   `id` int(11) NOT NULL,
+  `Nome` varchar(50) NOT NULL,
   `indirizzo` varchar(255) DEFAULT NULL,
   `codicefiscaleanagrafica` varchar(20) NOT NULL,
-  `descrizione` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `descrizione` text NOT NULL,
+  `agibile` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `struttura`
+--
+
+INSERT INTO `struttura` (`id`, `Nome`, `indirizzo`, `codicefiscaleanagrafica`, `descrizione`, `agibile`) VALUES
+(1, 'Hotel Luna', 'Via Gerardo d''Orsi', 'CODICEFISCALE', '', 0);
 
 -- --------------------------------------------------------
 
@@ -198,12 +230,12 @@ ALTER TABLE `visita`
 -- AUTO_INCREMENT per la tabella `anagraficamansione`
 --
 ALTER TABLE `anagraficamansione`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT per la tabella `struttura`
 --
 ALTER TABLE `struttura`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT per la tabella `visita`
 --

@@ -24,7 +24,6 @@ class AnagraficaStanzaManager extends CRUD {
         return $result;
     }
 
-    // Non ha senso implementare la READ non avendo una chiave su cui effettuare la lettura
 
     function update($obj) {
         if (!($obj instanceof AnagraficaStanza))
@@ -47,7 +46,6 @@ class AnagraficaStanzaManager extends CRUD {
         return null;
     }
 
-    // Non ha senso implementare la DELETE in quanto non posso effettuare l'operazione senza la chiave
 
     function delete($obj) {
         return null;

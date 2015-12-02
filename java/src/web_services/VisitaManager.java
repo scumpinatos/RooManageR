@@ -1,28 +1,27 @@
 
 package web_services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
-import cache.ListaStanze;
+import entities.Visita;
 import exceptions.HttpException;
+import java.awt.Frame;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 
-public class StrutturaManager extends HttpConnection {
+public class VisitaManager extends HttpConnection {
     
-    public StrutturaManager() {
+    public VisitaManager() {
         
     }
-
-    public void getStanzeByStruttura(int idStruttura) {
-
+    
+    public void addVisita(Visita input, Frame frame) {
+        
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    String response = getResponse(String.format("opCode=%s&idStruttura=%s", ServerCodes.STANZE_STR, idStruttura));
-                    ListaStanze.setIstanza(new ObjectMapper().readValue(response, ListaStanze.class));
+                    String response = getResponse(String.format("opCode=%s&idStruttura=%s", ServerCodes.ADD_VIS, null));
                 } catch (MalformedURLException ex) {
                     System.out.println("MalformerdURLException in class " + this.getClass().getName());
                 } catch (IOException ex) {

@@ -10,8 +10,8 @@ public class Visita {
     private String numerostanza;
     private int idstruttura;
     private String codicefiscaleanagrafica;
-    private long ingresso;
-    private long uscita;
+    private String ingresso;
+    private String uscita;
 
     public Visita() {
         
@@ -49,19 +49,19 @@ public class Visita {
         this.codicefiscaleanagrafica = codicefiscaleanagrafica;
     }
 
-    public long getIngresso() {
+    public String getIngresso() {
         return ingresso;
     }
 
-    public void setIngresso(long ingresso) {
+    public void setIngresso(String ingresso) {
         this.ingresso = ingresso;
     }
 
-    public long getUscita() {
+    public String getUscita() {
         return uscita;
     }
 
-    public void setUscita(long uscita) {
+    public void setUscita(String uscita) {
         this.uscita = uscita;
     }
 

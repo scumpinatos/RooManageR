@@ -1,7 +1,7 @@
 <?php
 
 require_once "CRUD.php";
-require_once '../entity/Nazionalita.php';
+require_once '../server/entity/Nazionalita.php';
 
 /**
  * Created by PhpStorm.
@@ -89,7 +89,7 @@ class NazionalitaManager extends CRUD {
             $tmp = new Nazionalita();
             $tmp->setAbbreviazione($res['abbreviazione']);
             $tmp->setValore($res['valore']);
-            $toReturn[$i] = $tmp;
+            $toReturn[$i] = $tmp->toArray();
         }
 
         return $toReturn;

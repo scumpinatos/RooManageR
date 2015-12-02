@@ -13,7 +13,7 @@ public class Anagrafica {
     private String codiceFiscale;
     private String nome;
     private String cognome;
-    private long dataNascita;
+    private String dataNascita;
     private String indirizzo;
     private String nazionalita;
     private String numeroDocumento;
@@ -49,11 +49,11 @@ public class Anagrafica {
         this.cognome = cognome;
     }
 
-    public long getDataNascita() {
+    public String getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(long dataNascita) {
+    public void setDataNascita(String dataNascita) {
         this.dataNascita = dataNascita;
     }
 

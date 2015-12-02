@@ -1,28 +1,31 @@
 
 package web_services;
 
+import cache.ListaNazionalita;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
-import cache.ListaStanze;
 import exceptions.HttpException;
+import interfaces.ICallback;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 
-public class StrutturaManager extends HttpConnection {
-    
-    public StrutturaManager() {
+public class NazionalitaManager extends HttpConnection {
+
+    public NazionalitaManager() {
         
     }
-
-    public void getStanzeByStruttura(int idStruttura) {
+    
+    public void getNazionalita(ICallback<ListaNazionalita> callback) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    String response = getResponse(String.format("opCode=%s&idStruttura=%s", ServerCodes.STANZE_STR, idStruttura));
-                    ListaStanze.setIstanza(new ObjectMapper().readValue(response, ListaStanze.class));
+                    String response = getResponse(String.format("opCode=%s", ServerCodes.READ_NAZ));
+                    if (callback != null) {
+                        callback.onResult(new ObjectMapper().readValue(response, ListaNazionalita.class));
+                    }
                 } catch (MalformedURLException ex) {
                     System.out.println("MalformerdURLException in class " + this.getClass().getName());
                 } catch (IOException ex) {
@@ -33,8 +36,6 @@ public class StrutturaManager extends HttpConnection {
             }
         };
 
-        Thread thread = new Thread(runnable);
-        thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
+        new Thread(runnable).start();
     }
 }

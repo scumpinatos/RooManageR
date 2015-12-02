@@ -11,10 +11,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import constants.StatusCodes;
 
-/**
- *
- * @author ScumpinatoS
- */
+
 public abstract class HttpConnection {
     
     public String getResponse(String parameters) throws ProtocolException, MalformedURLException, IOException, HttpException {

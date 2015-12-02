@@ -9,8 +9,8 @@ public class AnagraficaStanza {
     private String codicefiscaleanagrafica;
     private String numerostanza;
     private int idstruttura;
-    private long ingresso;
-    private long uscita;
+    private String ingresso;
+    private String uscita;
     private float costo;
 
     public AnagraficaStanza() {
@@ -41,21 +41,23 @@ public class AnagraficaStanza {
         this.idstruttura = idstruttura;
     }
 
-    public long getIngresso() {
+    public String getIngresso() {
         return ingresso;
     }
 
-    public void setIngresso(long ingresso) {
+    public void setIngresso(String ingresso) {
         this.ingresso = ingresso;
     }
 
-    public long getUscita() {
+    public String getUscita() {
         return uscita;
     }
 
-    public void setUscita(long uscita) {
+    public void setUscita(String uscita) {
         this.uscita = uscita;
     }
+
+    
 
     public float getCosto() {
         return costo;

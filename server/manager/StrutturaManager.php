@@ -150,7 +150,7 @@ class StrutturaManager extends CRUD {
             $tmp->setAgibile($res['agibile']);
             $tmp->setLibera($res['libera']);
 
-            $toReturn[$i] = $tmp;
+            $toReturn[$i] = $tmp->toArray();
         }
 
         return $toReturn;

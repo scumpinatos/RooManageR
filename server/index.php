@@ -15,6 +15,13 @@ if (isset($_POST['opCode'])) {
             echo json_encode($utente->toArray());
             break;
         case "2":
+            require_once '../server/manager/NazionalitaManager.php';
+            
+            $manager = new NazionalitaManager();
+            $nazionalita = $manager->readAll();
+            echo json_encode($nazionalita);
+            break;
+        case "4":
             require_once '../server/manager/AnagraficaManager.php';
 
             $utente = new Anagrafica();
@@ -23,16 +30,14 @@ if (isset($_POST['opCode'])) {
             $utente = $manager->read($utente);
             echo json_encode($utente->toArray());
             break;
-        case "3":
+        case "5":
             require_once '../server/manager/StrutturaManager.php';
 
             $struttura = new Struttura();
             $struttura->setId($_POST['idStruttura']);
             $manager = new StrutturaManager();
             $stanze = $manager->getStanzeByStruttura($struttura);
-            for ($i = 0; $i < count($stanze); $i++) {
-                echo json_encode($stanze[$i]->toArray());
-            }
+            echo json_encode($stanze);
             break;
     }
 }

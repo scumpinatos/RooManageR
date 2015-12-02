@@ -9,7 +9,7 @@ package constants;
  *
  * @author giandomenico
  */
-public class Documents {
+public class Documenti {
     
     public static final int CARTA_IDENTITA = 1;
     public static final int PATENTE = 2;
