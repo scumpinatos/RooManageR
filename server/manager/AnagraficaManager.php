@@ -3,11 +3,7 @@
 require_once '../server/entity/Anagrafica.php';
 require_once 'CRUD.php';
 
-/**
- * User: ScumpinatoS - Malinconico Francesco <f.malinconico1@studenti.unisa.it>
- * Date: 13/10/2015
- * Time: 18:42
- */
+// MODIFICATO DA GIANDOMENICO
 class AnagraficaManager extends CRUD {
 
     function insert($obj) {
@@ -110,7 +106,7 @@ class AnagraficaManager extends CRUD {
             $tmp->setCellulare($res['cellulare']);
             $tmp->setEmail($res['email']);
 
-            $toReturn[$i] = $tmp;
+            $toReturn[$i] = $tmp->toArray();
         }
 
         return $toReturn;

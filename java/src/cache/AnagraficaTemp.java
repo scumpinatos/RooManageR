@@ -7,7 +7,7 @@ import entities.Anagrafica;
  *
  * @author giandomenico
  */
-public class AnagraficaTemp extends Anagrafica {
+public class AnagraficaTemp {
 
     private static AnagraficaTemp istanza;
     private static Anagrafica anagrafica;

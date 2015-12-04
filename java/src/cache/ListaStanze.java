@@ -3,10 +3,6 @@ package cache;
 import entities.Stanza;
 import java.util.ArrayList;
 
-/**
- *
- * @author ScumpinatoS
- */
 public class ListaStanze extends ArrayList<Stanza> {
     
     private static ListaStanze istanza;

@@ -1,29 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package entities;
 
-/**
- *
- * @author giandomenico
- */
+
 public class AnagraficaMansione {
     
-    private int id;
     private String codiceFiscaleAnagrafica;
     private String password;
-    private int idStruttura;
+    private String nomeStruttura;
     private int tipoMansione;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getCodiceFiscaleAnagrafica() {
         return codiceFiscaleAnagrafica;
@@ -41,12 +26,12 @@ public class AnagraficaMansione {
         this.password = password;
     }
 
-    public int getIdStruttura() {
-        return idStruttura;
+    public String getNomeStruttura() {
+        return nomeStruttura;
     }
 
-    public void setIdStruttura(int idStruttura) {
-        this.idStruttura = idStruttura;
+    public void setNomeStruttura(String nomeStruttura) {
+        this.nomeStruttura = nomeStruttura;
     }
 
     public int getTipoMansione() {

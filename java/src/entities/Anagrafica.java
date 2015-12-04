@@ -4,10 +4,7 @@ package entities;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- *
- * @author Giandomenico
- */
+
 public class Anagrafica {
     
     private String codiceFiscale;
@@ -112,8 +109,6 @@ public class Anagrafica {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
     
     public int getEta() {
         int now = new GregorianCalendar().getTime().getYear();

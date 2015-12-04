@@ -1,19 +1,28 @@
 package ui;
 
-import cache.ListaStanze;
+import cache.User;
+import entities.Stanza;
+import entities.Struttura;
 import java.awt.Frame;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import web_services.StanzaManager;
+import web_services.StrutturaManager;
 
 public class UIStruttura extends javax.swing.JDialog {
 
-    Frame parent = null;
+    private Frame parent = null;
+    private ArrayList<Stanza> stanze = null;
+    private int indexSelectedStanza;
 
     public UIStruttura(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
         initComponents();
+        stanze = new ArrayList<Stanza>();
         popolaElencoStanze();
     }
 
@@ -26,8 +35,6 @@ public class UIStruttura extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldIndirizzo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPaneDescrizione = new javax.swing.JTextPane();
         jLabel4 = new javax.swing.JLabel();
         jPanelElencoStanze = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -37,6 +44,8 @@ public class UIStruttura extends javax.swing.JDialog {
         jButtonModificaStanza = new javax.swing.JButton();
         jButtonConferma = new javax.swing.JButton();
         jButtonAnnulla = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaDescrizione = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuova struttura");
@@ -48,11 +57,14 @@ public class UIStruttura extends javax.swing.JDialog {
 
         jLabel3.setText("Descrizione");
 
-        jScrollPane2.setViewportView(jTextPaneDescrizione);
-
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Elenco stanze struttura");
 
+        jTableStanze.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableStanzeMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTableStanze);
 
         jButtonAggiungiStanza.setText("Aggiungi stanza");
@@ -117,6 +129,11 @@ public class UIStruttura extends javax.swing.JDialog {
             }
         });
 
+        jTextAreaDescrizione.setColumns(20);
+        jTextAreaDescrizione.setLineWrap(true);
+        jTextAreaDescrizione.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaDescrizione);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,7 +144,6 @@ public class UIStruttura extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +159,8 @@ public class UIStruttura extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButtonAnnulla)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonConferma)))))
+                                .addComponent(jButtonConferma))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -160,8 +177,8 @@ public class UIStruttura extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelElencoStanze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,8 +194,17 @@ public class UIStruttura extends javax.swing.JDialog {
 
     private void jButtonConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaActionPerformed
 
-        // AGGIUNGERE LA NUOVA STRUTTURA
-        // AGGIUNGERE LE NUOVE STANZE
+        /* AGGIUNGO LA NUOVA STRUTTURA
+        Struttura newStruttura = new Struttura();
+        newStruttura.setDescrizione(jTextAreaDescrizione.getText());
+        newStruttura.setIndirizzo(jTextFieldIndirizzo.getText());
+        newStruttura.setNome(jTextFieldNome.getText());
+        newStruttura.setCodicefiscaleanagrafica(User.getInstance().getUtente().getCodiceFiscaleAnagrafica());
+        new StrutturaManager().addStruttura(newStruttura);
+        
+        // AGGIUNGO LE STANZE
+        new StanzaManager().addElencoStanze(stanze); */
+        
         JOptionPane.showMessageDialog(null, "Funzionalità non ancora implementata");
     }//GEN-LAST:event_jButtonConfermaActionPerformed
 
@@ -189,61 +215,31 @@ public class UIStruttura extends javax.swing.JDialog {
 
     private void jButtonRimuoviStanzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRimuoviStanzaActionPerformed
 
-        // CHIEDERE CONFERMA DELLA RIMOZIONE E RIMUOVERE
-        JOptionPane.showMessageDialog(null, "Funzionalità non ancora implementata");
+        String stanza = stanze.get(indexSelectedStanza).getNumero();
+        int choice = JOptionPane.showConfirmDialog(parent, "Sicuro di voler rimuovere " + stanza, "CONFERMA", JOptionPane.YES_NO_OPTION);
+        System.out.println(choice);
+        //new StanzaManager().removeStanza(stanze.get(indexSelectedStanza));
+        stanze.remove(indexSelectedStanza);
     }//GEN-LAST:event_jButtonRimuoviStanzaActionPerformed
 
     private void jButtonModificaStanzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificaStanzaActionPerformed
 
-        // VISUALIZZARE LA UISTANZA IN MODALITA MODIFICA
-        JOptionPane.showMessageDialog(null, "Funzionalità non ancora implementata");
+        new UIStanza(parent, true, stanze).visualizza(stanze.get(indexSelectedStanza));
     }//GEN-LAST:event_jButtonModificaStanzaActionPerformed
 
     private void jButtonAggiungiStanzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAggiungiStanzaActionPerformed
 
-        UIStanza uiStanza = new UIStanza(parent, true);
+        UIStanza uiStanza = new UIStanza(parent, true, stanze);
         uiStanza.setVisible(true);
         while(uiStanza.isShowing()) {}
         popolaElencoStanze();
     }//GEN-LAST:event_jButtonAggiungiStanzaActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UIStruttura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UIStruttura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UIStruttura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UIStruttura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jTableStanzeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableStanzeMouseClicked
+        
+        indexSelectedStanza = ((JTable) evt.getSource()).getSelectedRow();
+    }//GEN-LAST:event_jTableStanzeMouseClicked
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                UIStruttura dialog = new UIStruttura(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAggiungiStanza;
@@ -256,17 +252,17 @@ public class UIStruttura extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanelElencoStanze;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableStanze;
+    private javax.swing.JTextArea jTextAreaDescrizione;
     private javax.swing.JTextField jTextFieldIndirizzo;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextPane jTextPaneDescrizione;
     // End of variables declaration//GEN-END:variables
 
     private void popolaElencoStanze() {
 
-        int nStanze = ListaStanze.getInstance().size();
+        int nStanze = stanze.size();
 
         if (nStanze > 0) {
 
@@ -281,10 +277,10 @@ public class UIStruttura extends javax.swing.JDialog {
             Object[][] dati = new Object[nStanze][4];
             for (int i = 0; i < nStanze; i++) {
 
-                dati[i][0] = ListaStanze.getInstance().get(i).getNumero();
-                dati[i][1] = ListaStanze.getInstance().get(i).getTipo();
-                dati[i][2] = ListaStanze.getInstance().get(i).getMq();
-                dati[i][3] = ListaStanze.getInstance().get(i).getDescrizione();
+                dati[i][0] = stanze.get(i).getNumero();
+                dati[i][1] = stanze.get(i).getTipo();
+                dati[i][2] = stanze.get(i).getMq();
+                dati[i][3] = stanze.get(i).getDescrizione();
             }
 
             TableModel model = new DefaultTableModel(dati, colonne);

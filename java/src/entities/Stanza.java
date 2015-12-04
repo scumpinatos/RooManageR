@@ -1,14 +1,11 @@
 
 package entities;
 
-/**
- *
- * @author Giandomenico
- */
+
 public class Stanza {
     
-    private int idStruttura;
     private String numero;
+    private String nomeStruttura;
     private int tipo;
     private String descrizione;
     private float mq;
@@ -16,14 +13,16 @@ public class Stanza {
     private int libera;
 
     public Stanza() {
+        agibile = 1;
+        libera = 1;
     }
 
-    public int getIdStruttura() {
-        return idStruttura;
+    public String getNomeStruttura() {
+        return nomeStruttura;
     }
 
-    public void setIdStruttura(int idStruttura) {
-        this.idStruttura = idStruttura;
+    public void setNomeStruttura(String nomeStruttura) {
+        this.nomeStruttura = nomeStruttura;
     }
 
     public String getNumero() {
@@ -72,11 +71,6 @@ public class Stanza {
 
     public void setLibera(int libera) {
         this.libera = libera;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

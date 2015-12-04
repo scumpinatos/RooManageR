@@ -1,13 +1,9 @@
 <?php
 
-/**
- * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>
- * Date: 13/10/2015
- * Time: 19:38
- */
+
 class Stanza {
 
-    private $idstruttura;
+    private $nomeStruttura;
     private $numero;
     private $tipo;
     private $agibile;
@@ -15,52 +11,19 @@ class Stanza {
     private $descrizione;
     private $mq;
 
-    /**
-     * Stanza constructor.
-     */
     public function __construct() {
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdStruttura() {
-        return $this->idstruttura;
+    function getNomeStruttura() {
+        return $this->nomeStruttura;
     }
 
-    /**
-     * @param mixed $idStruttura
-     */
-    public function setIdStruttura($idStruttura) {
-        $this->idstruttura = $idStruttura;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNumero() {
+    function getNumero() {
         return $this->numero;
     }
 
-    /**
-     * @param mixed $numero
-     */
-    public function setNumero($numero) {
-        $this->numero = $numero;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTipo() {
+    function getTipo() {
         return $this->tipo;
-    }
-
-    /**
-     * @param mixed $tipo
-     */
-    public function setTipo($tipo) {
-        $this->tipo = $tipo;
     }
 
     function getAgibile() {
@@ -69,6 +32,29 @@ class Stanza {
 
     function getLibera() {
         return $this->libera;
+    }
+
+    function getDescrizione() {
+        return $this->descrizione;
+    }
+
+    function getMq() {
+        return $this->mq;
+    }
+
+    function setNomeStruttura($nomeStruttura) {
+        $this->nomeStruttura = $nomeStruttura;
+        return $this;
+    }
+
+    function setNumero($numero) {
+        $this->numero = $numero;
+        return $this;
+    }
+
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
+        return $this;
     }
 
     function setAgibile($agibile) {
@@ -80,27 +66,21 @@ class Stanza {
         $this->libera = $libera;
         return $this;
     }
-    
-    function getDescrizione() {
-        return $this->descrizione;
-    }
-
-    function getMq() {
-        return $this->mq;
-    }
 
     function setDescrizione($descrizione) {
         $this->descrizione = $descrizione;
+        return $this;
     }
 
     function setMq($mq) {
         $this->mq = $mq;
+        return $this;
     }
 
-        
+            
     function toArray() {
         return array(
-            "idStruttura" => $this->idstruttura,
+            "nomeStruttura" => $this->nomeStruttura,
             "numero" => $this->numero,
             "tipo" => $this->tipo,
             "agibile" => $this->agibile,

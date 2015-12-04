@@ -1,16 +1,11 @@
 <?php
 
-/**
- * Description of Visita
- *
- * @author Giandomenico
- */
+
 class Visita {
     
-    private $id;
-    private $numerostanza;
-    private $idstruttura;
-    private $codicefiscaleanagrafica;
+    private $numeroStanza;
+    private $nomeStruttura;
+    private $codiceFiscaleAnagrafica;
     private $ingresso;
     private $uscita;
     
@@ -18,20 +13,16 @@ class Visita {
         
     }
     
-    function getId() {
-        return $this->id;
-    }
-
     function getNumeroStanza() {
-        return $this->numerostanza;
+        return $this->numeroStanza;
     }
 
-    function getIdStruttura() {
-        return $this->idstruttura;
+    function getNomeStruttura() {
+        return $this->nomeStruttura;
     }
 
     function getCodiceFiscaleAnagrafica() {
-        return $this->codicefiscaleanagrafica;
+        return $this->codiceFiscaleAnagrafica;
     }
 
     function getIngresso() {
@@ -42,59 +33,34 @@ class Visita {
         return $this->uscita;
     }
 
-    function setId($id) {
-        $this->id = $id;
-        return $this;
-    }
-
     function setNumeroStanza($numeroStanza) {
-        $this->numerostanza = $numeroStanza;
-        return $this;
+        $this->numeroStanza = $numeroStanza;
     }
 
-    function setIdStruttura($idStruttura) {
-        $this->idstruttura = $idStruttura;
-        return $this;
+    function setNomeStruttura($nomeStruttura) {
+        $this->nomeStruttura = $nomeStruttura;
     }
 
     function setCodiceFiscaleAnagrafica($codiceFiscaleAnagrafica) {
-        $this->codicefiscaleanagrafica = $codiceFiscaleAnagrafica;
-        return $this;
+        $this->codiceFiscaleAnagrafica = $codiceFiscaleAnagrafica;
     }
 
     function setIngresso($ingresso) {
         $this->ingresso = $ingresso;
-        return $this;
     }
 
     function setUscita($uscita) {
         $this->uscita = $uscita;
-        return $this;
-    }
-    
-    function getStanza() {
-        $toReturn = new Stanza();
-        $toReturn->setNumero($this->numerostanza);
-        $toReturn->setIdStruttura($this->idstruttura);
-        $manager = new StanzaManager();
-        return $manager->read($toReturn);
     }
 
-    function getAnagrafica() {
-        $toReturn = new Anagrafica();
-        $toReturn->setCodiceFiscale($this->codicefiscaleanagrafica);
-        $manager = new AnagraficaManager();
-        return $manager->read($toReturn);
-    }
     
     function toArray() {
         return array(
-            "idstruttura" => $this->idstruttura,
-            "codicefiscaleanagrafica" => $this->codicefiscaleanagrafica,
-            "numerostanza" => $this->numerostanza,
+            "nomeStruttura" => $this->nomeStruttura,
+            "codiceFiscaleAnagrafica" => $this->codicefiscaleanagrafica,
+            "numeroStanza" => $this->numerostanza,
             "ingresso" => $this->ingresso,
             "uscita" => $this->uscita,
-            "id" => $this->id
         );
     }
     

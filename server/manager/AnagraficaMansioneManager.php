@@ -3,6 +3,7 @@
 require_once 'CRUD.php';
 require_once '../server/entity/AnagraficaMansione.php';
 
+// MODIFICATO DA GIANDOMENICO
 class AnagraficaMansioneManager extends CRUD {
 
     function insert($obj) {
@@ -12,7 +13,7 @@ class AnagraficaMansioneManager extends CRUD {
 
         $this->open();
         $query = 'INSERT INTO anagraficamansione VALUES ("%s", "%s", "%s", "%s")';
-        $query = sprintf($query, $obj->getCodicefiscaleanagrafica(), $obj->getPassword(), $obj->getIdstruttura(), $obj->getTipomansione());
+        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getPassword(), $obj->getNomeStruttura(), $obj->getTipomansione());
         $result = mysql_query($query);
         $this->close();
 
@@ -29,8 +30,8 @@ class AnagraficaMansioneManager extends CRUD {
         }
 
         $this->open();
-        $query = 'UPDATE anagraficamansione SET codicefiscaleanagrafica = "%s", password = "%s", idstruttura = "%s", tipomansione = "%"';
-        $query = sprintf($query, $obj->getCodicefiscaleanagrafica(), $obj->getPassword(), $obj->getIdstruttura(), $obj->getTipomansione());
+        $query = 'UPDATE anagraficamansione SET codicefiscaleanagrafica = "%s", password = "%s", nomestruttura = "%s", tipomansione = "%"';
+        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getPassword(), $obj->getNomeStruttura(), $obj->getTipoMansione());
         $result = mysql_query($query);
         $this->close();
 
@@ -52,11 +53,10 @@ class AnagraficaMansioneManager extends CRUD {
         $this->close();
 
         $toReturn = new AnagraficaMansione();
-        $toReturn->setId($res['id']);
-        $toReturn->setCodicefiscaleanagrafica($res['codicefiscaleanagrafica']);
+        $toReturn->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
         $toReturn->setPassword($res['password']);
-        $toReturn->setIdstruttura($res['idstruttura']);
-        $toReturn->setTipomansione($res['tipomansione']);
+        $toReturn->setNomeStruttura($res['nomestruttura']);
+        $toReturn->setTipoMansione($res['tipomansione']);
 
         return $toReturn;
     }
@@ -67,8 +67,8 @@ class AnagraficaMansioneManager extends CRUD {
         }
 
         $this->open();
-        $query = 'DELETE FROM anagraficamansione WHERE id = "%s"';
-        $query = sprintf($query, $obj->getId());
+        $query = 'DELETE FROM anagraficamansione WHERE codicefiscaleanagrafica = "%s"';
+        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica());
         $result = mysql_query($query);
         $this->close();
 
@@ -88,39 +88,15 @@ class AnagraficaMansioneManager extends CRUD {
         for ($i = 0; $i < mysql_num_rows($result); $i++) {
             $res = mysql_fetch_assoc($result);
             $tmp = new AnagraficaMansione();
-            $tmp->setId($res['id']);
-            $tmp->setCodicefiscaleanagrafica($res['codicefiscaleanagrafica']);
+            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
             $tmp->setPassword($res['password']);
-            $tmp->setIdstruttura($res['idstruttura']);
-            $tmp->setTipomansione($res['tipomansione']);
+            $tmp->setNomeStruttura($res['nomestruttura']);
+            $tmp->setTipoMansione($res['tipomansione']);
 
-            $toReturn[$i] = $tmp;
+            $toReturn[$i] = $tmp->toArray();
         }
 
         return $toReturn;
     }
 
-    function login($obj) {
-        if (!($obj instanceof AnagraficaMansione))
-            return false;
-
-        $this->open();
-        $query = 'SELECT * FROM anagraficamansione WHERE codicefiscaleanagrafica = "%s" AND password = "%s"';
-        $query = sprintf($query, $obj->getCodicefiscaleanagrafica(), $obj->getPassword());
-        $result = mysql_query($query);
-        if (mysql_num_rows($result) <= 0)
-            return false;
-
-        $res = mysql_fetch_assoc($result);
-        $this->close();
-
-        $toReturn = new AnagraficaMansione();
-        $toReturn->setId($res['id']);
-        $toReturn->setCodicefiscaleanagrafica($res['codicefiscaleanagrafica']);
-        $toReturn->setPassword($res['password']);
-        $toReturn->setIdstruttura($res['idstruttura']);
-        $toReturn->setTipomansione($res['tipomansione']);
-
-        return $toReturn;
-    }
 }

@@ -20,6 +20,7 @@ public class AnagraficaManager extends HttpConnection {
     }
 
     public void login(String cf, String password, JFrame frame) {
+        
 
         Runnable runnable = new Runnable() {
 
@@ -35,7 +36,7 @@ public class AnagraficaManager extends HttpConnection {
 
                     // CONTROLLO PRESENZA CF NEL DB
                     if (response.equals("NOT FOUND")) {
-                        JOptionPane.showMessageDialog(frame, "CF non presente nel database");
+                        JOptionPane.showMessageDialog(null, "CF non presente nel database");
                         return;
                     }
 
@@ -43,7 +44,7 @@ public class AnagraficaManager extends HttpConnection {
 
                     // CONTROLLO PASSWORD
                     if (!(utente.getPassword().equals(password))) {
-                        JOptionPane.showMessageDialog(frame, "Password inserita errata");
+                        JOptionPane.showMessageDialog(null, "Password inserita errata");
                         return;
                     }
 
@@ -82,7 +83,9 @@ public class AnagraficaManager extends HttpConnection {
             public void run() {
                 try {
                     String response = getResponse(String.format("opCode=%s&cf=%s", ServerCodes.READ_ANAG, cf));
-                    AnagraficaTemp.getInstance().setAnagraficaTemp(new ObjectMapper().readValue(response, Anagrafica.class));
+                    if (response != null) {
+                        AnagraficaTemp.getInstance().setAnagraficaTemp(new ObjectMapper().readValue(response, Anagrafica.class));
+                    }
                 } catch (MalformedURLException ex) {
                     System.out.println("MalformerdURLException in class " + this.getClass().getName());
                 } catch (IOException ex) {
@@ -95,11 +98,6 @@ public class AnagraficaManager extends HttpConnection {
         thread.start();
         while (thread.getState() != Thread.State.TERMINATED) {
         }
-
-        if (AnagraficaTemp.getInstance().getAnagraficaTemp().getCodiceFiscale().equals(cf)) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 }

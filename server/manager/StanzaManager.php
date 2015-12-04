@@ -17,7 +17,7 @@ class StanzaManager extends CRUD {
 
         $this->open();
         $query = 'INSERT INTO stanza VALUES ("%s", "%s", "%s")';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero(), $obj->getTipo());
+        $query = sprintf($query, $obj->getNomeStrutturaStruttura(), $obj->getNumero(), $obj->getTipo());
         $result = mysql_query($query);
         $this->close();
 
@@ -32,8 +32,8 @@ class StanzaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'UPDATE stanza SET idstruttura = "%s", numero = "%s", tipo = "%s"';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero(), $obj->getTipo());
+        $query = 'UPDATE stanza SET nomestruttura = "%s", numero = "%s", tipo = "%s"';
+        $query = sprintf($query, $obj->getNomeStruttura(), $obj->getNumero(), $obj->getTipo());
         $result = mysql_query($query);
         $this->close();
 
@@ -45,8 +45,8 @@ class StanzaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'SELECT * FROM stanza WHERE idstruttura = "%s" AND numero = "%s"';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero());
+        $query = 'SELECT * FROM stanza WHERE nomestruttura = "%s" AND numero = "%s"';
+        $query = sprintf($query, $obj->getNomeStruttura(), $obj->getNumero());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -54,8 +54,8 @@ class StanzaManager extends CRUD {
         $res = mysql_fetch_assoc($result);
         $this->close();
 
-        $toReturn = new Stanza();
-        $tmp->setIdStruttura($res['idstruttura']);
+        $tmp = new Stanza();
+        $tmp->setNomeStruttura($res['nomestruttura']);
         $tmp->setNumero($res['numero']);
         $tmp->setTipo($res['tipo']);
         $tmp->setDescrizione($res['descrizione']);
@@ -63,7 +63,7 @@ class StanzaManager extends CRUD {
         $tmp->setAgibile($res['agibile']);
         $tmp->setLibera($res['libera']);
 
-        return $toReturn;
+        return $tmp;
     }
 
     function delete($obj) {
@@ -71,8 +71,8 @@ class StanzaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'DELETE FROM stanza WHERE idstruttura = "%s" AND numero = "%s"';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero());
+        $query = 'DELETE FROM stanza WHERE nomestruttura = "%s" AND numero = "%s"';
+        $query = sprintf($query, $obj->getNomeStruttura(), $obj->getNumero());
         $result = mysql_query($query);
         $this->close();
 
@@ -91,7 +91,7 @@ class StanzaManager extends CRUD {
         for ($i = 0; $i < mysql_num_rows($result); $i++) {
             $res = mysql_fetch_assoc($result);
             $tmp = new Stanza();
-            $tmp->setIdStruttura($res['idstruttura']);
+            $tmp->setNomeStruttura($res['nomestruttura']);
             $tmp->setNumero($res['numero']);
             $tmp->setTipo($res['tipo']);
             $tmp->setDescrizione($res['descrizione']);

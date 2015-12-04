@@ -2,17 +2,12 @@
 
 class AnagraficaMansione {
     
-    private $id;
     private $codiceFiscaleAnagrafica;
     private $password;
-    private $idStruttura;
+    private $nomeStruttura;
     private $tipoMansione;
     
-    function getId() {
-        return $this->id;
-    }
-
-    function getCodicefiscaleanagrafica() {
+    function getCodiceFiscaleAnagrafica() {
         return $this->codiceFiscaleAnagrafica;
     }
 
@@ -20,39 +15,39 @@ class AnagraficaMansione {
         return $this->password;
     }
 
-    function getIdstruttura() {
-        return $this->idStruttura;
+    function getNomeStruttura() {
+        return $this->nomeStruttura;
     }
 
-    function getTipomansione() {
+    function getTipoMansione() {
         return $this->tipoMansione;
     }
 
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setCodicefiscaleanagrafica($codiceFiscaleAnagrafica) {
+    function setCodiceFiscaleAnagrafica($codiceFiscaleAnagrafica) {
         $this->codiceFiscaleAnagrafica = $codiceFiscaleAnagrafica;
+        return $this;
     }
 
     function setPassword($password) {
         $this->password = $password;
+        return $this;
     }
 
-    function setIdstruttura($idStruttura) {
-        $this->idStruttura = $idStruttura;
+    function setNomeStruttura($nomeStruttura) {
+        $this->nomeStruttura = $nomeStruttura;
+        return $this;
     }
 
-    function setTipomansione($tipoMansione) {
+    function setTipoMansione($tipoMansione) {
         $this->tipoMansione = $tipoMansione;
+        return $this;
     }
-    
+
+        
     function toArray() {
         return array(
-            "id" => $this->id,
             "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
-            "idStruttura" => $this->idStruttura,
+            "nomeStruttura" => $this->nomeStruttura,
             "tipoMansione" => $this->tipoMansione,
             "password" => $this->password
         );

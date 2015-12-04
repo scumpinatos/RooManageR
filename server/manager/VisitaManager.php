@@ -3,6 +3,9 @@
 require_once 'CRUD.php';
 require_once '../server/entity/Visita.php';
 
+// TUTTE LE FUNZIONI SONO DA RIVEDERE!
+
+
 class VisitaManager extends CRUD {
 
     function insert($obj) {
@@ -12,7 +15,7 @@ class VisitaManager extends CRUD {
 
         $this->open();
         $query = 'INSERT INTO visita VALUES ("%s", "%s", "%s")';
-        $query = sprintf($query, $obj->getNumeroStanza(), $obj->getIdStruttura());
+        $query = sprintf($query, $obj->getNumeroStanza(), $obj->getNomestruttura());
         $result = mysql_query($query);
         $this->close();
 
@@ -20,28 +23,28 @@ class VisitaManager extends CRUD {
     }
 
     function update($obj) {
-        if (!($obj instanceof Stanza))
+        if (!($obj instanceof Visita))
             return false;
 
         if (!$this->read($obj))
             return false;
 
         $this->open();
-        $query = 'UPDATE stanza SET idstruttura = "%s", numero = "%s", tipo = "%s"';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero(), $obj->getTipo());
+        $query = 'UPDATE visita SET nomestruttura = "%s", numerostanza = "%s", codicefiscaleanagrafica = "%s",ingresso = "%s", uscita = "%s"';
+        $query = sprintf($query, $obj->getNomestruttura(), $obj->getNumeroStanza(), $obj->getCodiceFiscaleAnagrafica(), $obj->getIngresso(),$obj->getUscita());
         $result = mysql_query($query);
         $this->close();
 
         return $result;
     }
 
-    function read($obj) {
-        if (!($obj instanceof Stanza))
+    function read($obj) { // da rifare, che variabili usa per la query?
+        if (!($obj instanceof Visita))
             return false;
 
         $this->open();
-        $query = 'SELECT * FROM stanza WHERE idstruttura = "%s" AND numero = "%s"';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero());
+        $query = 'SELECT * FROM stanza WHERE nomestruttura = "%s" AND numero = "%s"';
+        $query = sprintf($query, $obj->getNomeStruttura(), $obj->getNumero());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -50,7 +53,7 @@ class VisitaManager extends CRUD {
         $this->close();
 
         $toReturn = new Stanza();
-        $toReturn->setIdStruttura($res['idstruttura']);
+        $toReturn->setNomeStruttura($res['nomestruttura']);
         $toReturn->setNumero($res['numero']);
         $toReturn->setTipo($res['tipo']);
 
@@ -58,12 +61,12 @@ class VisitaManager extends CRUD {
     }
 
     function delete($obj) {
-        if (!($obj instanceof Stanza))
+        if (!($obj instanceof Visita))
             return false;
 
         $this->open();
-        $query = 'DELETE FROM stanza WHERE idstruttura = "%s" AND numero = "%s"';
-        $query = sprintf($query, $obj->getIdStruttura(), $obj->getNumero());
+        $query = 'DELETE FROM visita WHERE cf = "%s" AND nomestruttura ="%s"';
+        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(),$obj->getNomeStruttura());
         $result = mysql_query($query);
         $this->close();
 
@@ -82,10 +85,37 @@ class VisitaManager extends CRUD {
         for ($i = 0; $i < mysql_num_rows($result); $i++) {
             $res = mysql_fetch_assoc($result);
             $tmp = new Visita();
-            $tmp->setIdStruttura($res['idstruttura']);
+            $tmp->setNomeStruttura($res['nomestruttura']);
             $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
             $tmp->setNumeroStanza($res['numerostanza']);
-            $tmp->setId($res['id']);
+            $tmp->setIngresso($res['ingresso']);
+            $tmp->setUscita($res['uscita']);
+
+            $toReturn[$i] = $tmp;
+        }
+
+        return $toReturn;
+    }
+    
+        function readAllVisiteByStruttura($obj) { // Da verificare
+              if (!($obj instanceof Struttura))
+            return false;
+        $this->open();
+        $query = 'SELECT * FROM visita WHERE nomestruttura = "%s"';
+        $query = sprintf($query, $obj->getNome());
+
+        $result = mysql_query($query);
+        if (mysql_num_rows($result) <= 0)
+            return false;
+        $this->close();
+
+        $toReturn = array();
+        for ($i = 0; $i < mysql_num_rows($result); $i++) {
+            $res = mysql_fetch_assoc($result);
+            $tmp = new Visita();
+            $tmp->setNomeStruttura($res['nomestruttura']);
+            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
+            $tmp->setNumeroStanza($res['numerostanza']);
             $tmp->setIngresso($res['ingresso']);
             $tmp->setUscita($res['uscita']);
 

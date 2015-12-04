@@ -1,114 +1,71 @@
 <?php
 
-/**
- * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>
- * Date: 13/10/2015
- * Time: 19:50
- */
 class AnagraficaStanza {
 
     private $codiceFiscaleAnagrafica;
-    private $numerostanza;
-    private $idstruttura;
+    private $numeroStanza;
+    private $nomeStruttura;
     private $ingresso;
     private $uscita;
     private $costo;
 
-    /**
-     * AnagraficaStanza constructor.
-     */
+    
     public function __construct() {
     }
-
-    /**
-     * @return mixed
-     */
-    public function getCodicefiscaleanagrafica() {
+ 
+    function getCodiceFiscaleAnagrafica() {
         return $this->codiceFiscaleAnagrafica;
     }
 
-    /**
-     * @param mixed $codicefiscaleanagrafica
-     */
-    public function setCodicefiscaleanagrafica($codicefiscaleanagrafica) {
-        $this->codiceFiscaleAnagrafica = $codicefiscaleanagrafica;
+    function getNumeroStanza() {
+        return $this->numeroStanza;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNumerostanza() {
-        return $this->numerostanza;
+    function getNomeStruttura() {
+        return $this->nomeStruttura;
     }
 
-    /**
-     * @param mixed $numerostanza
-     */
-    public function setNumerostanza($numerostanza) {
-        $this->numerostanza = $numerostanza;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdstruttura() {
-        return $this->idstruttura;
-    }
-
-    /**
-     * @param mixed $idstruttura
-     */
-    public function setIdstruttura($idstruttura) {
-        $this->idstruttura = $idstruttura;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIngresso() {
+    function getIngresso() {
         return $this->ingresso;
     }
 
-    /**
-     * @param mixed $ingresso
-     */
-    public function setIngresso($ingresso) {
-        $this->ingresso = $ingresso;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUscita() {
+    function getUscita() {
         return $this->uscita;
     }
 
-    /**
-     * @param mixed $uscita
-     */
-    public function setUscita($uscita) {
-        $this->uscita = $uscita;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCosto() {
+    function getCosto() {
         return $this->costo;
     }
 
-    /**
-     * @param mixed $costo
-     */
-    public function setCosto($costo) {
+    function setCodiceFiscaleAnagrafica($codiceFiscaleAnagrafica) {
+        $this->codiceFiscaleAnagrafica = $codiceFiscaleAnagrafica;
+    }
+
+    function setNumeroStanza($numeroStanza) {
+        $this->numeroStanza = $numeroStanza;
+    }
+
+    function setNomeStruttura($nomeStruttura) {
+        $this->nomeStruttura = $nomeStruttura;
+    }
+
+    function setIngresso($ingresso) {
+        $this->ingresso = $ingresso;
+    }
+
+    function setUscita($uscita) {
+        $this->uscita = $uscita;
+    }
+
+    function setCosto($costo) {
         $this->costo = $costo;
     }
     
     function toArray() {
         return array(
-            "idstruttura" => $this->idstruttura,
-            "codicefiscaleanagrafica" => $this->codiceFiscaleAnagrafica,
-            "numerostanza" => $this->numerostanza,
+            "nomeStruttura" => $this->nomeStruttura,
+            "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
+            "numeroStanza" => $this->numeroStanza,
             "ingresso" => $this->ingresso,
             "uscita" => $this->uscita,
             "costo" => $this->costo

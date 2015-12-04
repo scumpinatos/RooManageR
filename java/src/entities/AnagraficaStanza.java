@@ -1,14 +1,11 @@
 package entities;
 
-/**
- *
- * @author Giandomenico
- */
+
 public class AnagraficaStanza {
     
     private String codicefiscaleanagrafica;
     private String numerostanza;
-    private int idstruttura;
+    private String nomeStruttura;
     private String ingresso;
     private String uscita;
     private float costo;
@@ -33,12 +30,12 @@ public class AnagraficaStanza {
         this.numerostanza = numerostanza;
     }
 
-    public int getIdstruttura() {
-        return idstruttura;
+    public String getNomeStruttura() {
+        return nomeStruttura;
     }
 
-    public void setIdstruttura(int idstruttura) {
-        this.idstruttura = idstruttura;
+    public void setNomeStruttura(String nomeStruttura) {
+        this.nomeStruttura = nomeStruttura;
     }
 
     public String getIngresso() {

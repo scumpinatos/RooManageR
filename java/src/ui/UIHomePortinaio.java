@@ -20,7 +20,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         
         // INFORMAZIONI DA VISUALIZZARE
         User utente = User.getInstance();
-        new StrutturaManager().readStruttura(utente.getUtente().getIdStruttura());
+        jLabelStruttura.setText("Struttura: " + User.getInstance().getUtente().getNomeStruttura());
         jLabelUtente.setText("Utente connesso: " + utente.getInfoUtente().getNome() + " " + utente.getInfoUtente().getCognome());
     }
 
@@ -285,7 +285,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
     private void popolaTabella() {
 
         StrutturaManager manager = new StrutturaManager();
-        manager.getStanzeByStruttura(User.getInstance().getUtente().getIdStruttura());
+        manager.getStanzeByStruttura(User.getInstance().getUtente().getNomeStruttura());
 
         ListaStanze stanze = ListaStanze.getInstance();
         int nst = stanze.size();

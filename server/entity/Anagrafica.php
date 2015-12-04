@@ -1,10 +1,5 @@
 <?php
 
-/**
- * User: ScumpinatoS - Malinconico Francesco <f.malinconico1@studenti.unisa.it>
- * Date: 13/10/2015
- * Time: 18:42
- */
 class Anagrafica {
 
     private $codiceFiscale;
@@ -19,9 +14,7 @@ class Anagrafica {
     private $cellulare;
     private $email;
 
-    /**
-     * Anagrafica constructor.
-     */
+
     public function __construct() {
     }
 

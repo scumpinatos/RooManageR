@@ -1,104 +1,68 @@
 <?php
 
-/**
- * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>
- * Date: 13/10/2015
- * Time: 19:20
- */
+
 class Struttura {
 
-    private $id;
     private $nome;
     private $indirizzo;
-    private $codicefiscaleanagrafica;
+    private $codiceFiscaleAnagrafica;
     private $descrizione;
     private $agibile;
 
-    /**
-     * Struttura constructor.
-     */
     public function __construct() {
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId() {
-        return $this->id;
+    function getNome() {
+        return $this->nome;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIndirizzo() {
+    function getIndirizzo() {
         return $this->indirizzo;
     }
 
-    /**
-     * @param mixed $indirizzo
-     */
-    public function setIndirizzo($indirizzo) {
-        $this->indirizzo = $indirizzo;
+    function getCodiceFiscaleAnagrafica() {
+        return $this->codiceFiscaleAnagrafica;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCodiceFiscaleAnagrafica() {
-        return $this->codicefiscaleanagrafica;
+    function setCodiceFiscaleAnagrafica($codiceFiscaleAnagrafica) {
+        $this->codiceFiscaleAnagrafica = $codiceFiscaleAnagrafica;
+        return $this;
     }
 
-    /**
-     * @param mixed $codiceFiscaleAnagrafica
-     */
-    public function setCodiceFiscaleAnagrafica($codiceFiscaleAnagrafica) {
-        $this->codicefiscaleanagrafica = $codiceFiscaleAnagrafica;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescrizione() {
+    function getDescrizione() {
         return $this->descrizione;
     }
 
-    /**
-     * @param mixed $descrizione
-     */
-    public function setDescrizione($descrizione) {
-        $this->descrizione = $descrizione;
-    }
-    
     function getAgibile() {
         return $this->agibile;
+    }
+
+    function setNome($nome) {
+        $this->nome = $nome;
+        return $this;
+    }
+
+    function setIndirizzo($indirizzo) {
+        $this->indirizzo = $indirizzo;
+        return $this;
+    }
+
+    function setDescrizione($descrizione) {
+        $this->descrizione = $descrizione;
+        return $this;
     }
 
     function setAgibile($agibile) {
         $this->agibile = $agibile;
         return $this;
     }
+
     
-    function getNome() {
-        return $this->nome;
-    }
-
-    function setNome($nome) {
-        $this->nome = $nome;
-    }
-
     function toArray() {
         return array(
-            "id" => $this->id,
             "nome" => $this->nome,
             "indirizzo" => $this->indirizzo,
-            "codicefiscaleanagrafica" => $this->codicefiscaleanagrafica,
+            "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
             "descrizione" => $this->descrizione,
             "agibile" => $this->agibile
         );

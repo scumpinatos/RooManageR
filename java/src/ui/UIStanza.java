@@ -1,18 +1,43 @@
 
 package ui;
 
-import cache.ListaStanze;
 import cache.User;
 import constants.TipiStanza;
 import entities.Stanza;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class UIStanza extends javax.swing.JDialog {
 
+    ArrayList<Stanza> arrayStanze = null;
     
-    public UIStanza(java.awt.Frame parent, boolean modal) {
+    public UIStanza(java.awt.Frame parent, boolean modal, ArrayList<Stanza> stanze) {
         super(parent, modal);
+        arrayStanze = stanze;
         initComponents();
+    }
+    
+    // MODALITA DI VISUALIZZAZIONE
+    public void modifica(Stanza input) {
+        popolaCampi(input);
+        this.setVisible(true);
+    }
+    
+    public void visualizza(Stanza input) {
+        
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                attivaCampi();
+            }
+        };
+        popolaCampi(input);
+        disattivaCampi();
+        jButtonConferma.setText("Modifica");
+        jButtonConferma.addActionListener(listener);
+        this.setVisible(true);
     }
 
     
@@ -47,6 +72,7 @@ public class UIStanza extends javax.swing.JDialog {
         jLabel3.setText("Descrizione");
 
         jTextAreaDescrizione.setColumns(20);
+        jTextAreaDescrizione.setLineWrap(true);
         jTextAreaDescrizione.setRows(5);
         jScrollPane1.setViewportView(jTextAreaDescrizione);
 
@@ -145,44 +171,11 @@ public class UIStanza extends javax.swing.JDialog {
             newStanza.setTipo(TipiStanza.MATRIMONIALE);
         if(jComboBoxTipo.getSelectedIndex() == 3)
             newStanza.setTipo(TipiStanza.TRIPLA);
-        newStanza.setIdStruttura(User.getInstance().getUtente().getIdStruttura());
-        ListaStanze.getInstance().add(newStanza);
+        newStanza.setNomeStruttura(User.getInstance().getUtente().getNomeStruttura());
+        arrayStanze.add(newStanza);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonConfermaActionPerformed
 
-    
-    public static void main(String args[]) {
-       
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UIStanza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UIStanza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UIStanza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UIStanza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                UIStanza dialog = new UIStanza(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnulla;
@@ -197,4 +190,38 @@ public class UIStanza extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldMq;
     private javax.swing.JTextField jTextFieldNumero;
     // End of variables declaration//GEN-END:variables
+    
+    private void popolaCampi(Stanza input) {
+        
+        jTextFieldNumero.setText(input.getNumero());
+        jTextAreaDescrizione.setText(input.getDescrizione());
+        
+        // TIPO STANZA
+        if(input.getTipo() == TipiStanza.SINGOLA)
+            jComboBoxTipo.setSelectedIndex(0);
+        if(input.getTipo() == TipiStanza.DOPPIA)
+            jComboBoxTipo.setSelectedIndex(1);
+        if(input.getTipo() == TipiStanza.MATRIMONIALE)
+            jComboBoxTipo.setSelectedIndex(2);
+        if(input.getTipo() == TipiStanza.TRIPLA)
+            jComboBoxTipo.setSelectedIndex(3);
+        
+        jTextFieldMq.setText(input.getMq() + "");
+    }
+
+    private void disattivaCampi() {
+        
+        jTextFieldNumero.setEditable(false);
+        jTextAreaDescrizione.setEditable(false);
+        jComboBoxTipo.setEditable(false);
+        jTextFieldMq.setEditable(false);
+    }
+    
+    private void attivaCampi() {
+        
+        jTextFieldNumero.setEditable(true);
+        jTextAreaDescrizione.setEditable(true);
+        jComboBoxTipo.setEditable(true);
+        jTextFieldMq.setEditable(true);
+    }
 }

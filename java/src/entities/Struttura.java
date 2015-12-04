@@ -1,27 +1,15 @@
 
 package entities;
 
-/**
- *
- * @author Giandomenico
- */
+
 public class Struttura {
  
-    private int id;
     private String nome;
     private String indirizzo;
     private String codicefiscaleanagrafica;
     private String descrizione;
 
     public Struttura() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getIndirizzo() {

@@ -1,28 +1,16 @@
 package entities;
 
-/**
- *
- * @author Giandomenico
- */
+
 public class Visita {
     
-    private int id;
     private String numerostanza;
-    private int idstruttura;
+    private String nomeStruttura;
     private String codicefiscaleanagrafica;
     private String ingresso;
     private String uscita;
 
     public Visita() {
         
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNumerostanza() {
@@ -33,12 +21,12 @@ public class Visita {
         this.numerostanza = numerostanza;
     }
 
-    public int getIdstruttura() {
-        return idstruttura;
+    public String getNomeStruttura() {
+        return nomeStruttura;
     }
 
-    public void setIdstruttura(int idstruttura) {
-        this.idstruttura = idstruttura;
+    public void setNomeStruttura(String nomeStruttura) {
+        this.nomeStruttura = nomeStruttura;
     }
 
     public String getCodicefiscaleanagrafica() {

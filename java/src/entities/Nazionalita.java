@@ -1,10 +1,7 @@
 
 package entities;
 
-/**
- *
- * @author Giandomenico
- */
+
 public class Nazionalita {
     
     private String abbreviazione;

@@ -16,11 +16,9 @@ import web_services.NazionalitaManager;
 
 public class UIAnagrafica extends javax.swing.JDialog {
 
-    private Frame parent = null;
     
     public UIAnagrafica(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.parent = parent;
         this.setLocationRelativeTo(null);
         initComponents();
     }
