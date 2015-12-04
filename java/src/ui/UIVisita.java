@@ -14,8 +14,6 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -368,13 +366,12 @@ public class UIVisita extends JDialog {
         if(found) {
             try {
                 Visita newVisita = new Visita();
-                newVisita.setCodicefiscaleanagrafica(AnagraficaTemp.getInstance().getCodiceFiscale());
+                newVisita.setCodicefiscaleanagrafica(AnagraficaTemp.getInstance().getAnagraficaTemp().getCodiceFiscale());
                 newVisita.setIdstruttura(User.getInstance().getUtente().getIdStruttura());
                 newVisita.setNumerostanza(jTextFieldStanza.getText());
                 newVisita.setIngresso(jTextFieldIngresso.getText());
                 new ObjectMapper().writeValue(System.out, newVisita);
             } catch (IOException ex) {
-                Logger.getLogger(UIVisita.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if(!found) {
             Anagrafica newAnagrafica = new Anagrafica();
@@ -516,7 +513,7 @@ public class UIVisita extends JDialog {
             public void itemStateChanged(ItemEvent e) {
                 
                 if(e.getItem().equals("Altro..")) {
-                    new UINazionalita(parent, true).setVisible(true);
+                    //new UINazionalita(parent, true).setVisible(true);
                 }
             }
         };

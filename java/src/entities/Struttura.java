@@ -8,6 +8,7 @@ package entities;
 public class Struttura {
  
     private int id;
+    private String nome;
     private String indirizzo;
     private String codicefiscaleanagrafica;
     private String descrizione;
@@ -46,6 +47,13 @@ public class Struttura {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
     
 }

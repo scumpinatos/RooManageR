@@ -35,12 +35,6 @@ public class UILogin extends javax.swing.JFrame {
 
         jLabel1.setText("Codice fiscale");
 
-        jTextFieldCf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextFieldCfMouseClicked(evt);
-            }
-        });
-
         jLabel2.setText("Password");
 
         jButtonAccedi.setText("Accedi");
@@ -105,10 +99,6 @@ public class UILogin extends javax.swing.JFrame {
         
         manager.login(cf, password, this);
     }//GEN-LAST:event_jButtonAccediActionPerformed
-
-    private void jTextFieldCfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCfMouseClicked
-        jTextFieldCf.setText("");
-    }//GEN-LAST:event_jTextFieldCfMouseClicked
 
     
     public static void main(String args[]) {

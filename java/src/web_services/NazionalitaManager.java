@@ -30,8 +30,6 @@ public class NazionalitaManager extends HttpConnection {
                     System.out.println("MalformerdURLException in class " + this.getClass().getName());
                 } catch (IOException ex) {
                     System.out.println("IOException in class " + this.getClass().getName());
-                } catch (HttpException ex) {
-                    System.out.println("HttpException in class " + this.getClass().getName());
                 }
             }
         };

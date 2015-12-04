@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import web_services.NazionalitaManager;
 
@@ -273,15 +271,6 @@ public class UIAnagrafica extends javax.swing.JDialog {
             }
         });
     }
-    
-    public void modifica(Anagrafica input) {
-    java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                popolaCampiModifica(input);
-                setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupDocumento;
@@ -324,7 +313,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jTextFieldNome.setEditable(false);
         jTextFieldCognome.setText(input.getCognome());
         jTextFieldCognome.setEditable(false);
-        jFormattedTextFieldData.setText(new SimpleDateFormat().format(new Date(input.getEta())));
+        jFormattedTextFieldData.setText("NON IMPLEMENTATA");
         jFormattedTextFieldData.setEditable(false);
         jTextFieldIndirizzo.setText(input.getIndirizzo());
         jTextFieldIndirizzo.setEditable(false);
@@ -369,43 +358,24 @@ public class UIAnagrafica extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                setVisible(false);
-                new UIAnagrafica(parent, true).modifica(input);
+                attivaCampi();
             }
         });
         
     }
     
-    private void popolaCampiModifica(Anagrafica input) {
+    private void attivaCampi() {
 
-        jTextFieldCodiceFiscale.setText(input.getCodiceFiscale());
-        jTextFieldNome.setText(input.getNome());
-        jTextFieldCognome.setText(input.getCognome());
-        jFormattedTextFieldData.setText(new SimpleDateFormat().format(new Date(input.getEta())));
-        jTextFieldIndirizzo.setText(input.getIndirizzo());
-        
-        String[] items = new String[1];
-        items[0] = input.getNazionalita();
-        jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
-        // TIPO DOCUMENTO
-        switch(input.getTipoDocumento()) {
-            case Documenti.CARTA_IDENTITA:
-                jRadioButtonCartaIdentita.setSelected(true);
-                break;
-            case Documenti.PATENTE:
-                jRadioButtonPatente.setSelected(true);
-                break;
-            case Documenti.PASSAPORTO:
-                jRadioButtonPassaporto.setSelected(true);
-                break;      
-        }
-        jTextFieldNumeroDocumento.setText(input.getNumeroDocumento());
-        jTextFieldTelefono.setText(input.getTelefono());
-        jTextFieldCellulare.setText(input.getCellulare());
-        jTextFieldEmail.setText(input.getEmail());
-        
-        jButtonAnnulla.setText("Annulla");
-        jButtonConferma.setText("Conferma");
+        jTextFieldCodiceFiscale.setEditable(true);
+        jTextFieldNome.setEditable(true);
+        jTextFieldCognome.setEditable(true);
+        jFormattedTextFieldData.setEditable(true);
+        jTextFieldIndirizzo.setEditable(true);
+        jComboBoxNazionalita.setEditable(true);
+        jTextFieldNumeroDocumento.setEditable(true);
+        jTextFieldTelefono.setEditable(true);
+        jTextFieldCellulare.setEditable(true);
+        jTextFieldEmail.setEditable(true);
         
     }
     
@@ -416,7 +386,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
             public void itemStateChanged(ItemEvent e) {
                 
                 if(e.getItem().equals("Altro..")) {
-                    new UINazionalita(parent, true).setVisible(true);
+                    //new UINazionalita(parent, true).setVisible(true);
                 }
             }
         };

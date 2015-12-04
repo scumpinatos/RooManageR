@@ -3,6 +3,7 @@ package ui;
 import cache.ListaStanze;
 import cache.User;
 import constants.TipiStanza;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -16,8 +17,11 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         popolaTabella();
+        
+        // INFORMAZIONI DA VISUALIZZARE
         User utente = User.getInstance();
-        jLabelSaluto.setText("Utente connesso: " + utente.getInfoUtente().getNome() + " " + utente.getInfoUtente().getCognome());
+        new StrutturaManager().readStruttura(utente.getUtente().getIdStruttura());
+        jLabelUtente.setText("Utente connesso: " + utente.getInfoUtente().getNome() + " " + utente.getInfoUtente().getCognome());
     }
 
     @SuppressWarnings("unchecked")
@@ -26,13 +30,18 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelHome = new javax.swing.JPanel();
+        jLabelStruttura = new javax.swing.JLabel();
+        jLabelUtente = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableStanze = new javax.swing.JTable();
         jPanelInfoStanza = new javax.swing.JPanel();
         jPanelOperazioniStanza = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jLabelSaluto = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jPanelRegistroClienti = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableRegClienti = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemAggiorna = new javax.swing.JMenuItem();
@@ -45,6 +54,33 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
+
+        jLabelStruttura.setText("jLabelStruttura");
+
+        jLabelUtente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelUtente.setText("jLabelUtente");
+        jLabelUtente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelUtente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabelUtenteMousePressed(evt);
+            }
+        });
+
+        jTableStanze.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableStanze.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableStanze.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableStanzeMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableStanze);
 
         jPanelInfoStanza.setPreferredSize(new java.awt.Dimension(300, 300));
 
@@ -68,6 +104,13 @@ public class UIHomePortinaio extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Struttura");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelOperazioniStanzaLayout = new javax.swing.GroupLayout(jPanelOperazioniStanza);
         jPanelOperazioniStanza.setLayout(jPanelOperazioniStanzaLayout);
         jPanelOperazioniStanzaLayout.setHorizontalGroup(
@@ -76,7 +119,8 @@ public class UIHomePortinaio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelOperazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelOperazioniStanzaLayout.setVerticalGroup(
@@ -85,33 +129,10 @@ public class UIHomePortinaio extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
-
-        jLabelSaluto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelSaluto.setText("jLabel2");
-        jLabelSaluto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelSaluto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabelSalutoMousePressed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanelHomeLayout = new javax.swing.GroupLayout(jPanelHome);
         jPanelHome.setLayout(jPanelHomeLayout);
@@ -125,14 +146,19 @@ public class UIHomePortinaio extends javax.swing.JFrame {
                         .addComponent(jPanelInfoStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelOperazioniStanza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabelSaluto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHomeLayout.createSequentialGroup()
+                        .addComponent(jLabelStruttura)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanelHomeLayout.setVerticalGroup(
             jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHomeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelSaluto)
+                .addGroup(jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelUtente)
+                    .addComponent(jLabelStruttura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -142,6 +168,23 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Home", jPanelHome);
+
+        jScrollPane1.setViewportView(jTableRegClienti);
+
+        javax.swing.GroupLayout jPanelRegistroClientiLayout = new javax.swing.GroupLayout(jPanelRegistroClienti);
+        jPanelRegistroClienti.setLayout(jPanelRegistroClientiLayout);
+        jPanelRegistroClientiLayout.setHorizontalGroup(
+            jPanelRegistroClientiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+        );
+        jPanelRegistroClientiLayout.setVerticalGroup(
+            jPanelRegistroClientiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRegistroClientiLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 90, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Registro Clienti", jPanelRegistroClienti);
 
         jMenu1.setText("File");
 
@@ -188,28 +231,39 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         new UICredits(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemCreditsActionPerformed
 
-    private void jLabelSalutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSalutoMousePressed
+    private void jLabelUtenteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUtenteMousePressed
 
         new UIAnagrafica(this, true).visualizza(User.getInstance().getInfoUtente());
-    }//GEN-LAST:event_jLabelSalutoMousePressed
+    }//GEN-LAST:event_jLabelUtenteMousePressed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTableStanzeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableStanzeMouseClicked
 
         int selected = ((JTable) evt.getSource()).getSelectedRow();
         selectedStanza = ListaStanze.getInstance().get(selected).getNumero();
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_jTableStanzeMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
+        if(selectedStanza == null) {
+            JOptionPane.showMessageDialog(rootPane, "Selezionare una stanza dall'elenco");
+            return;
+        }
         new UIVisita(this, true, selectedStanza).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       
+        new UIStruttura(this, true).setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabelSaluto;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabelStruttura;
+    private javax.swing.JLabel jLabelUtente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -219,9 +273,12 @@ public class UIHomePortinaio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelHome;
     private javax.swing.JPanel jPanelInfoStanza;
     private javax.swing.JPanel jPanelOperazioniStanza;
+    private javax.swing.JPanel jPanelRegistroClienti;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableRegClienti;
+    private javax.swing.JTable jTableStanze;
     // End of variables declaration//GEN-END:variables
 
     // METODI DI SUPPORTO
@@ -253,7 +310,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         }
 
         TableModel model = new DefaultTableModel(data, colonne);
-        jTable1.setModel(model);
+        jTableStanze.setModel(model);
     }
 
     private String getStringTipo(int input) {
@@ -270,5 +327,22 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         }
 
         return null;
+    }
+    
+    private void popolaRegistroClienti() {
+
+        // OPERAZIONI RECUPERO INFORMAZIONI
+        
+        // COLONNE
+        String[] colonne = new String[4];
+        colonne[0] = "Nome";
+        colonne[1] = "Cognome";
+        colonne[2] = "Data di nascita";
+        colonne[3] = "Indirizzo";
+
+        // DATI
+
+        TableModel model = new DefaultTableModel(colonne, 0);
+        jTableRegClienti.setModel(model);
     }
 }

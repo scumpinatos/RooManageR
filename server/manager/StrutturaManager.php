@@ -56,6 +56,8 @@ class StrutturaManager extends CRUD {
 
         $toReturn = new Struttura();
         $toReturn->setId($res['id']);
+        $toReturn->setNome($res['nome']);
+        $toReturn->setAgibile($res['agibile']);
         $toReturn->setIndirizzo($res['indirizzo']);
         $toReturn->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
         $toReturn->setDescrizione($res['descrizione']);
@@ -89,6 +91,8 @@ class StrutturaManager extends CRUD {
             $res = mysql_fetch_assoc($result);
             $tmp = new Struttura();
             $tmp->setId($res['id']);
+            $toReturn->setNome($res['nome']);
+            $toReturn->setAgibile($res['agibile']);
             $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
             $tmp->setIndirizzo($res['indirizzo']);
             $tmp->setDescrizione($res['descrizione']);
@@ -98,11 +102,11 @@ class StrutturaManager extends CRUD {
 
         return $toReturn;
     }
-    
+
     function getStruttureByAnagrafica($obj) {
-        if(!($obj instanceof Anagrafica))
+        if (!($obj instanceof Anagrafica))
             return false;
-        
+
         $this->open();
         $query = 'SELECT * FROM struttura WHERE codicefiscaleanagrafica = "%s"';
         $query = sprintf($query, $obj->getCodiceFiscale());
@@ -110,12 +114,14 @@ class StrutturaManager extends CRUD {
         if (mysql_num_rows($result) <= 0)
             return false;
         $this->close();
-        
+
         $toReturn = array();
         for ($i = 0; $i < mysql_num_rows($result); $i++) {
             $res = mysql_fetch_assoc($result);
             $tmp = new Struttura();
             $tmp->setId($res['id']);
+            $toReturn->setNome($res['nome']);
+            $toReturn->setAgibile($res['agibile']);
             $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
             $tmp->setIndirizzo($res['indirizzo']);
             $tmp->setDescrizione($res['descrizione']);
@@ -125,11 +131,11 @@ class StrutturaManager extends CRUD {
 
         return $toReturn;
     }
-    
+
     function getStanzeByStruttura($obj) {
-        if(!($obj instanceof Struttura))
+        if (!($obj instanceof Struttura))
             return false;
-        
+
         $this->open();
         $query = 'SELECT * FROM stanza WHERE idstruttura = "%d"';
         $query = sprintf($query, $obj->getId());
@@ -137,7 +143,7 @@ class StrutturaManager extends CRUD {
         if (mysql_num_rows($result) <= 0)
             return false;
         $this->close();
-        
+
         $toReturn = array();
         for ($i = 0; $i < mysql_num_rows($result); $i++) {
             $res = mysql_fetch_assoc($result);
@@ -155,11 +161,11 @@ class StrutturaManager extends CRUD {
 
         return $toReturn;
     }
-    
+
     function getRegistroClienti($obj) {
-        if(!($obj instanceof Struttura))
+        if (!($obj instanceof Struttura))
             return false;
-        
+
         $this->open();
         $query = 'SELECT * FROM anagrafica JOIN anagraficastanza ON anagraficastanza.idstruttura = "%d"';
         $query = sprintf($query, $obj->getId());
@@ -167,7 +173,7 @@ class StrutturaManager extends CRUD {
         if (mysql_num_rows($result) <= 0)
             return false;
         $this->close();
-        
+
         $toReturn = array();
         for ($i = 0; $i < mysql_num_rows($result); $i++) {
             $res = mysql_fetch_assoc($result);
@@ -188,5 +194,5 @@ class StrutturaManager extends CRUD {
 
         return $toReturn;
     }
-    
+
 }

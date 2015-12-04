@@ -8,6 +8,7 @@
 class Struttura {
 
     private $id;
+    private $nome;
     private $indirizzo;
     private $codicefiscaleanagrafica;
     private $descrizione;
@@ -83,10 +84,19 @@ class Struttura {
         $this->agibile = $agibile;
         return $this;
     }
+    
+    function getNome() {
+        return $this->nome;
+    }
+
+    function setNome($nome) {
+        $this->nome = $nome;
+    }
 
     function toArray() {
         return array(
             "id" => $this->id,
+            "nome" => $this->nome,
             "indirizzo" => $this->indirizzo,
             "codicefiscaleanagrafica" => $this->codicefiscaleanagrafica,
             "descrizione" => $this->descrizione,
