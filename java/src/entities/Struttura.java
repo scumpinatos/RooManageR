@@ -6,8 +6,9 @@ public class Struttura {
  
     private String nome;
     private String indirizzo;
-    private String codicefiscaleanagrafica;
+    private String codiceFiscaleAnagrafica;
     private String descrizione;
+    private int agibile;
 
     public Struttura() {
     }
@@ -20,12 +21,12 @@ public class Struttura {
         this.indirizzo = indirizzo;
     }
 
-    public String getCodicefiscaleanagrafica() {
-        return codicefiscaleanagrafica;
+    public String getCodiceFiscaleAnagrafica() {
+        return codiceFiscaleAnagrafica;
     }
 
-    public void setCodicefiscaleanagrafica(String codicefiscaleanagrafica) {
-        this.codicefiscaleanagrafica = codicefiscaleanagrafica;
+    public void setCodiceFiscaleAnagrafica(String codiceFiscaleAnagrafica) {
+        this.codiceFiscaleAnagrafica = codiceFiscaleAnagrafica;
     }
 
     public String getDescrizione() {
@@ -42,6 +43,14 @@ public class Struttura {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public int getAgibile() {
+        return agibile;
+    }
+
+    public void setAgibile(int agibile) {
+        this.agibile = agibile;
     }
     
 }

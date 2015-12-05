@@ -48,7 +48,7 @@ public class UIStanza extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldNumero = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxTipo = new javax.swing.JComboBox<>();
+        jComboBoxTipo = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescrizione = new javax.swing.JTextArea();
@@ -67,7 +67,7 @@ public class UIStanza extends javax.swing.JDialog {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Tipo");
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Singola", "Doppia", "Matrimoniale", "Tripla" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Singola", "Doppia", "Matrimoniale", "Tripla" }));
 
         jLabel3.setText("Descrizione");
 

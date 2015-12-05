@@ -3,7 +3,7 @@
 require_once 'CRUD.php';
 require_once '../server/entity/AnagraficaMansione.php';
 
-// MODIFICATO DA GIANDOMENICO
+
 class AnagraficaMansioneManager extends CRUD {
 
     function insert($obj) {
@@ -12,8 +12,9 @@ class AnagraficaMansioneManager extends CRUD {
         }
 
         $this->open();
-        $query = 'INSERT INTO anagraficamansione VALUES ("%s", "%s", "%s", "%s")';
-        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getPassword(), $obj->getNomeStruttura(), $obj->getTipomansione());
+        $query = 'INSERT INTO anagraficamansione VALUES ("%s", "%s", "%s", "%s", "%d")';
+        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getPassword(), 
+                $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(), $obj->getTipomansione());
         $result = mysql_query($query);
         $this->close();
 
@@ -30,8 +31,10 @@ class AnagraficaMansioneManager extends CRUD {
         }
 
         $this->open();
-        $query = 'UPDATE anagraficamansione SET codicefiscaleanagrafica = "%s", password = "%s", nomestruttura = "%s", tipomansione = "%"';
-        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getPassword(), $obj->getNomeStruttura(), $obj->getTipoMansione());
+        $query = 'UPDATE anagraficamansione SET codicefiscaleanagrafica = "%s", password = "%s", '
+                . 'nomestruttura = "%s", codicefiscaleproprietario = "%s", tipomansione = "%d"';
+        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getPassword(), 
+                $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(), $obj->getTipoMansione());
         $result = mysql_query($query);
         $this->close();
 
@@ -54,6 +57,7 @@ class AnagraficaMansioneManager extends CRUD {
 
         $toReturn = new AnagraficaMansione();
         $toReturn->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
+        $toReturn->setCodiceFiscaleProprietario($res['codicefiscaleproprietario']);
         $toReturn->setPassword($res['password']);
         $toReturn->setNomeStruttura($res['nomestruttura']);
         $toReturn->setTipoMansione($res['tipomansione']);
@@ -89,6 +93,7 @@ class AnagraficaMansioneManager extends CRUD {
             $res = mysql_fetch_assoc($result);
             $tmp = new AnagraficaMansione();
             $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
+            $tmp->setCodiceFiscaleProprietario($res['codicefiscaleproprietario']);
             $tmp->setPassword($res['password']);
             $tmp->setNomeStruttura($res['nomestruttura']);
             $tmp->setTipoMansione($res['tipomansione']);

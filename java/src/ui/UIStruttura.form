@@ -81,7 +81,7 @@
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelElencoStanze" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonConferma" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonAnnulla" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -125,7 +125,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane3" pref="481" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="jButtonRimuoviStanza" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>

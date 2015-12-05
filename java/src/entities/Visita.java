@@ -5,7 +5,8 @@ public class Visita {
     
     private String numerostanza;
     private String nomeStruttura;
-    private String codicefiscaleanagrafica;
+    private String codiceFiscaleProprietario;
+    private String codiceFiscaleAnagrafica;
     private String ingresso;
     private String uscita;
 
@@ -29,12 +30,20 @@ public class Visita {
         this.nomeStruttura = nomeStruttura;
     }
 
-    public String getCodicefiscaleanagrafica() {
-        return codicefiscaleanagrafica;
+    public String getCodiceFiscaleProprietario() {
+        return codiceFiscaleProprietario;
     }
 
-    public void setCodicefiscaleanagrafica(String codicefiscaleanagrafica) {
-        this.codicefiscaleanagrafica = codicefiscaleanagrafica;
+    public void setCodiceFiscaleProprietario(String codiceFiscaleProprietario) {
+        this.codiceFiscaleProprietario = codiceFiscaleProprietario;
+    }
+
+    public String getCodiceFiscaleAnagrafica() {
+        return codiceFiscaleAnagrafica;
+    }
+
+    public void setCodiceFiscaleAnagrafica(String codiceFiscaleAnagrafica) {
+        this.codiceFiscaleAnagrafica = codiceFiscaleAnagrafica;
     }
 
     public String getIngresso() {

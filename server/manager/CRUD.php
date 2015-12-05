@@ -12,13 +12,9 @@ abstract class CRUD {
 
     abstract function read($obj);
 
-    // obj = OGGETTO
-
     abstract function update($obj);
 
     abstract function delete($obj);
-
-    abstract function readAll();
 
     protected function open() {
         mysql_connect("localhost", "root") or die("ERROR: DATABASE NOT OPEN");

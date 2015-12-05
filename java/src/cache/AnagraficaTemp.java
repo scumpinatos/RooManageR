@@ -3,10 +3,6 @@ package cache;
 
 import entities.Anagrafica;
 
-/**
- *
- * @author giandomenico
- */
 public class AnagraficaTemp {
 
     private static AnagraficaTemp istanza;

@@ -4,6 +4,7 @@
 class Stanza {
 
     private $nomeStruttura;
+    private $codiceFiscaleProprietario;
     private $numero;
     private $tipo;
     private $agibile;
@@ -76,11 +77,20 @@ class Stanza {
         $this->mq = $mq;
         return $this;
     }
+    
+    function getCodiceFiscaleProprietario() {
+        return $this->codiceFiscaleProprietario;
+    }
 
+    function setCodiceFiscaleProprietario($codiceFiscaleProprietario) {
+        $this->codiceFiscaleProprietario = $codiceFiscaleProprietario;
+        return $this;
+    }
             
     function toArray() {
         return array(
             "nomeStruttura" => $this->nomeStruttura,
+            "codiceFiscaleProprietario" => $this->codiceFiscaleProprietario,
             "numero" => $this->numero,
             "tipo" => $this->tipo,
             "agibile" => $this->agibile,

@@ -6,6 +6,7 @@ public class Stanza {
     
     private String numero;
     private String nomeStruttura;
+    private String codiceFiscaleProprietario;
     private int tipo;
     private String descrizione;
     private float mq;
@@ -71,6 +72,14 @@ public class Stanza {
 
     public void setLibera(int libera) {
         this.libera = libera;
+    }
+
+    public String getCodiceFiscaleProprietario() {
+        return codiceFiscaleProprietario;
+    }
+
+    public void setCodiceFiscaleProprietario(String codiceFiscaleProprietario) {
+        this.codiceFiscaleProprietario = codiceFiscaleProprietario;
     }
 
 }

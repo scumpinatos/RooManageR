@@ -3,7 +3,7 @@
 require_once '../server/entity/Anagrafica.php';
 require_once 'CRUD.php';
 
-// MODIFICATO DA GIANDOMENICO
+
 class AnagraficaManager extends CRUD {
 
     function insert($obj) {
@@ -13,7 +13,10 @@ class AnagraficaManager extends CRUD {
 
         $this->open();
         $query = 'INSERT INTO anagrafica VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")';
-        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), $obj->getCognome(), $obj->getDataNascita(), $obj->getIndirizzo(), $obj->getNazionalita(), $obj->getNumeroDocumento(), $obj->getTipoDocumento(), $obj->getTelefono(), $obj->getCellulare(), $obj->getEmail());
+        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), 
+                $obj->getCognome(), $obj->getDataNascita(), $obj->getIndirizzo(), 
+                $obj->getNazionalita(), $obj->getNumeroDocumento(), 
+                $obj->getTipoDocumento(), $obj->getTelefono(), $obj->getCellulare(), $obj->getEmail());
         $result = mysql_query($query);
         $this->close();
 
@@ -30,9 +33,14 @@ class AnagraficaManager extends CRUD {
         }
 
         $this->open();
-        $query = 'UPDATE anagrafica SET codicefiscale = "%s", nome = "%s", cognome = "%s", datanascita = "%s", indirizzo = "%s"' .
-                ', nazionalita = "%s", numerodocumento = "%s", tipodocumento = "%s", telefono = "%s", cellulare = "%s", email = "%s"';
-        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), $obj->getCognome(), $obj->getDataNascita(), $obj->getIndirizzo(), $obj->getNazionalita(), $obj->getNumeroDocumento(), $obj->getTipoDocumento(), $obj->getTelefono(), $obj->getCellulare(), $obj->getEmail());
+        $query = 'UPDATE anagrafica SET codicefiscale = "%s", nome = "%s", cognome = "%s", '
+                . 'datanascita = "%s", indirizzo = "%s", nazionalita = "%s", '
+                . 'numerodocumento = "%s", tipodocumento = "%s", telefono = "%s", '
+                . 'cellulare = "%s", email = "%s" WHERE codicefiscale = "%s"';
+        $query = sprintf($query, $obj->getCodiceFiscale(), $obj->getNome(), $obj->getCognome(), 
+                $obj->getDataNascita(), $obj->getIndirizzo(), $obj->getNazionalita(), 
+                $obj->getNumeroDocumento(), $obj->getTipoDocumento(), 
+                $obj->getTelefono(), $obj->getCellulare(), $obj->getEmail(), $obj->getCodiceFiscale());
         $result = mysql_query($query);
         $this->close();
 

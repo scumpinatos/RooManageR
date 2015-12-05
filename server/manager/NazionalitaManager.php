@@ -3,12 +3,7 @@
 require_once "CRUD.php";
 require_once '../server/entity/Nazionalita.php';
 
-/**
- * Created by PhpStorm.
- * User: ScumpinatoS
- * Date: 13/10/2015
- * Time: 15:42
- */
+
 class NazionalitaManager extends CRUD {
 
     function insert($obj) {

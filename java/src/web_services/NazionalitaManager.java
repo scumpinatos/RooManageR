@@ -50,7 +50,7 @@ public class NazionalitaManager extends HttpConnection {
                 } catch (JsonProcessingException ex) {
                 }
 
-                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.ADD_NAZ, json));
+                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_NAZ, json));
                 if(response.equals("DONE")) {
                     System.out.println(response);
                 }

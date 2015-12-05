@@ -4,6 +4,7 @@ package web_services;
 import constants.ServerCodes;
 import entities.Visita;
 import java.awt.Frame;
+import javax.swing.JDialog;
 
 
 public class VisitaManager extends HttpConnection {
@@ -12,12 +13,12 @@ public class VisitaManager extends HttpConnection {
         
     }
     
-    public void addVisita(Visita input, Frame frame) {
+    public void addVisita(Visita input, JDialog dialog) {
         
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String response = getResponse(String.format("opCode=%s&idStruttura=%s", ServerCodes.ADD_VIS, null));
+                String response = getResponse(String.format("opCode=%s&idStruttura=%s", ServerCodes.INS_VIS, null));
             }
         };
 

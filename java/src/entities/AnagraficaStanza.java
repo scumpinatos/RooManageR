@@ -3,9 +3,10 @@ package entities;
 
 public class AnagraficaStanza {
     
-    private String codicefiscaleanagrafica;
-    private String numerostanza;
+    private String codiceFiscaleAnagrafica;
+    private String numeroStanza;
     private String nomeStruttura;
+    private String codiceFiscaleProprietario;
     private String ingresso;
     private String uscita;
     private float costo;
@@ -14,20 +15,20 @@ public class AnagraficaStanza {
     
     }
 
-    public String getCodicefiscaleanagrafica() {
-        return codicefiscaleanagrafica;
+    public String getCodiceFiscaleAnagrafica() {
+        return codiceFiscaleAnagrafica;
     }
 
-    public void setCodicefiscaleanagrafica(String codicefiscaleanagrafica) {
-        this.codicefiscaleanagrafica = codicefiscaleanagrafica;
+    public void setCodiceFiscaleAnagrafica(String codiceFiscaleAnagrafica) {
+        this.codiceFiscaleAnagrafica = codiceFiscaleAnagrafica;
     }
 
-    public String getNumerostanza() {
-        return numerostanza;
+    public String getNumeroStanza() {
+        return numeroStanza;
     }
 
-    public void setNumerostanza(String numerostanza) {
-        this.numerostanza = numerostanza;
+    public void setNumeroStanza(String numeroStanza) {
+        this.numeroStanza = numeroStanza;
     }
 
     public String getNomeStruttura() {
@@ -54,8 +55,6 @@ public class AnagraficaStanza {
         this.uscita = uscita;
     }
 
-    
-
     public float getCosto() {
         return costo;
     }
@@ -63,6 +62,13 @@ public class AnagraficaStanza {
     public void setCosto(float costo) {
         this.costo = costo;
     }
-    
+
+    public String getCodiceFiscaleProprietario() {
+        return codiceFiscaleProprietario;
+    }
+
+    public void setCodiceFiscaleProprietario(String codiceFiscaleProprietario) {
+        this.codiceFiscaleProprietario = codiceFiscaleProprietario;
+    }
     
 }

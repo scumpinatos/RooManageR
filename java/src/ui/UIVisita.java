@@ -3,7 +3,6 @@ package ui;
 import cache.AnagraficaTemp;
 import cache.ListaNazionalita;
 import cache.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Documenti;
 import entities.Anagrafica;
 import entities.Visita;
@@ -11,24 +10,25 @@ import interfaces.ICallback;
 import java.awt.Frame;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import web_services.AnagraficaManager;
 import web_services.NazionalitaManager;
+import web_services.VisitaManager;
 
 public class UIVisita extends JDialog {
 
     Boolean found = null;
-    
+    JDialog dialog = null;
+
     public UIVisita(Frame frame, boolean bln, String numStanza) {
         super(frame, bln);
         initComponents();
+        dialog = this;
         this.setLocationRelativeTo(null);
-        
+
         // SETTAGGI INIZIALI
         dataOraAttuale();
         caricaNazionalita();
@@ -136,7 +136,7 @@ public class UIVisita extends JDialog {
         jRadioButtonPassaporto.setEnabled(false);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Numero Documento");
+        jLabel8.setText("Num Documento");
 
         jTextFieldNumeroDocumento.setEnabled(false);
 
@@ -247,7 +247,7 @@ public class UIVisita extends JDialog {
                 .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabelNota))
             .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelInfoLayout.createSequentialGroup()
@@ -293,15 +293,15 @@ public class UIVisita extends JDialog {
                         .addComponent(jButtonConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextFieldCodiceFiscale, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addComponent(jButtonControlla, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -320,7 +320,7 @@ public class UIVisita extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -334,20 +334,20 @@ public class UIVisita extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonAnnulla)
                     .addComponent(jButtonConferma))
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnnullaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnullaActionPerformed
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAnnullaActionPerformed
 
     private void jButtonControllaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControllaActionPerformed
-        
-        if(new AnagraficaManager().search(jTextFieldCodiceFiscale.getText())) {
+
+        /* if(new AnagraficaManager().search(jTextFieldCodiceFiscale.getText())) {
             JOptionPane.showMessageDialog(rootPane, "Codice fiscale presente in archivio.\nLe informazioni verranno inserite automaticamente");
             popolaCampi(AnagraficaTemp.getInstance().getAnagraficaTemp());
             found = true;
@@ -355,23 +355,26 @@ public class UIVisita extends JDialog {
             JOptionPane.showMessageDialog(rootPane, "Codice fiscale non presente in archivio.\nInserire manualmente le informazioni");
             attivaCampi();
             found = false;
-        }
-        
+        } */
+
     }//GEN-LAST:event_jButtonControllaActionPerformed
 
     private void jButtonConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaActionPerformed
+
+        Visita newVisita = new Visita();
+
+        newVisita.setNomeStruttura(User.getInstance().getUtente().getNomeStruttura());
+        newVisita.setCodiceFiscaleProprietario(User.getInstance().getUtente().getCodiceFiscaleProprietario());
+        newVisita.setNumerostanza(jTextFieldStanza.getText());
+        newVisita.setIngresso(jTextFieldIngresso.getText());
         
-        if(found) {
-            try {
-                Visita newVisita = new Visita();
-                newVisita.setCodicefiscaleanagrafica(AnagraficaTemp.getInstance().getAnagraficaTemp().getCodiceFiscale());
-                newVisita.setNomeStruttura(User.getInstance().getUtente().getNomeStruttura());
-                newVisita.setNumerostanza(jTextFieldStanza.getText());
-                newVisita.setIngresso(jTextFieldIngresso.getText());
-                new ObjectMapper().writeValue(System.out, newVisita);
-            } catch (IOException ex) {
-            }
-        } else if(!found) {
+        if (found) {
+
+            newVisita.setCodiceFiscaleAnagrafica(AnagraficaTemp.getInstance().getAnagraficaTemp().getCodiceFiscale());
+            
+        } else if (!found) {
+            
+            // CREO LA NUOVA ANAGRAFICA
             Anagrafica newAnagrafica = new Anagrafica();
             newAnagrafica.setCodiceFiscale(jTextFieldCodiceFiscale.getText());
             newAnagrafica.setNome(jTextFieldNome.getText());
@@ -379,20 +382,31 @@ public class UIVisita extends JDialog {
             newAnagrafica.setDataNascita(jFormattedTextFieldData.getText());
             newAnagrafica.setIndirizzo(jTextFieldIndirizzo.getText());
             newAnagrafica.setNazionalita((String) jComboBoxNazionalita.getSelectedItem());
-            
+
             // TIPO DOCUMENTO
-            if(jRadioButtonCartaIdentita.isSelected())
+            if (jRadioButtonCartaIdentita.isSelected()) {
                 newAnagrafica.setTipoDocumento(Documenti.CARTA_IDENTITA);
-            if(jRadioButtonPatente.isSelected())
+            }
+            if (jRadioButtonPatente.isSelected()) {
                 newAnagrafica.setTipoDocumento(Documenti.PATENTE);
-            if(jRadioButtonPassaporto.isSelected())
+            }
+            if (jRadioButtonPassaporto.isSelected()) {
                 newAnagrafica.setTipoDocumento(Documenti.PASSAPORTO);
-                
+            }
+
             newAnagrafica.setNumeroDocumento(jTextFieldNumeroDocumento.getText());
             newAnagrafica.setTelefono(jTextFieldTelefono.getText());
             newAnagrafica.setCellulare(jTextFieldCellulare.getText());
             newAnagrafica.setEmail(jTextFieldEmail.getText());
+            
+            // SALVO LA NUOVA ANAGRAFICA
+            new AnagraficaManager().addAnagrafica(newAnagrafica);
+            
+            newVisita.setCodiceFiscaleAnagrafica(newAnagrafica.getCodiceFiscale());
         }
+        
+        // SALVO LA NUOVA VISITA
+        new VisitaManager().addVisita(newVisita, this);
     }//GEN-LAST:event_jButtonConfermaActionPerformed
 
 
@@ -445,15 +459,15 @@ public class UIVisita extends JDialog {
         jFormattedTextFieldData.setEditable(false);
         jTextFieldIndirizzo.setText(input.getIndirizzo());
         jTextFieldIndirizzo.setEditable(false);
-        
+
         // NAZIONALITA
         String[] items = new String[1];
         items[0] = input.getNazionalita();
         jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
         jComboBoxNazionalita.setEnabled(false);
-        
+
         // TIPO DOCUMENTO
-        switch(input.getTipoDocumento()) {
+        switch (input.getTipoDocumento()) {
             case Documenti.CARTA_IDENTITA:
                 jRadioButtonCartaIdentita.setSelected(true);
                 jRadioButtonPassaporto.setEnabled(false);
@@ -468,9 +482,9 @@ public class UIVisita extends JDialog {
                 jRadioButtonCartaIdentita.setEnabled(false);
                 jRadioButtonPassaporto.setSelected(true);
                 jRadioButtonPatente.setEnabled(false);
-                break;      
+                break;
         }
-        
+
         jTextFieldNumeroDocumento.setText(input.getNumeroDocumento());
         jTextFieldNumeroDocumento.setEditable(false);
         jTextFieldTelefono.setText(input.getTelefono());
@@ -479,9 +493,9 @@ public class UIVisita extends JDialog {
         jTextFieldCellulare.setEditable(false);
         jTextFieldEmail.setText(input.getEmail());
         jTextFieldEmail.setEditable(false);
-        
+
     }
-    
+
     private void attivaCampi() {
 
         jTextFieldNome.setEnabled(true);
@@ -494,51 +508,52 @@ public class UIVisita extends JDialog {
         jTextFieldCellulare.setEnabled(true);
         jTextFieldEmail.setEnabled(true);
         jLabelNota.setText("Inserire almeno UNO dei campi indicati con *");
-        
+
     }
-    
+
     private void dataOraAttuale() {
-        
+
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY - hh:mm");
         jTextFieldIngresso.setText(format.format(new GregorianCalendar().getTime()));
         jTextFieldIngresso.setEditable(false);
     }
 
     private void caricaNazionalita() {
-        
+
         ItemListener listener = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                
-                if(e.getItem().equals("Altro..")) {
-                    UINazionalita dialog = new UINazionalita(null , true);
+
+                if (e.getItem().equals("Altro..")) {
+                    UINazionalita dialog = new UINazionalita(null, true);
                     dialog.setVisible(true);
-                    while(dialog.isShowing()) {}
+                    while (dialog.isShowing()) {
+                    }
                     System.out.println("DIALOG CHIUSA");
                 }
             }
         };
-        
+
         ICallback callback = new ICallback<ListaNazionalita>() {
             @Override
             public void onResult(ListaNazionalita obj) {
-                
-                String[] items = new String[obj.size()+1];
-                
+
+                String[] items = new String[obj.size() + 1];
+
                 int i = 0;
-                
-                for(;i<obj.size();i++) {
+
+                for (; i < obj.size(); i++) {
                     items[i] = obj.get(i).getAbbreviazione();
                 }
                 items[i] = "Altro..";
-                
+
                 jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
-                
+
             }
         };
-        
+
         new NazionalitaManager().getNazionalita(callback);
-        
-        jComboBoxNazionalita.addItemListener(listener);      
+
+        jComboBoxNazionalita.addItemListener(listener);
     }
 }

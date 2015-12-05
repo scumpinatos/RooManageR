@@ -5,6 +5,7 @@ class AnagraficaStanza {
     private $codiceFiscaleAnagrafica;
     private $numeroStanza;
     private $nomeStruttura;
+    private $codiceFiscaleProprietario;
     private $ingresso;
     private $uscita;
     private $costo;
@@ -61,9 +62,20 @@ class AnagraficaStanza {
         $this->costo = $costo;
     }
     
+    function getCodiceFiscaleProprietario() {
+        return $this->codiceFiscaleProprietario;
+    }
+
+    function setCodiceFiscaleProprietario($codiceFiscaleProprietario) {
+        $this->codiceFiscaleProprietario = $codiceFiscaleProprietario;
+        return $this;
+    }
+
+        
     function toArray() {
         return array(
             "nomeStruttura" => $this->nomeStruttura,
+            "codiceFiscaleProprietario" => $this->codiceFiscaleProprietario,
             "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
             "numeroStanza" => $this->numeroStanza,
             "ingresso" => $this->ingresso,

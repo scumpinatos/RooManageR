@@ -75,8 +75,12 @@ public class AnagraficaManager extends HttpConnection {
         new Thread(runnable).start();
     }
 
-    public boolean search(String cf) {
-
+    public void addAnagrafica(Anagrafica input) {
+        
+    }
+    
+    public void search(String cf) {
+        
         Runnable runnable = new Runnable() {
 
             @Override
@@ -98,6 +102,5 @@ public class AnagraficaManager extends HttpConnection {
         thread.start();
         while (thread.getState() != Thread.State.TERMINATED) {
         }
-        return false;
     }
 }

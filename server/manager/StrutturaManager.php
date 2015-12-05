@@ -4,11 +4,7 @@ require_once 'CRUD.php';
 require_once '../server/entity/Struttura.php';
 require_once '../server/entity/Stanza.php';
 
-/**
- * User: UnisaGiax - Giandomenico Izzo <g.izzo24@studenti.unisa.it>
- * Date: 13/10/2015
- * Time: 19:23
- */
+
 class StrutturaManager extends CRUD {
 
     function insert($obj) {
@@ -16,8 +12,9 @@ class StrutturaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'INSERT INTO struttura(indirizzo, codicefiscaleanagrafica, descrizione) VALUES ("%s","%s","%s")';
-        $query = sprintf($query, $obj->getIndirizzo(), $obj->getCodiceFiscaleAnagrafica(), $obj->getDescrizione());
+        $query = 'INSERT INTO struttura VALUES ("%s","%s","%s","%s","%d")';
+        $query = sprintf($query, $obj->getNome(), $obj->getCodiceFiscaleAnagrafica(), 
+                $obj->getIndirizzo(), $obj->getDescrizione(), $obj->getAgibile());
         $result = mysql_query($query);
         $this->close();
 
@@ -32,8 +29,10 @@ class StrutturaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'UPDATE struttura SET indirizzo = "%s", descrizione = "%s", codicefiscaleanagrafica = "%s"';
-        $query = sprintf($query, $obj->getIndirizzo(), $obj->getDescrizione(), $obj->getCodiceFiscaleAnagrafica());
+        $query = 'UPDATE struttura SET nome = "%s", codicefiscaleanagrafica = "%s",  '
+                . 'indirizzo = "%s", descrizione = "%s", agibile = "%d"';
+        $query = sprintf($query, $obj->getIndirizzo(), $obj->getCodiceFiscaleAnagrafica(),
+                $obj->getIndirizzo(), $obj->getDescrizione(), $obj->getAgibile());
         $result = mysql_query($query);
         $this->close();
 
@@ -45,8 +44,8 @@ class StrutturaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'SELECT * FROM struttura WHERE nome = "%s"';
-        $query = sprintf($query, $obj->getNome());
+        $query = 'SELECT * FROM struttura WHERE nome = "%s" AND codicefiscaleanagrafica = "%s"';
+        $query = sprintf($query, $obj->getNome(), $obj->getCodiceFiscaleAnagrafica());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -69,17 +68,21 @@ class StrutturaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'DELETE FROM struttura WHERE nome = "%s"';
-        $query = sprintf($query, $obj->getNome());
+        $query = 'DELETE FROM struttura WHERE nome = "%s" AND codicefiscaleanagrafica = "%s';
+        $query = sprintf($query, $obj->getNome(). $obj->getCodiceFiscaleAnagrafica());
         $result = mysql_query($query);
         $this->close();
 
         return $result;
     }
 
-    function readAll() {
+    function readAll($obj) {
+        if(!($obj instanceof Anagrafica))
+            return false;
+        
         $this->open();
-        $query = 'SELECT * FROM struttura';
+        $query = 'SELECT * FROM struttura WHERE codicefiscaleanagrafica = "%s';
+        $query = sprintf($query, $obj->getCodiceFiscale());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -94,64 +97,6 @@ class StrutturaManager extends CRUD {
             $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
             $tmp->setIndirizzo($res['indirizzo']);
             $tmp->setDescrizione($res['descrizione']);
-
-            $toReturn[$i] = $tmp;
-        }
-
-        return $toReturn;
-    }
-
-    function getStruttureByAnagrafica($obj) {
-        if (!($obj instanceof Anagrafica))
-            return false;
-
-        $this->open();
-        $query = 'SELECT * FROM struttura WHERE codicefiscaleanagrafica = "%s"';
-        $query = sprintf($query, $obj->getCodiceFiscale());
-        $result = mysql_query($query);
-        if (mysql_num_rows($result) <= 0)
-            return false;
-        $this->close();
-
-        $toReturn = array();
-        for ($i = 0; $i < mysql_num_rows($result); $i++) {
-            $res = mysql_fetch_assoc($result);
-            $tmp = new Struttura();
-            $tmp->setNome($res['nome']);
-            $tmp->setAgibile($res['agibile']);
-            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
-            $tmp->setIndirizzo($res['indirizzo']);
-            $tmp->setDescrizione($res['descrizione']);
-
-            $toReturn[$i] = $tmp ->toArray();
-        }
-
-        return $toReturn;
-    }
-
-    function getStanzeByStruttura($obj) {
-        if (!($obj instanceof Struttura))
-            return false;
-
-        $this->open();
-        $query = 'SELECT * FROM stanza WHERE nomestruttura = "%d"';
-        $query = sprintf($query, $obj->getNome());
-        $result = mysql_query($query);
-        if (mysql_num_rows($result) <= 0)
-            return false;
-        $this->close();
-
-        $toReturn = array();
-        for ($i = 0; $i < mysql_num_rows($result); $i++) {
-            $res = mysql_fetch_assoc($result);
-            $tmp = new Stanza();
-            $tmp->setNomeStruttura($res['nomestruttura']);
-            $tmp->setNumero($res['numero']);
-            $tmp->setTipo($res['tipo']);
-            $tmp->setDescrizione($res['descrizione']);
-            $tmp->setMq($res['mq']);
-            $tmp->setAgibile($res['agibile']);
-            $tmp->setLibera($res['libera']);
 
             $toReturn[$i] = $tmp->toArray();
         }

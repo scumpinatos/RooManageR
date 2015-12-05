@@ -5,6 +5,7 @@ class Visita {
     
     private $numeroStanza;
     private $nomeStruttura;
+    private $codiceFiscaleProprietario;
     private $codiceFiscaleAnagrafica;
     private $ingresso;
     private $uscita;
@@ -53,10 +54,19 @@ class Visita {
         $this->uscita = $uscita;
     }
 
+    function getCodiceFiscaleProprietario() {
+        return $this->codiceFiscaleProprietario;
+    }
+
+    function setCodiceFiscaleProprietario($codiceFiscaleProprietario) {
+        $this->codiceFiscaleProprietario = $codiceFiscaleProprietario;
+        return $this;
+    }
     
     function toArray() {
         return array(
             "nomeStruttura" => $this->nomeStruttura,
+            "codiceFiscaleProprietario" => $this->codiceFiscaleProprietario,
             "codiceFiscaleAnagrafica" => $this->codicefiscaleanagrafica,
             "numeroStanza" => $this->numerostanza,
             "ingresso" => $this->ingresso,

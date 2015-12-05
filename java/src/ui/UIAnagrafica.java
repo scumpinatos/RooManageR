@@ -5,12 +5,12 @@ import cache.ListaNazionalita;
 import constants.Documenti;
 import entities.Anagrafica;
 import interfaces.ICallback;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import web_services.NazionalitaManager;
 
 
@@ -91,7 +91,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jRadioButtonPassaporto.setText("Passaporto");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Numero Documento");
+        jLabel8.setText("Num Documento");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Telefono *");
@@ -253,21 +253,11 @@ public class UIAnagrafica extends javax.swing.JDialog {
 
     // MODALITA' D'APERTURA
     public void visualizza(Anagrafica input) {
-    java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                popolaCampi(input);
-                setVisible(true);
-            }
-        });
+        popolaCampi(input);
     }
     
     public void nuovo() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                caricaNazionalita();
-                setVisible(true);
-            }
-        });
+        caricaNazionalita();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -356,6 +346,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
+                JOptionPane.showMessageDialog(null, "Modalità modifica attiva.\nIl codice fiscale non può essere modificato.");
                 attivaCampi();
             }
         });
@@ -364,7 +355,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
     
     private void attivaCampi() {
 
-        jTextFieldCodiceFiscale.setEditable(true);
+        jTextFieldCodiceFiscale.setEnabled(false);
         jTextFieldNome.setEditable(true);
         jTextFieldCognome.setEditable(true);
         jFormattedTextFieldData.setEditable(true);
@@ -384,7 +375,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
             public void itemStateChanged(ItemEvent e) {
                 
                 if(e.getItem().equals("Altro..")) {
-                    //new UINazionalita(parent, true).setVisible(true);
+                    new UINazionalita(null, true).setVisible(true);
                 }
             }
         };

@@ -7,6 +7,7 @@ public class AnagraficaMansione {
     private String codiceFiscaleAnagrafica;
     private String password;
     private String nomeStruttura;
+    private String codiceFiscaleProprietario;
     private int tipoMansione;
 
 
@@ -40,6 +41,14 @@ public class AnagraficaMansione {
 
     public void setTipoMansione(int tipoMansione) {
         this.tipoMansione = tipoMansione;
+    }
+
+    public String getCodiceFiscaleProprietario() {
+        return codiceFiscaleProprietario;
+    }
+
+    public void setCodiceFiscaleProprietario(String codiceFiscaleProprietario) {
+        this.codiceFiscaleProprietario = codiceFiscaleProprietario;
     }
     
 }
