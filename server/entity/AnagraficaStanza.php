@@ -6,6 +6,7 @@ class AnagraficaStanza {
     private $numeroStanza;
     private $nomeStruttura;
     private $codiceFiscaleProprietario;
+    private $tipo;
     private $ingresso;
     private $uscita;
     private $costo;
@@ -71,6 +72,14 @@ class AnagraficaStanza {
         return $this;
     }
 
+    function getTipo() {
+        return $this->tipo;
+    }
+
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
+        return $this;
+    }
         
     function toArray() {
         return array(
@@ -78,6 +87,7 @@ class AnagraficaStanza {
             "codiceFiscaleProprietario" => $this->codiceFiscaleProprietario,
             "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
             "numeroStanza" => $this->numeroStanza,
+            "tipo" => $this->tipo,
             "ingresso" => $this->ingresso,
             "uscita" => $this->uscita,
             "costo" => $this->costo

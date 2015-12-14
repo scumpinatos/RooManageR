@@ -4,7 +4,6 @@ package ui;
 import cache.lists.ListaAnagrafica;
 import cache.lists.ListaAnagraficaStanza;
 import cache.lists.ListaStruttura;
-import cache.lists.ListaVisita;
 import cache.singular.UtenteConnesso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -242,27 +241,7 @@ public class UIRegistroMovimenti extends javax.swing.JDialog {
     
     private void registroVisite() {
 
-        new StrutturaManager().readAllVisitaStruttura(cf, nome);
         
-        String[] colonne = new String[4];
-        colonne[0] = "Codice fiscale";
-        colonne[1] = "Numero stanza";
-        colonne[2] = "Ingresso";
-        colonne[3] = "Uscita";
-
-        ListaVisita visite = ListaVisita.getIstanza();
-        int nVis = visite.size();
-
-        String[][] dati = new String[nVis][4];
-        for (int i = 0; i < nVis; i++) {
-            dati[i][0] = visite.get(i).getCodiceFiscaleAnagrafica();
-            dati[i][1] = visite.get(i).getNumeroStanza();
-            dati[i][2] = visite.get(i).getIngresso();
-            dati[i][3] = visite.get(i).getUscita();
-        }
-
-        TableModel model = new DefaultTableModel(dati, colonne);
-        jTable.setModel(model);
 
     }
 }

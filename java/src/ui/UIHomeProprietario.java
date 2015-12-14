@@ -5,12 +5,10 @@ import cache.lists.ListaAnagraficaStanza;
 import cache.lists.ListaOperazioni;
 import cache.lists.ListaStanza;
 import cache.lists.ListaStruttura;
-import cache.lists.ListaVisita;
 import cache.singular.UtenteConnesso;
 import constants.Mansioni;
 import constants.TipiStanza;
 import entities.AnagraficaStanza;
-import entities.Visita;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
@@ -48,20 +46,18 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelHome = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxStrutture1 = new javax.swing.JComboBox<>();
+        jComboBoxStrutture1 = new javax.swing.JComboBox<String>();
         jPanelElencoAnagStanza = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAnagStanza = new javax.swing.JTable();
-        jButtonDettagliAS = new javax.swing.JButton();
         jPanelElencoVisit = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableVisita = new javax.swing.JTable();
-        jButtonDettagliV = new javax.swing.JButton();
         jPanelGestStruttura = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBoxStrutture2 = new javax.swing.JComboBox<>();
+        jComboBoxStrutture2 = new javax.swing.JComboBox<String>();
         jPanelElencoStanze = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableStanze = new javax.swing.JTable();
@@ -125,13 +121,6 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableAnagStanza);
 
-        jButtonDettagliAS.setText("Dettagli");
-        jButtonDettagliAS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDettagliASActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelElencoAnagStanzaLayout = new javax.swing.GroupLayout(jPanelElencoAnagStanza);
         jPanelElencoAnagStanza.setLayout(jPanelElencoAnagStanzaLayout);
         jPanelElencoAnagStanzaLayout.setHorizontalGroup(
@@ -139,8 +128,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
             .addGroup(jPanelElencoAnagStanzaLayout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jButtonDettagliAS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
         );
         jPanelElencoAnagStanzaLayout.setVerticalGroup(
             jPanelElencoAnagStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,9 +136,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonDettagliAS)
-                .addContainerGap())
+                .addGap(53, 53, 53))
         );
 
         jLabel3.setText("Visite nella struttura");
@@ -170,13 +156,6 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableVisita);
 
-        jButtonDettagliV.setText("Dettagli");
-        jButtonDettagliV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDettagliVActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelElencoVisitLayout = new javax.swing.GroupLayout(jPanelElencoVisit);
         jPanelElencoVisit.setLayout(jPanelElencoVisitLayout);
         jPanelElencoVisitLayout.setHorizontalGroup(
@@ -184,10 +163,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
             .addGroup(jPanelElencoVisitLayout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelElencoVisitLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonDettagliV, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
         );
         jPanelElencoVisitLayout.setVerticalGroup(
             jPanelElencoVisitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,9 +171,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jButtonDettagliV)
-                .addContainerGap())
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout jPanelHomeLayout = new javax.swing.GroupLayout(jPanelHome);
@@ -387,7 +361,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
                     .addComponent(jTextFieldDir, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonAddDir, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jButtonAddDir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonAddPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -532,7 +506,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelOperazioniStruttura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator3))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelGestStruttureLayout.setVerticalGroup(
             jPanelGestStruttureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -607,22 +581,6 @@ public class UIHomeProprietario extends javax.swing.JFrame {
 
         selectedVisita = ((JTable) evt.getSource()).getSelectedRow();
     }//GEN-LAST:event_jTableVisitaMouseClicked
-
-    private void jButtonDettagliASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDettagliASActionPerformed
-
-        AnagraficaStanza selected = ListaAnagraficaStanza.getIstanza().get(selectedAnagStan);
-        UIAnagStaVisitaEnd view = new UIAnagStaVisitaEnd(null, true, 0);
-        view.popolaAnagraficaStanza(selected);
-        view.setVisible(true);
-    }//GEN-LAST:event_jButtonDettagliASActionPerformed
-
-    private void jButtonDettagliVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDettagliVActionPerformed
-
-        Visita selected = ListaVisita.getIstanza().get(selectedVisita);
-        UIAnagStaVisitaEnd view = new UIAnagStaVisitaEnd(null, true, 0);
-        view.popolaVisita(selected);
-        view.setVisible(true);
-    }//GEN-LAST:event_jButtonDettagliVActionPerformed
 
     // EVENTI PANEL GESTISCI STRUTTURA
     private void jTableStanzeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableStanzeMouseClicked
@@ -743,8 +701,6 @@ public class UIHomeProprietario extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddStrutt;
     private javax.swing.JButton jButtonDeleteStanza;
     private javax.swing.JButton jButtonDeleteStrutt;
-    private javax.swing.JButton jButtonDettagliAS;
-    private javax.swing.JButton jButtonDettagliV;
     private javax.swing.JButton jButtonModStanza;
     private javax.swing.JButton jButtonModStrutt;
     private javax.swing.JButton jButtonRemDir;
@@ -970,8 +926,6 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         // SCARICO LE INFORMAZIONI DAL DATABASE
         strutturaManager.readAllAnagraficaStanzaStruttura(
                         UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica(), selectedStrutt);
-        strutturaManager.readAllVisitaStruttura(
-                        UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica(), selectedStrutt);
 
         // ANAGRAFICA STANZA
         ListaAnagraficaStanza permanenze = ListaAnagraficaStanza.getIstanza();
@@ -994,24 +948,6 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         jTableAnagStanza.setModel(model);
 
         // VISITE
-        ListaVisita visite = ListaVisita.getIstanza();
-        int nVis = visite.size();
-
-        String[] colonne2 = new String[3];
-        colonne2[0] = "Numero stanza";
-        colonne2[1] = "Codice fiscale";
-        colonne2[2] = "Data ed ora ingresso";
-
-        Object[][] data2 = new Object[nVis][3];
-
-        for (int j = 0; j < nVis; j++) {
-            data2[j][0] = visite.get(j).getNumeroStanza();
-            data2[j][1] = visite.get(j).getCodiceFiscaleAnagrafica();
-            data2[j][2] = visite.get(j).getIngresso();
-        }
-
-        TableModel model2 = new DefaultTableModel(data2, colonne2);
-        jTableVisita.setModel(model2);
     }
 
     private String getStringTipo(int input) {

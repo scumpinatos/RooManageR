@@ -7,7 +7,6 @@ import cache.lists.ListaAnagrafica;
 import cache.lists.ListaAnagraficaMansione;
 import cache.lists.ListaOperazioni;
 import cache.lists.ListaStanza;
-import cache.lists.ListaVisita;
 import cache.singular.StrutturaTemp;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -197,26 +196,6 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
-    public void readAllVisitaStruttura(String cfProprietario, String nomeStruttura) {
-        
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                
-                String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s", 
-                        ServerCodes.READ_ALL_VIS, cfProprietario, nomeStruttura));
-                try {
-                    ListaVisita.setIstanza(new ObjectMapper().readValue(response, ListaVisita.class));
-                } catch (IOException ex) {
-                }
-            }
-        };
-
-        Thread thread = new Thread(runnable);
-        thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
-    }
-    
     public void readAllStanzeStruttura(String nomeStruttura, String cfProprietario) {
 
         Runnable runnable = new Runnable() {
@@ -255,23 +234,7 @@ public class StrutturaManager extends HttpConnection {
         Thread thread = new Thread(runnable);
         thread.start();
         while(thread.getState() != Thread.State.TERMINATED) { }
-        
-        Runnable runnable2 = new Runnable() {
-            @Override
-            public void run() {
-                
-                String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s", 
-                        ServerCodes.READ_VIS_CORSO, cfProprietario, nomeStruttura));
-                try {
-                    ListaVisita.setIstanza(new ObjectMapper().readValue(response, ListaVisita.class));
-                } catch (IOException ex) {
-                }
-            }
-        };
 
-        Thread thread2 = new Thread(runnable2);
-        thread2.start();
-        while(thread2.getState() != Thread.State.TERMINATED) { }
     }
     
     public void readAllAnagraficaMansioneStruttura(String cfProprietario, String nomeStruttura) {

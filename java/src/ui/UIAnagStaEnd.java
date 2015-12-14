@@ -3,21 +3,19 @@ package ui;
 
 import cache.lists.ListaStanza;
 import entities.AnagraficaStanza;
-import entities.Visita;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import web_services.AnagraficaStanzaManager;
 import web_services.StanzaManager;
-import web_services.VisitaManager;
 
 
-public class UIAnagStaVisitaEnd extends javax.swing.JDialog {
+public class UIAnagStaEnd extends javax.swing.JDialog {
 
     private int numeroStanza;
     
-    public UIAnagStaVisitaEnd(java.awt.Frame parent, boolean modal, int numStanza) {
+    public UIAnagStaEnd(java.awt.Frame parent, boolean modal, int numStanza) {
         super(parent, modal);
         initComponents();
         numeroStanza = numStanza;
@@ -162,6 +160,8 @@ public class UIAnagStaVisitaEnd extends javax.swing.JDialog {
         jTextFieldCf.setEditable(false);
         jTextFieldIngresso.setText(input.getIngresso());
         jTextFieldIngresso.setEditable(false);
+        if(input.getTipo() == 1)
+            jTextFieldCosto.setEnabled(true);
         dataOraAttuale();
         
         jButtonConferma.addActionListener(new ActionListener() {
@@ -169,31 +169,10 @@ public class UIAnagStaVisitaEnd extends javax.swing.JDialog {
             public void actionPerformed(ActionEvent e) {
                 
                 input.setUscita(jTextFieldUscita.getText());
-                input.setCosto(Float.parseFloat(jTextFieldCosto.getText()));
+                if(jTextFieldCosto.isEnabled())
+                    input.setCosto(Float.parseFloat(jTextFieldCosto.getText()));
                 new AnagraficaStanzaManager().updateAnagraficaStanza(input);
                 aggiornaStanze();
-                setVisible(false);
-            }
-        });
-    }
-    
-    public void popolaVisita(Visita input) {
-        
-        jTextFieldNumeroStanza.setText(input.getNumeroStanza());
-        jTextFieldNumeroStanza.setEditable(false);
-        jTextFieldCf.setText(input.getCodiceFiscaleAnagrafica());
-        jTextFieldCf.setEditable(false);
-        jTextFieldIngresso.setText(input.getIngresso());
-        jTextFieldIngresso.setEditable(false);
-        dataOraAttuale();
-        jTextFieldCosto.setEnabled(false);
-        
-        jButtonConferma.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-                input.setUscita(jTextFieldUscita.getText());
-                new VisitaManager().updateVisita(input);
                 setVisible(false);
             }
         });

@@ -11,10 +11,10 @@ class AnagraficaStanzaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'INSERT INTO anagraficastanza VALUES ("%s","%s","%s","%s","%s","%s","%s")';
+        $query = 'INSERT INTO anagraficastanza VALUES ("%s","%s","%s","%s", "%d", %s","%s","%s")';
         $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getNumeroStanza(), 
-                $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(), 
-                $obj->getIngresso(), $obj->getUscita(), $obj->getCosto());
+                $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(),
+                $obj->getTipo(), $obj->getIngresso(), $obj->getUscita(), $obj->getCosto());
         $result = mysql_query($query);
         $this->close();
 
@@ -31,11 +31,11 @@ class AnagraficaStanzaManager extends CRUD {
         $this->open();
         $query = 'UPDATE anagraficastanza SET codicefiscaleanagrafica = "%s", numerostanza = "%s", '
                 . 'nomestruttura = "%s", codicefiscaleproprietario = "%s", '
-                . 'ingresso = "%s", uscita = "%s", costo = "%s" WHERE '
+                . 'tipo = "%d", ingresso = "%s", uscita = "%s", costo = "%s" WHERE '
                 . 'numerostanza = "%s" AND nomestruttura = "%s" AND codicefiscaleproprietario = "%s"';
         $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getNumeroStanza(), 
                 $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(), 
-                $obj->getIngresso(), $obj->getUscita(), $obj->getCosto(),
+                $obj->getTipo(), $obj->getIngresso(), $obj->getUscita(), $obj->getCosto(),
                 $obj->getNumeroStanza(), $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario());
         $result = mysql_query($query);
         $this->close();
@@ -60,6 +60,7 @@ class AnagraficaStanzaManager extends CRUD {
         $toReturn->setNumeroStanza($res['numerostanza']);
         $toReturn->setNomeStruttura($res['nomestruttura']);
         $toReturn->setCodiceFiscaleProprietario($res['codicefiscaleproprietario']);
+        $toReturn->setTipo($res['tipo']);
         $toReturn->setIngresso($res['ingresso']);
         $toReturn->setUscita($res['uscita']);
         $toReturn->setCosto($res['costo']);
@@ -91,6 +92,7 @@ class AnagraficaStanzaManager extends CRUD {
             $tmp->setNumeroStanza($res['numerostanza']);
             $tmp->setNomeStruttura($res['nomestruttura']);
             $tmp->setCodiceFiscaleProprietario($res['codicefiscaleproprietario']);
+            $toReturn->setTipo($res['tipo']);
             $tmp->setIngresso($res['ingresso']);
             $tmp->setUscita($res['uscita']);
             $tmp->setCosto($res['costo']);
@@ -121,6 +123,7 @@ class AnagraficaStanzaManager extends CRUD {
             $tmp->setNumeroStanza($res['numerostanza']);
             $tmp->setNomeStruttura($res['nomestruttura']);
             $tmp->setCodiceFiscaleProprietario($res['codicefiscaleproprietario']);
+            $toReturn->setTipo($res['tipo']);
             $tmp->setIngresso($res['ingresso']);
             $tmp->setUscita($res['uscita']);
             $tmp->setCosto($res['costo']);

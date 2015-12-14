@@ -7,6 +7,7 @@ public class AnagraficaStanza {
     private String numeroStanza;
     private String nomeStruttura;
     private String codiceFiscaleProprietario;
+    private int tipo;
     private String ingresso;
     private String uscita;
     private float costo;
@@ -69,6 +70,14 @@ public class AnagraficaStanza {
 
     public void setCodiceFiscaleProprietario(String codiceFiscaleProprietario) {
         this.codiceFiscaleProprietario = codiceFiscaleProprietario;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
     
 }
