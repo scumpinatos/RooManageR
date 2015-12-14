@@ -26,18 +26,16 @@ class StanzaManager extends CRUD {
         if (!($obj instanceof Stanza))
             return false;
 
-        if (!$this->read($obj))
+        if ($this->read($obj) == false)
             return false;
 
         $this->open();
-        $query = 'UPDATE stanza SET nomestruttura = "%s", codicefiscaleproprietario = "%s", '
-                . 'numero = "%s", tipo = "%s", descrizione = "%s",'
-                . 'mq = "%f", agibile = "%d", libera = "%d" WHERE'
-                . 'nomestruttura = "%s" AND codicefiscaleproprietario = "%s"';
-        $query = sprintf($query, $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(),
-                $obj->getNumero(), $obj->getTipo(), $obj->getDescrizione(),
+        $query = 'UPDATE stanza SET tipo = "%d", descrizione = "%s",'
+                . ' mq = "%f", agibile = "%d", libera = "%d" WHERE'
+                . ' nomestruttura = "%s" AND codicefiscaleproprietario = "%s" AND numero = "%s"';
+        $query = sprintf($query, $obj->getTipo(), $obj->getDescrizione(),
                 $obj->getMq(), $obj->getAgibile(), $obj->getLibera(),
-                $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario());
+                $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(), $obj->getNumero());
         $result = mysql_query($query);
         $this->close();
 
@@ -49,7 +47,7 @@ class StanzaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'SELECT * FROM stanza WHERE nomestruttura = "%s" AND numero = "%s" AND codicefiscaleproprietario = "%s';
+        $query = 'SELECT * FROM stanza WHERE nomestruttura = "%s" AND numero = "%s" AND codicefiscaleproprietario = "%s"';
         $query = sprintf($query, $obj->getNomeStruttura(), $obj->getNumero(), $obj->getCodiceFiscaleProprietario());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)

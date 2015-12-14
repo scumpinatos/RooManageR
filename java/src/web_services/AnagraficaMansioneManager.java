@@ -2,21 +2,20 @@
 package web_services;
 
 import cache.lists.ListaOperazioni;
-import cache.singular.StanzaTemp;
+import cache.singular.AnagraficaMansioneTemp;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
-import entities.Stanza;
+import entities.AnagraficaMansione;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import static web_services.HttpConnection.getResponse;
 
 
-public class StanzaManager extends HttpConnection{
+public class AnagraficaMansioneManager {
     
-    public void addStanza(Stanza input) {
+    public void addAnagraficaMansione(AnagraficaMansione input) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -28,17 +27,17 @@ public class StanzaManager extends HttpConnection{
                     json = mapper.writeValueAsString(input);
                 } catch (JsonProcessingException ex) {
                 }
-                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_STA, json));
+                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_ANAG_MANS, json));
                 if(response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Stanza %s della struttura %s NON aggiunta al database";
-                    op = String.format(op, input.getNumero(), input.getNomeStruttura());
+                            + " AnagraficaMansione %s nella struttura %s NON aggiunta al database";
+                    op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Stanza %s della struttura %s aggiunta al database";
-                    op = String.format(op, input.getNumero(), input.getNomeStruttura());
+                            + " AnagraficaMansione %s nella struttura %s aggiunta al database";
+                    op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
                 }
             }
@@ -49,16 +48,7 @@ public class StanzaManager extends HttpConnection{
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
-    public void addElencoStanze(ArrayList<Stanza> input) {
-     
-        int nStanze = input.size();
-        
-        for(int i=0; i<nStanze; i++) {
-            addStanza(input.get(i));
-        }
-    }
-    
-    public void updateStanza(Stanza input) {
+    public void updateAnagraficaMansione(AnagraficaMansione input) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -70,17 +60,17 @@ public class StanzaManager extends HttpConnection{
                     json = mapper.writeValueAsString(input);
                 } catch (JsonProcessingException ex) {
                 }
-                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_STA, json));
+                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_ANAG_MANS, json));
                 if(response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Stanza %s della struttura %s NON aggiornata nel database";
-                    op = String.format(op, input.getNumero(), input.getNomeStruttura());
+                            + " AnagraficaMansione %s nella struttura %s NON aggiornata nel database";
+                    op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Stanza %s della struttura %s aggiornata nel database";
-                    op = String.format(op, input.getNumero(), input.getNomeStruttura());
+                            + " AnagraficaMansione %s nella struttura %s aggiornata nel database";
+                    op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
                 }
             }
@@ -91,17 +81,17 @@ public class StanzaManager extends HttpConnection{
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
-    public void readStanza(String numeroStanza, String nomeStruttura, String cfProprietario) {
+    public void readAnagraficaMansione(String cf, String nomeStruttura, String cfProprietario) {
         
          Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 
-                String response = getResponse(String.format("opCode=%s&numeroStanza=%s&nomeStruttura=%s&cfProprietario=%s", 
-                        ServerCodes.READ_STR, numeroStanza, nomeStruttura, cfProprietario));
+                String response = getResponse(String.format("opCode=%s&cf=%s&nomeStruttura=%s&cfProprietario=%s", 
+                        ServerCodes.READ_ANAG_MANS, cf, nomeStruttura, cfProprietario));
                 if (!(response.equals("NOT DONE"))) {
                     try {
-                        StanzaTemp.setIstanza(new ObjectMapper().readValue(response, Stanza.class));
+                        AnagraficaMansioneTemp.setIstanza(new ObjectMapper().readValue(response, AnagraficaMansione.class));
                     } catch (IOException ex) {}
                 }
             }
@@ -112,29 +102,24 @@ public class StanzaManager extends HttpConnection{
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
-    public void deleteStanza(Stanza input) {
+    public void deleteAnagraficaMansione(String cf, String cfProprietario, String nomeStruttura) {
      
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 
-                ObjectMapper mapper = new ObjectMapper();
-                String json = null;
-                try {
-                    json = mapper.writeValueAsString(input);
-                } catch (JsonProcessingException ex) {
-                }
-                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.DEL_STA, json));
+                String response = getResponse(String.format("opCode=%s&cf=%s&nomeStruttura=%s&cfProprietario=%s", 
+                        ServerCodes.DEL_ANAG_MANS, cf, nomeStruttura, cfProprietario));
                 if(response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Stanza %s della struttura %s NON rimossa dal database";
-                    op = String.format(op, input.getNumero(), input.getNomeStruttura());
+                            + " AnagraficaMansione %s NON rimossa dalla struttura %s e dal database";
+                    op = String.format(op, cf, nomeStruttura);
                     ListaOperazioni.getListaOperazioni().add(op);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Stanza %s della struttura %s rimossa dal database";
-                    op = String.format(op, input.getNumero(), input.getNomeStruttura());
+                            + " AnagraficaMansione %s rimossa dalla struttura %s e dal database";
+                    op = String.format(op, cf, nomeStruttura);
                     ListaOperazioni.getListaOperazioni().add(op);
                 }
             }

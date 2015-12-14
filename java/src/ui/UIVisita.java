@@ -1,8 +1,9 @@
 package ui;
 
-import cache.AnagraficaTemp;
-import cache.ListaNazionalita;
-import cache.User;
+import cache.singular.AnagraficaTemp;
+import cache.lists.ListaNazionalita;
+import cache.lists.ListaStanza;
+import cache.singular.UtenteConnesso;
 import constants.Documenti;
 import entities.Anagrafica;
 import entities.Visita;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import web_services.AnagraficaManager;
 import web_services.NazionalitaManager;
 import web_services.VisitaManager;
@@ -21,18 +23,16 @@ import web_services.VisitaManager;
 public class UIVisita extends JDialog {
 
     Boolean found = null;
-    JDialog dialog = null;
 
-    public UIVisita(Frame frame, boolean bln, String numStanza) {
+    public UIVisita(Frame frame, boolean bln, int numStanza) {
         super(frame, bln);
         initComponents();
-        dialog = this;
         this.setLocationRelativeTo(null);
 
         // SETTAGGI INIZIALI
         dataOraAttuale();
         caricaNazionalita();
-        jTextFieldStanza.setText(numStanza);
+        jTextFieldStanza.setText(ListaStanza.getIstanza().get(numStanza).getNumero());
         jTextFieldStanza.setEditable(false);
     }
 
@@ -247,8 +247,9 @@ public class UIVisita extends JDialog {
                 .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jLabelNota))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNota, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelInfoLayout.createSequentialGroup()
                     .addGap(165, 165, 165)
@@ -292,21 +293,19 @@ public class UIVisita extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldCodiceFiscale, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonControlla, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldCodiceFiscale, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 49, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -321,11 +320,11 @@ public class UIVisita extends JDialog {
                     .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonControlla)
+                    .addComponent(jLabel1)
                     .addComponent(jTextFieldCodiceFiscale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonControlla)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -347,66 +346,32 @@ public class UIVisita extends JDialog {
 
     private void jButtonControllaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControllaActionPerformed
 
-        /* if(new AnagraficaManager().search(jTextFieldCodiceFiscale.getText())) {
+        if (new AnagraficaManager().readAnagrafica(jTextFieldCodiceFiscale.getText())) {
             JOptionPane.showMessageDialog(rootPane, "Codice fiscale presente in archivio.\nLe informazioni verranno inserite automaticamente");
-            popolaCampi(AnagraficaTemp.getInstance().getAnagraficaTemp());
+            popolaCampi(AnagraficaTemp.getIstanza());
             found = true;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Codice fiscale non presente in archivio.\nInserire manualmente le informazioni");
             attivaCampi();
             found = false;
-        } */
+        }
 
     }//GEN-LAST:event_jButtonControllaActionPerformed
 
     private void jButtonConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaActionPerformed
 
-        Visita newVisita = new Visita();
-
-        newVisita.setNomeStruttura(User.getInstance().getUtente().getNomeStruttura());
-        newVisita.setCodiceFiscaleProprietario(User.getInstance().getUtente().getCodiceFiscaleProprietario());
-        newVisita.setNumerostanza(jTextFieldStanza.getText());
-        newVisita.setIngresso(jTextFieldIngresso.getText());
-        
         if (found) {
 
-            newVisita.setCodiceFiscaleAnagrafica(AnagraficaTemp.getInstance().getAnagraficaTemp().getCodiceFiscale());
-            
+            creaVisita();
+            this.setVisible(false);
+
         } else if (!found) {
-            
-            // CREO LA NUOVA ANAGRAFICA
-            Anagrafica newAnagrafica = new Anagrafica();
-            newAnagrafica.setCodiceFiscale(jTextFieldCodiceFiscale.getText());
-            newAnagrafica.setNome(jTextFieldNome.getText());
-            newAnagrafica.setCognome(jTextFieldCognome.getText());
-            newAnagrafica.setDataNascita(jFormattedTextFieldData.getText());
-            newAnagrafica.setIndirizzo(jTextFieldIndirizzo.getText());
-            newAnagrafica.setNazionalita((String) jComboBoxNazionalita.getSelectedItem());
 
-            // TIPO DOCUMENTO
-            if (jRadioButtonCartaIdentita.isSelected()) {
-                newAnagrafica.setTipoDocumento(Documenti.CARTA_IDENTITA);
-            }
-            if (jRadioButtonPatente.isSelected()) {
-                newAnagrafica.setTipoDocumento(Documenti.PATENTE);
-            }
-            if (jRadioButtonPassaporto.isSelected()) {
-                newAnagrafica.setTipoDocumento(Documenti.PASSAPORTO);
-            }
-
-            newAnagrafica.setNumeroDocumento(jTextFieldNumeroDocumento.getText());
-            newAnagrafica.setTelefono(jTextFieldTelefono.getText());
-            newAnagrafica.setCellulare(jTextFieldCellulare.getText());
-            newAnagrafica.setEmail(jTextFieldEmail.getText());
-            
-            // SALVO LA NUOVA ANAGRAFICA
-            new AnagraficaManager().addAnagrafica(newAnagrafica);
-            
-            newVisita.setCodiceFiscaleAnagrafica(newAnagrafica.getCodiceFiscale());
+            creaAnagrafica();
+            creaVisita();
+            this.setVisible(false);
         }
-        
-        // SALVO LA NUOVA VISITA
-        new VisitaManager().addVisita(newVisita, this);
+
     }//GEN-LAST:event_jButtonConfermaActionPerformed
 
 
@@ -503,6 +468,9 @@ public class UIVisita extends JDialog {
         jFormattedTextFieldData.setEnabled(true);
         jTextFieldIndirizzo.setEnabled(true);
         jComboBoxNazionalita.setEnabled(true);
+        jRadioButtonCartaIdentita.setEnabled(true);
+        jRadioButtonPassaporto.setEnabled(true);
+        jRadioButtonPatente.setEnabled(true);
         jTextFieldNumeroDocumento.setEnabled(true);
         jTextFieldTelefono.setEnabled(true);
         jTextFieldCellulare.setEnabled(true);
@@ -513,8 +481,7 @@ public class UIVisita extends JDialog {
 
     private void dataOraAttuale() {
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY - hh:mm");
-        jTextFieldIngresso.setText(format.format(new GregorianCalendar().getTime()));
+        jTextFieldIngresso.setText(new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()));
         jTextFieldIngresso.setEditable(false);
     }
 
@@ -552,8 +519,49 @@ public class UIVisita extends JDialog {
             }
         };
 
-        new NazionalitaManager().getNazionalita(callback);
+        new NazionalitaManager().readAllNazionalita(callback);
 
         jComboBoxNazionalita.addItemListener(listener);
+    }
+
+    private void creaAnagrafica() {
+
+        Anagrafica newAnagrafica = new Anagrafica();
+        newAnagrafica.setCodiceFiscale(jTextFieldCodiceFiscale.getText());
+        newAnagrafica.setNome(jTextFieldNome.getText());
+        newAnagrafica.setCognome(jTextFieldCognome.getText());
+        newAnagrafica.setDataNascita(jFormattedTextFieldData.getText());
+        newAnagrafica.setIndirizzo(jTextFieldIndirizzo.getText());
+        newAnagrafica.setNazionalita((String) jComboBoxNazionalita.getSelectedItem());
+
+        // TIPO DOCUMENTO
+        if (jRadioButtonCartaIdentita.isSelected()) {
+            newAnagrafica.setTipoDocumento(Documenti.CARTA_IDENTITA);
+        }
+        if (jRadioButtonPatente.isSelected()) {
+            newAnagrafica.setTipoDocumento(Documenti.PATENTE);
+        }
+        if (jRadioButtonPassaporto.isSelected()) {
+            newAnagrafica.setTipoDocumento(Documenti.PASSAPORTO);
+        }
+
+        newAnagrafica.setNumeroDocumento(jTextFieldNumeroDocumento.getText());
+        newAnagrafica.setTelefono(jTextFieldTelefono.getText());
+        newAnagrafica.setCellulare(jTextFieldCellulare.getText());
+        newAnagrafica.setEmail(jTextFieldEmail.getText());
+
+        new AnagraficaManager().addAnagrafica(newAnagrafica);
+    }
+
+    private void creaVisita() {
+
+        Visita newVisita = new Visita();
+
+        newVisita.setNomeStruttura(UtenteConnesso.getUtente().getNomeStruttura());
+        newVisita.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
+        newVisita.setNumeroStanza(jTextFieldStanza.getText());
+        newVisita.setIngresso(jTextFieldIngresso.getText());
+        newVisita.setCodiceFiscaleAnagrafica(jTextFieldCodiceFiscale.getText());
+        new VisitaManager().addVisita(newVisita);
     }
 }

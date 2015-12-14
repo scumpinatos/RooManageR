@@ -3,7 +3,7 @@ package entities;
 
 public class Visita {
     
-    private String numerostanza;
+    private String numeroStanza;
     private String nomeStruttura;
     private String codiceFiscaleProprietario;
     private String codiceFiscaleAnagrafica;
@@ -14,12 +14,12 @@ public class Visita {
         
     }
 
-    public String getNumerostanza() {
-        return numerostanza;
+    public String getNumeroStanza() {
+        return numeroStanza;
     }
 
-    public void setNumerostanza(String numerostanza) {
-        this.numerostanza = numerostanza;
+    public void setNumeroStanza(String numeroStanza) {
+        this.numeroStanza = numeroStanza;
     }
 
     public String getNomeStruttura() {

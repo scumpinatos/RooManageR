@@ -109,11 +109,5 @@ public class Anagrafica {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public int getEta() {
-        int now = new GregorianCalendar().getTime().getYear();
-        int nascita = new Date(dataNascita).getYear();
-        return now - nascita;
-    }
 
 }

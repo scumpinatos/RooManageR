@@ -67,8 +67,8 @@ class Visita {
         return array(
             "nomeStruttura" => $this->nomeStruttura,
             "codiceFiscaleProprietario" => $this->codiceFiscaleProprietario,
-            "codiceFiscaleAnagrafica" => $this->codicefiscaleanagrafica,
-            "numeroStanza" => $this->numerostanza,
+            "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
+            "numeroStanza" => $this->numeroStanza,
             "ingresso" => $this->ingresso,
             "uscita" => $this->uscita,
         );

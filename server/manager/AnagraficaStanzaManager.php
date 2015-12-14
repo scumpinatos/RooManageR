@@ -99,5 +99,35 @@ class AnagraficaStanzaManager extends CRUD {
 
         return $toReturn;
     }
+    
+     function readAllInCorso($obj) {
+        if (!($obj instanceof Struttura))
+            return false;
+        
+        $this->open();
+        $query = 'SELECT * FROM anagraficastanza WHERE nomestruttura = "%s" '
+                . 'AND codicefiscaleproprietario = "%s" AND uscita = ""';
+        $query = sprintf($query, $obj->getNome(), $obj->getCodiceFiscaleAnagrafica());
+        $result = mysql_query($query);
+        if (mysql_num_rows($result) <= 0)
+            return false;
+
+        $this->close();
+        $toReturn = array();
+        for ($i = 0; $i < mysql_num_rows($result); $i++) {
+            $res = mysql_fetch_assoc($result);
+            $tmp = new AnagraficaStanza();
+            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
+            $tmp->setNumeroStanza($res['numerostanza']);
+            $tmp->setNomeStruttura($res['nomestruttura']);
+            $tmp->setCodiceFiscaleProprietario($res['codicefiscaleproprietario']);
+            $tmp->setIngresso($res['ingresso']);
+            $tmp->setUscita($res['uscita']);
+            $tmp->setCosto($res['costo']);
+            $toReturn[$i] = $tmp->toArray();
+        }
+
+        return $toReturn;
+    }
 
 }

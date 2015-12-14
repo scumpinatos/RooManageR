@@ -2,7 +2,6 @@
 package ui;
 
 import entities.Nazionalita;
-import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import web_services.NazionalitaManager;

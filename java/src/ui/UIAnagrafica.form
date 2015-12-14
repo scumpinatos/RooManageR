@@ -36,6 +36,8 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jButtonAnnulla" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jButtonModifica" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                               <Component id="jButtonConferma" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -179,6 +181,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonAnnulla" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonConferma" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonModifica" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -324,6 +327,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Conferma"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConfermaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldData">
       <Properties>
@@ -331,6 +337,14 @@
           <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonModifica">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modifica"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonModificaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

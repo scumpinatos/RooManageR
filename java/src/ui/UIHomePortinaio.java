@@ -1,36 +1,35 @@
 package ui;
 
-import cache.AnagraficaStanzaTemp;
-import cache.AnagraficaTemp;
-import cache.ListaStanze;
-import cache.User;
+import cache.lists.ListaAnagraficaStanza;
+import cache.singular.AnagraficaStanzaTemp;
+import cache.lists.ListaStanza;
+import cache.lists.ListaOperazioni;
+import cache.lists.ListaVisita;
+import cache.singular.UtenteConnesso;
+import cache.singular.VisitaTemp;
 import constants.TipiStanza;
-import entities.AnagraficaMansione;
 import entities.AnagraficaStanza;
-import entities.Stanza;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
+import entities.Visita;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import web_services.AnagraficaManager;
-import web_services.AnagraficaStanzaManager;
-import web_services.StanzaManager;
+import web_services.StrutturaManager;
+import web_services.VisitaManager;
 
 public class UIHomePortinaio extends javax.swing.JFrame {
 
-    private Stanza selectedStanza;
-    private JFrame parent;
+    private int selectedAnagStan;
+    private int selectedVisita;
+    private int selectedStanza;
+    private final JFrame parent;
 
     public UIHomePortinaio() {
         initComponents();
         parent = this;
         this.setLocationRelativeTo(null);
-        popolaTabella();
-        visualizzaInfo();
+        aggiornaInformazioni();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -39,21 +38,20 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelHome = new javax.swing.JPanel();
-        jLabelStruttura = new javax.swing.JLabel();
-        jLabelUtente = new javax.swing.JLabel();
+        jPanelElencoAnagStanza = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableAnagStanza = new javax.swing.JTable();
+        jButtonDettagliAS = new javax.swing.JButton();
+        jPanelElencoVisit = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableVisita = new javax.swing.JTable();
+        jButtonDettagliV = new javax.swing.JButton();
+        jPanelGestione = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableStanze = new javax.swing.JTable();
-        jPanelInfoStanza = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldNomeCognome = new javax.swing.JTextField();
-        jTextFieldCf = new javax.swing.JTextField();
-        jTextFieldIngresso = new javax.swing.JTextField();
-        jButtonAnagraficaView = new javax.swing.JButton();
         jPanelOperazioniStanza = new javax.swing.JPanel();
-        jButtonStruttura = new javax.swing.JButton();
         jButtonInizioVisita = new javax.swing.JButton();
         jButtonInizioAnagraficaStanza = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -62,14 +60,17 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         jButtonFineVisita = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jPanelRegistroClienti = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableRegClienti = new javax.swing.JTable();
+        jPanelRegistroOperazioni = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableRegOp = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItemAggiorna = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuItemRegMov = new javax.swing.JMenuItem();
+        jMenuItemEsci = new javax.swing.JMenuItem();
+        jMenuUtente = new javax.swing.JMenu();
+        jMenuItemProfilo = new javax.swing.JMenuItem();
+        jMenuItemPassword = new javax.swing.JMenuItem();
+        jMenuCredits = new javax.swing.JMenu();
         jMenuItemCredits = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,16 +79,124 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
 
-        jLabelStruttura.setText("jLabelStruttura");
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(640, 480));
 
-        jLabelUtente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelUtente.setText("jLabelUtente");
-        jLabelUtente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelUtente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabelUtenteMousePressed(evt);
+        jPanelHome.setPreferredSize(new java.awt.Dimension(640, 400));
+
+        jLabel8.setText("Permanenze nella struttura");
+
+        jTableAnagStanza.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableAnagStanza.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAnagStanzaMouseClicked(evt);
             }
         });
+        jScrollPane4.setViewportView(jTableAnagStanza);
+
+        jButtonDettagliAS.setText("Dettagli");
+        jButtonDettagliAS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDettagliASActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelElencoAnagStanzaLayout = new javax.swing.GroupLayout(jPanelElencoAnagStanza);
+        jPanelElencoAnagStanza.setLayout(jPanelElencoAnagStanzaLayout);
+        jPanelElencoAnagStanzaLayout.setHorizontalGroup(
+            jPanelElencoAnagStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelElencoAnagStanzaLayout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jButtonDettagliAS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+        );
+        jPanelElencoAnagStanzaLayout.setVerticalGroup(
+            jPanelElencoAnagStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelElencoAnagStanzaLayout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonDettagliAS)
+                .addContainerGap())
+        );
+
+        jLabel9.setText("Visite nella struttura");
+
+        jTableVisita.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableVisita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableVisitaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableVisita);
+
+        jButtonDettagliV.setText("Dettagli");
+        jButtonDettagliV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDettagliVActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelElencoVisitLayout = new javax.swing.GroupLayout(jPanelElencoVisit);
+        jPanelElencoVisit.setLayout(jPanelElencoVisitLayout);
+        jPanelElencoVisitLayout.setHorizontalGroup(
+            jPanelElencoVisitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelElencoVisitLayout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelElencoVisitLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonDettagliV, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1)
+        );
+        jPanelElencoVisitLayout.setVerticalGroup(
+            jPanelElencoVisitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelElencoVisitLayout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jButtonDettagliV)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanelHomeLayout = new javax.swing.GroupLayout(jPanelHome);
+        jPanelHome.setLayout(jPanelHomeLayout);
+        jPanelHomeLayout.setHorizontalGroup(
+            jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelHomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelElencoVisit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelElencoAnagStanza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelHomeLayout.setVerticalGroup(
+            jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelElencoVisit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelElencoAnagStanza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Home", jPanelHome);
 
         jTableStanze.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,85 +214,9 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableStanze);
 
-        jPanelInfoStanza.setPreferredSize(new java.awt.Dimension(300, 300));
-
-        jLabel1.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Informazioni occupante");
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Nome e cognome");
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Codice fiscale");
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Ingresso");
-
-        jTextFieldNomeCognome.setEditable(false);
-
-        jTextFieldCf.setEditable(false);
-
-        jTextFieldIngresso.setEditable(false);
-
-        jButtonAnagraficaView.setText("Anagrafica completa");
-        jButtonAnagraficaView.setEnabled(false);
-
-        javax.swing.GroupLayout jPanelInfoStanzaLayout = new javax.swing.GroupLayout(jPanelInfoStanza);
-        jPanelInfoStanza.setLayout(jPanelInfoStanzaLayout);
-        jPanelInfoStanzaLayout.setHorizontalGroup(
-            jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInfoStanzaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                    .addGroup(jPanelInfoStanzaLayout.createSequentialGroup()
-                        .addGroup(jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldIngresso)
-                            .addComponent(jTextFieldCf)
-                            .addComponent(jTextFieldNomeCognome))))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInfoStanzaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonAnagraficaView)
-                .addGap(67, 67, 67))
-        );
-        jPanelInfoStanzaLayout.setVerticalGroup(
-            jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInfoStanzaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldNomeCognome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldCf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInfoStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 61, Short.MAX_VALUE)
-                .addComponent(jButtonAnagraficaView)
-                .addContainerGap())
-        );
-
-        jButtonStruttura.setText("Struttura (DA SPOSTARE)");
-        jButtonStruttura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStrutturaActionPerformed(evt);
-            }
-        });
-
         jButtonInizioVisita.setText("Inizio");
         jButtonInizioVisita.setToolTipText("");
+        jButtonInizioVisita.setEnabled(false);
         jButtonInizioVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonInizioVisitaActionPerformed(evt);
@@ -191,6 +224,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         });
 
         jButtonInizioAnagraficaStanza.setText("Inizio");
+        jButtonInizioAnagraficaStanza.setEnabled(false);
         jButtonInizioAnagraficaStanza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonInizioAnagraficaStanzaActionPerformed(evt);
@@ -201,6 +235,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         jLabel5.setText("Operazioni permanenza");
 
         jButtonFineAnagraficaStanza.setText("Fine");
+        jButtonFineAnagraficaStanza.setEnabled(false);
         jButtonFineAnagraficaStanza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFineAnagraficaStanzaActionPerformed(evt);
@@ -211,6 +246,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         jLabel6.setText("Operazioni visita");
 
         jButtonFineVisita.setText("Fine");
+        jButtonFineVisita.setEnabled(false);
         jButtonFineVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFineVisitaActionPerformed(evt);
@@ -224,7 +260,6 @@ public class UIHomePortinaio extends javax.swing.JFrame {
             .addGroup(jPanelOperazioniStanzaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelOperazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonStruttura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelOperazioniStanzaLayout.createSequentialGroup()
@@ -252,88 +287,103 @@ public class UIHomePortinaio extends javax.swing.JFrame {
                 .addGroup(jPanelOperazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInizioVisita)
                     .addComponent(jButtonFineVisita))
-                .addGap(55, 55, 55)
-                .addComponent(jButtonStruttura, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(96, 96, 96))
         );
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        javax.swing.GroupLayout jPanelHomeLayout = new javax.swing.GroupLayout(jPanelHome);
-        jPanelHome.setLayout(jPanelHomeLayout);
-        jPanelHomeLayout.setHorizontalGroup(
-            jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHomeLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelGestioneLayout = new javax.swing.GroupLayout(jPanelGestione);
+        jPanelGestione.setLayout(jPanelGestioneLayout);
+        jPanelGestioneLayout.setHorizontalGroup(
+            jPanelGestioneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelGestioneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelHomeLayout.createSequentialGroup()
-                        .addComponent(jPanelInfoStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelGestioneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelGestioneLayout.createSequentialGroup()
+                        .addGap(324, 324, 324)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelOperazioniStanza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanelHomeLayout.createSequentialGroup()
-                            .addComponent(jLabelStruttura)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addComponent(jSeparator1)
         );
-        jPanelHomeLayout.setVerticalGroup(
-            jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHomeLayout.createSequentialGroup()
+        jPanelGestioneLayout.setVerticalGroup(
+            jPanelGestioneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelGestioneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelUtente)
-                    .addComponent(jLabelStruttura))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addGroup(jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanelInfoStanza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHomeLayout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(jPanelGestioneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGestioneLayout.createSequentialGroup()
                         .addComponent(jPanelOperazioniStanza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1))))
         );
 
-        jTabbedPane1.addTab("Home", jPanelHome);
+        jTabbedPane1.addTab("Gestione struttura", jPanelGestione);
 
-        jScrollPane1.setViewportView(jTableRegClienti);
+        jTableRegOp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        javax.swing.GroupLayout jPanelRegistroClientiLayout = new javax.swing.GroupLayout(jPanelRegistroClienti);
-        jPanelRegistroClienti.setLayout(jPanelRegistroClientiLayout);
-        jPanelRegistroClientiLayout.setHorizontalGroup(
-            jPanelRegistroClientiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(jTableRegOp);
+
+        javax.swing.GroupLayout jPanelRegistroOperazioniLayout = new javax.swing.GroupLayout(jPanelRegistroOperazioni);
+        jPanelRegistroOperazioni.setLayout(jPanelRegistroOperazioniLayout);
+        jPanelRegistroOperazioniLayout.setHorizontalGroup(
+            jPanelRegistroOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
-        jPanelRegistroClientiLayout.setVerticalGroup(
-            jPanelRegistroClientiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRegistroClientiLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 102, Short.MAX_VALUE))
+        jPanelRegistroOperazioniLayout.setVerticalGroup(
+            jPanelRegistroOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Registro Clienti", jPanelRegistroClienti);
+        jTabbedPane1.addTab("Registro operazioni", jPanelRegistroOperazioni);
 
-        jMenu1.setText("File");
+        jMenuFile.setText("File");
 
-        jMenuItemAggiorna.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemAggiorna.setText("Aggiorna");
-        jMenu1.add(jMenuItemAggiorna);
+        jMenuItemRegMov.setText("Registro movimenti");
+        jMenuItemRegMov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegMovActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemRegMov);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Esci");
-        jMenu1.add(jMenuItem1);
+        jMenuItemEsci.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemEsci.setText("Esci");
+        jMenuFile.add(jMenuItemEsci);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuFile);
 
-        jMenu2.setText("?");
+        jMenuUtente.setText("Utente");
+
+        jMenuItemProfilo.setText("Visualizza profilo");
+        jMenuItemProfilo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProfiloActionPerformed(evt);
+            }
+        });
+        jMenuUtente.add(jMenuItemProfilo);
+
+        jMenuItemPassword.setText("Modifica password");
+        jMenuItemPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPasswordActionPerformed(evt);
+            }
+        });
+        jMenuUtente.add(jMenuItemPassword);
+
+        jMenuBar1.add(jMenuUtente);
+
+        jMenuCredits.setText("?");
 
         jMenuItemCredits.setText("Credits");
         jMenuItemCredits.addActionListener(new java.awt.event.ActionListener() {
@@ -341,9 +391,9 @@ public class UIHomePortinaio extends javax.swing.JFrame {
                 jMenuItemCreditsActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemCredits);
+        jMenuCredits.add(jMenuItemCredits);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuCredits);
 
         setJMenuBar(jMenuBar1);
 
@@ -351,13 +401,11 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -368,21 +416,15 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         new UICredits(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemCreditsActionPerformed
 
-    private void jLabelUtenteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUtenteMousePressed
-
-        new UIAnagrafica(this, true).visualizza(User.getInstance().getInfoUtente());
-    }//GEN-LAST:event_jLabelUtenteMousePressed
-
     private void jTableStanzeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableStanzeMouseClicked
 
-        int selected = ((JTable) evt.getSource()).getSelectedRow();
-        selectedStanza = ListaStanze.getInstance().get(selected);
+        selectedStanza = ((JTable) evt.getSource()).getSelectedRow();
 
-        if (selectedStanza.getAgibile() == 0) {
+        if (ListaStanza.getIstanza().get(selectedStanza).getAgibile() == 0) {
 
             stanzaInagibile();
 
-        } else if (selectedStanza.getLibera() == 0) {
+        } else if (ListaStanza.getIstanza().get(selectedStanza).getLibera() == 0) {
 
             stanzaOccupata();
 
@@ -394,87 +436,126 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
     private void jButtonInizioVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInizioVisitaActionPerformed
 
-        if (selectedStanza == null) {
-            JOptionPane.showMessageDialog(rootPane, "Selezionare una stanza dall'elenco");
-            return;
-        }
-        new UIVisita(this, true, selectedStanza.getNumero()).setVisible(true);
+        new UIVisita(this, true, selectedStanza).setVisible(true);
+        aggiornaInformazioni();
     }//GEN-LAST:event_jButtonInizioVisitaActionPerformed
-
-    private void jButtonStrutturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStrutturaActionPerformed
-
-        new UIStruttura(this, true).setVisible(true);
-    }//GEN-LAST:event_jButtonStrutturaActionPerformed
 
     private void jButtonInizioAnagraficaStanzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInizioAnagraficaStanzaActionPerformed
 
-        if (selectedStanza == null) {
-            JOptionPane.showMessageDialog(rootPane, "Selezionare una stanza dall'elenco");
-            return;
-        }
-        new UIAnagraficaStanza(parent, true, selectedStanza.getNumero()).setVisible(true);
+        new UIAnagraficaStanza(parent, true, selectedStanza).setVisible(true);
+        aggiornaInformazioni();
     }//GEN-LAST:event_jButtonInizioAnagraficaStanzaActionPerformed
 
     private void jButtonFineAnagraficaStanzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFineAnagraficaStanzaActionPerformed
 
-        // UIAnagraficaStanza in modalità modifica
-        JOptionPane.showMessageDialog(null, "FUNZIONE DA IMPLEMENTARE");
+        UIAnagStaVisitaEnd view = new UIAnagStaVisitaEnd(parent, true, selectedStanza);
+        view.popolaAnagraficaStanza(AnagraficaStanzaTemp.getIstanza());
+        view.setVisible(true);
+        aggiornaInformazioni();
     }//GEN-LAST:event_jButtonFineAnagraficaStanzaActionPerformed
 
     private void jButtonFineVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFineVisitaActionPerformed
-        
-        // UIAnagraficaVisita in modalità modifica
-        JOptionPane.showMessageDialog(null, "FUNZIONE DA IMPLEMENTARE");
+
+        UIAnagStaVisitaEnd view = new UIAnagStaVisitaEnd(parent, true, selectedStanza);
+        view.popolaVisita(VisitaTemp.getIstanza());
+        view.setVisible(true);
+        aggiornaInformazioni();
     }//GEN-LAST:event_jButtonFineVisitaActionPerformed
+
+    private void jTableAnagStanzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnagStanzaMouseClicked
+
+        selectedAnagStan = ((JTable) evt.getSource()).getSelectedRow();
+    }//GEN-LAST:event_jTableAnagStanzaMouseClicked
+
+    private void jButtonDettagliASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDettagliASActionPerformed
+
+        AnagraficaStanza selected = ListaAnagraficaStanza.getIstanza().get(selectedAnagStan);
+        UIAnagStaVisitaEnd view = new UIAnagStaVisitaEnd(null, true, 0);
+        view.popolaAnagraficaStanza(selected);
+        view.setVisible(true);
+    }//GEN-LAST:event_jButtonDettagliASActionPerformed
+
+    private void jTableVisitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVisitaMouseClicked
+
+        selectedVisita = ((JTable) evt.getSource()).getSelectedRow();
+    }//GEN-LAST:event_jTableVisitaMouseClicked
+
+    private void jButtonDettagliVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDettagliVActionPerformed
+
+        Visita selected = ListaVisita.getIstanza().get(selectedVisita);
+        UIAnagStaVisitaEnd view = new UIAnagStaVisitaEnd(null, true, 0);
+        view.popolaVisita(selected);
+        view.setVisible(true);
+    }//GEN-LAST:event_jButtonDettagliVActionPerformed
+
+    private void jMenuItemRegMovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegMovActionPerformed
+        
+        new UIRegistroMovimenti(parent, true, false).setVisible(true);
+    }//GEN-LAST:event_jMenuItemRegMovActionPerformed
+
+    private void jMenuItemPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPasswordActionPerformed
+        
+        new UIPassword(parent, true).setVisible(true);
+        popolaRegistroOperazioni();
+    }//GEN-LAST:event_jMenuItemPasswordActionPerformed
+
+    private void jMenuItemProfiloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProfiloActionPerformed
+        
+        UIAnagrafica view = new UIAnagrafica(parent, true);
+        view.visualizza(UtenteConnesso.getInfoUtente());
+        view.setVisible(true);
+        popolaRegistroOperazioni();
+    }//GEN-LAST:event_jMenuItemProfiloActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAnagraficaView;
+    private javax.swing.JButton jButtonDettagliAS;
+    private javax.swing.JButton jButtonDettagliV;
     private javax.swing.JButton jButtonFineAnagraficaStanza;
     private javax.swing.JButton jButtonFineVisita;
     private javax.swing.JButton jButtonInizioAnagraficaStanza;
     private javax.swing.JButton jButtonInizioVisita;
-    private javax.swing.JButton jButtonStruttura;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabelStruttura;
-    private javax.swing.JLabel jLabelUtente;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItemAggiorna;
+    private javax.swing.JMenu jMenuCredits;
+    private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemCredits;
+    private javax.swing.JMenuItem jMenuItemEsci;
+    private javax.swing.JMenuItem jMenuItemPassword;
+    private javax.swing.JMenuItem jMenuItemProfilo;
+    private javax.swing.JMenuItem jMenuItemRegMov;
+    private javax.swing.JMenu jMenuUtente;
+    private javax.swing.JPanel jPanelElencoAnagStanza;
+    private javax.swing.JPanel jPanelElencoVisit;
+    private javax.swing.JPanel jPanelGestione;
     private javax.swing.JPanel jPanelHome;
-    private javax.swing.JPanel jPanelInfoStanza;
     private javax.swing.JPanel jPanelOperazioniStanza;
-    private javax.swing.JPanel jPanelRegistroClienti;
+    private javax.swing.JPanel jPanelRegistroOperazioni;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTableRegClienti;
+    private javax.swing.JTable jTableAnagStanza;
+    private javax.swing.JTable jTableRegOp;
     private javax.swing.JTable jTableStanze;
-    private javax.swing.JTextField jTextFieldCf;
-    private javax.swing.JTextField jTextFieldIngresso;
-    private javax.swing.JTextField jTextFieldNomeCognome;
+    private javax.swing.JTable jTableVisita;
     // End of variables declaration//GEN-END:variables
 
     // METODI DI SUPPORTO
-    private void popolaTabella() {
+    private void popolaElencoStanze() {
 
-        AnagraficaMansione utente = User.getInstance().getUtente();
-        new StanzaManager().getStanzeByStruttura(utente.getNomeStruttura(), utente.getCodiceFiscaleProprietario());
+        new StrutturaManager().readAllStanzeStruttura(UtenteConnesso.getUtente().getNomeStruttura(),
+                UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
 
-        ListaStanze stanze = ListaStanze.getInstance();
+        ListaStanza stanze = ListaStanza.getIstanza();
         int nst = stanze.size();
 
-        // COLONNE
         String[] colonne = new String[5];
         colonne[0] = "Numero";
         colonne[1] = "Tipo";
@@ -482,7 +563,6 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         colonne[3] = "Agibile";
         colonne[4] = "Libera";
 
-        // DATI
         Object[][] data = new Object[nst][5];
 
         for (int i = 0; i < nst; i++) {
@@ -495,13 +575,9 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
         TableModel model = new DefaultTableModel(data, colonne);
         jTableStanze.setModel(model);
+
     }
 
-    private void visualizzaInfo() {
-        User utente = User.getInstance();
-        jLabelStruttura.setText("Struttura: " + User.getInstance().getUtente().getNomeStruttura());
-        jLabelUtente.setText("Utente connesso: " + utente.getInfoUtente().getNome() + " " + utente.getInfoUtente().getCognome());
-    }
 
     private String getStringTipo(int input) {
 
@@ -531,28 +607,27 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         return null;
     }
 
-    private void popolaRegistroClienti() {
+    
 
-        // OPERAZIONI RECUPERO INFORMAZIONI
-        // COLONNE
-        String[] colonne = new String[4];
-        colonne[0] = "Nome";
-        colonne[1] = "Cognome";
-        colonne[2] = "Data di nascita";
-        colonne[3] = "Indirizzo";
+    private void popolaRegistroOperazioni() {
 
-        // DATI
-        TableModel model = new DefaultTableModel(colonne, 0);
-        jTableRegClienti.setModel(model);
+        ListaOperazioni operazioni = ListaOperazioni.getListaOperazioni();
+        int nOp = operazioni.size();
+
+        String[][] dati = new String[nOp][1];
+        for (int i = 0; i < nOp; i++) {
+            dati[i][0] = operazioni.get(i);
+        }
+
+        String[] colonne = new String[1];
+        colonne[0] = "Data - Ora - Descrizione";
+
+        TableModel model = new DefaultTableModel(dati, colonne);
+        jTableRegOp.setModel(model);
     }
-
 
     private void stanzaInagibile() {
 
-        jTextFieldCf.setText("");
-        jTextFieldNomeCognome.setText("");
-        jTextFieldIngresso.setText("");
-        jButtonAnagraficaView.setEnabled(false);
         jButtonInizioVisita.setEnabled(false);
         jButtonInizioAnagraficaStanza.setEnabled(false);
         jButtonFineVisita.setEnabled(false);
@@ -562,53 +637,91 @@ public class UIHomePortinaio extends javax.swing.JFrame {
     private void stanzaOccupata() {
 
         // OPERAZIONI SULLA STANZA
-        jButtonInizioVisita.setEnabled(true);
-        jButtonFineVisita.setEnabled(false);
+        controlloVisita();
         jButtonInizioAnagraficaStanza.setEnabled(false);
         jButtonFineAnagraficaStanza.setEnabled(true);
-
-        // PRELEVO LE INFO SU QUESTA ANAGRAFICA STANZA
-        AnagraficaStanza toRead = new AnagraficaStanza();
-        toRead.setNumeroStanza(selectedStanza.getNumero());
-        toRead.setNomeStruttura(selectedStanza.getNomeStruttura());
-        toRead.setCodiceFiscaleProprietario(selectedStanza.getCodiceFiscaleProprietario());
-        new AnagraficaStanzaManager().readAnagraficaStanza(toRead);
-        toRead = AnagraficaStanzaTemp.getInstance().getAnagraficaStanzaTemp();
-
-        // PRELEVO LE INFO SULL'ANAGRAFICA DELLA STANZA
-        new AnagraficaManager().search(toRead.getCodiceFiscaleAnagrafica());
-
-        // VISUALIZZO LE INFO
-        jTextFieldCf.setText(toRead.getCodiceFiscaleAnagrafica());
-        String nomeCognome = AnagraficaTemp.getInstance().getAnagraficaTemp().getNome();
-        nomeCognome += " " + AnagraficaTemp.getInstance().getAnagraficaTemp().getCognome();
-        jTextFieldNomeCognome.setText(nomeCognome);
-        jTextFieldIngresso.setText(toRead.getIngresso());
-
-        jButtonAnagraficaView.setEnabled(true);
-        jButtonAnagraficaView.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                UIAnagrafica view = new UIAnagrafica(parent, true);
-                view.visualizza(AnagraficaTemp.getInstance().getAnagraficaTemp());
-                view.setVisible(true);
-            }
-        });
     }
 
     private void stanzaLibera() {
-
-        // INFORMAZIONI STANZA
-        jTextFieldCf.setText("");
-        jTextFieldNomeCognome.setText("");
-        jTextFieldIngresso.setText("");
-        jButtonAnagraficaView.setEnabled(false);
 
         // OPERAZIONI SULLA STANZA
         jButtonInizioVisita.setEnabled(false);
         jButtonFineVisita.setEnabled(false);
         jButtonInizioAnagraficaStanza.setEnabled(true);
         jButtonFineAnagraficaStanza.setEnabled(false);
+    }
+
+    private void controlloVisita() {
+
+        Visita toControl = new Visita();
+        toControl.setCodiceFiscaleProprietario(
+                ListaStanza.getIstanza().get(selectedStanza).getCodiceFiscaleProprietario());
+        toControl.setNomeStruttura(ListaStanza.getIstanza().get(selectedStanza).getNomeStruttura());
+        toControl.setNumeroStanza(ListaStanza.getIstanza().get(selectedStanza).getNumero());
+
+        new VisitaManager().checkVisita(toControl);
+        if (VisitaTemp.getIstanza().getCodiceFiscaleAnagrafica() != null) {
+            jButtonInizioVisita.setEnabled(false);
+            jButtonFineVisita.setEnabled(true);
+        } else {
+            jButtonInizioVisita.setEnabled(true);
+            jButtonFineVisita.setEnabled(false);
+        }
+        
+    }
+    
+    private void popolaElencoAnagraficaStanzaVisita() {
+        
+        // CARICO LE INFORMAZIONI
+        StrutturaManager manager = new StrutturaManager();
+        manager.readAllInCorso(UtenteConnesso.getUtente().getCodiceFiscaleProprietario(), 
+                UtenteConnesso.getUtente().getNomeStruttura());
+        
+        // ANAGRAFICA STANZA
+        ListaAnagraficaStanza permanenze = ListaAnagraficaStanza.getIstanza();
+        int nPerm = permanenze.size();
+
+        String[] colonne = new String[3];
+        colonne[0] = "Numero stanza";
+        colonne[1] = "Codice fiscale";
+        colonne[2] = "Data ed ora ingresso";
+
+        Object[][] data = new Object[nPerm][3];
+
+        for (int i = 0; i < nPerm; i++) {
+            data[i][0] = permanenze.get(i).getNumeroStanza();
+            data[i][1] = permanenze.get(i).getCodiceFiscaleAnagrafica();
+            data[i][2] = permanenze.get(i).getIngresso();
+        }
+
+        TableModel model = new DefaultTableModel(data, colonne);
+        jTableAnagStanza.setModel(model);
+
+        // VISITE
+        ListaVisita visite = ListaVisita.getIstanza();
+        int nVis = visite.size();
+
+        String[] colonne2 = new String[3];
+        colonne2[0] = "Numero stanza";
+        colonne2[1] = "Codice fiscale";
+        colonne2[2] = "Data ed ora ingresso";
+
+        Object[][] data2 = new Object[nVis][3];
+
+        for (int j = 0; j < nVis; j++) {
+            data2[j][0] = visite.get(j).getNumeroStanza();
+            data2[j][1] = visite.get(j).getCodiceFiscaleAnagrafica();
+            data2[j][2] = visite.get(j).getIngresso();
+        }
+
+        TableModel model2 = new DefaultTableModel(data2, colonne2);
+        jTableVisita.setModel(model2);
+    }
+    
+    private void aggiornaInformazioni() {
+        
+        popolaElencoStanze();
+        popolaRegistroOperazioni();
+        popolaElencoAnagraficaStanzaVisita();
     }
 }

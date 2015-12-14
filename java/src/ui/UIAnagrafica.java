@@ -1,26 +1,27 @@
-
 package ui;
 
-import cache.ListaNazionalita;
+import cache.lists.ListaNazionalita;
 import constants.Documenti;
 import entities.Anagrafica;
 import interfaces.ICallback;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import web_services.AnagraficaManager;
 import web_services.NazionalitaManager;
-
 
 public class UIAnagrafica extends javax.swing.JDialog {
 
-    
+    private boolean update;
+
     public UIAnagrafica(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setLocationRelativeTo(null);
+        update = false;
         initComponents();
+        jButtonModifica.setVisible(false);
+        caricaNazionalita();
     }
 
     @SuppressWarnings("unchecked")
@@ -55,6 +56,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jButtonAnnulla = new javax.swing.JButton();
         jButtonConferma = new javax.swing.JButton();
         jFormattedTextFieldData = new javax.swing.JFormattedTextField();
+        jButtonModifica = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,8 +115,20 @@ public class UIAnagrafica extends javax.swing.JDialog {
         });
 
         jButtonConferma.setText("Conferma");
+        jButtonConferma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfermaActionPerformed(evt);
+            }
+        });
 
         jFormattedTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+
+        jButtonModifica.setText("Modifica");
+        jButtonModifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,6 +143,8 @@ public class UIAnagrafica extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonAnnulla)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonModifica)
+                                .addGap(53, 53, 53)
                                 .addComponent(jButtonConferma))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,7 +255,8 @@ public class UIAnagrafica extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnulla)
-                    .addComponent(jButtonConferma))
+                    .addComponent(jButtonConferma)
+                    .addComponent(jButtonModifica))
                 .addContainerGap())
         );
 
@@ -247,23 +264,40 @@ public class UIAnagrafica extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnnullaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnullaActionPerformed
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAnnullaActionPerformed
+
+    private void jButtonConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaActionPerformed
+
+        if (update) {
+            new AnagraficaManager().updateAnagrafica(creaAnagrafica());
+        } else {
+            new AnagraficaManager().addAnagrafica(creaAnagrafica());
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonConfermaActionPerformed
+
+    private void jButtonModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificaActionPerformed
+
+        JOptionPane.showMessageDialog(null, "Modalità modifica attiva.\nIl codice fiscale non può essere modificato.");
+        update = true;
+        attivaCampi();
+        jButtonModifica.setVisible(false);
+        caricaNazionalita();
+    }//GEN-LAST:event_jButtonModificaActionPerformed
 
     // MODALITA' D'APERTURA
     public void visualizza(Anagrafica input) {
         popolaCampi(input);
-    }
-    
-    public void nuovo() {
-        caricaNazionalita();
+        jButtonConferma.setVisible(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupDocumento;
     private javax.swing.JButton jButtonAnnulla;
     private javax.swing.JButton jButtonConferma;
+    private javax.swing.JButton jButtonModifica;
     private javax.swing.JComboBox jComboBoxNazionalita;
     private javax.swing.JFormattedTextField jFormattedTextFieldData;
     private javax.swing.JLabel jLabel1;
@@ -291,7 +325,6 @@ public class UIAnagrafica extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
 
-    
     // METODI DI SUPPORTO
     private void popolaCampi(Anagrafica input) {
 
@@ -305,13 +338,15 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jFormattedTextFieldData.setEditable(false);
         jTextFieldIndirizzo.setText(input.getIndirizzo());
         jTextFieldIndirizzo.setEditable(false);
-        
+
+        // NAZIONALITA
         String[] items = new String[1];
         items[0] = input.getNazionalita();
         jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
         jComboBoxNazionalita.setEnabled(false);
+
         // TIPO DOCUMENTO
-        switch(input.getTipoDocumento()) {
+        switch (input.getTipoDocumento()) {
             case Documenti.CARTA_IDENTITA:
                 jRadioButtonCartaIdentita.setSelected(true);
                 jRadioButtonPassaporto.setEnabled(false);
@@ -326,7 +361,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
                 jRadioButtonCartaIdentita.setEnabled(false);
                 jRadioButtonPassaporto.setSelected(true);
                 jRadioButtonPatente.setEnabled(false);
-                break;      
+                break;
         }
         jTextFieldNumeroDocumento.setText(input.getNumeroDocumento());
         jTextFieldNumeroDocumento.setEditable(false);
@@ -336,23 +371,10 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jTextFieldCellulare.setEditable(false);
         jTextFieldEmail.setText(input.getEmail());
         jTextFieldEmail.setEditable(false);
-        
-        
+
         jLabelNota.setText("* Campi NON obbligatori");
-        jButtonAnnulla.setText("Chiudi");
-        jButtonConferma.setText("Modifica");
-        jButtonConferma.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-                JOptionPane.showMessageDialog(null, "Modalità modifica attiva.\nIl codice fiscale non può essere modificato.");
-                attivaCampi();
-            }
-        });
-        
     }
-    
+
     private void attivaCampi() {
 
         jTextFieldCodiceFiscale.setEnabled(false);
@@ -360,65 +382,77 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jTextFieldCognome.setEditable(true);
         jFormattedTextFieldData.setEditable(true);
         jTextFieldIndirizzo.setEditable(true);
-        jComboBoxNazionalita.setEditable(true);
+        jComboBoxNazionalita.setEnabled(true);
+        caricaNazionalita();
         jTextFieldNumeroDocumento.setEditable(true);
         jTextFieldTelefono.setEditable(true);
         jTextFieldCellulare.setEditable(true);
         jTextFieldEmail.setEditable(true);
-        
+        jButtonConferma.setVisible(true);
+
     }
-    
+
+    private Anagrafica creaAnagrafica() {
+
+        Anagrafica newAnagrafica = new Anagrafica();
+
+        newAnagrafica.setCodiceFiscale(jTextFieldCodiceFiscale.getText());
+        newAnagrafica.setNome(jTextFieldNome.getText());
+        newAnagrafica.setCognome(jTextFieldCognome.getText());
+        newAnagrafica.setDataNascita(jFormattedTextFieldData.getText());
+        newAnagrafica.setIndirizzo(jTextFieldIndirizzo.getText());
+        newAnagrafica.setNazionalita((String) jComboBoxNazionalita.getSelectedItem());
+
+        if (jRadioButtonCartaIdentita.isSelected()) {
+            newAnagrafica.setTipoDocumento(Documenti.CARTA_IDENTITA);
+        }
+        if (jRadioButtonPatente.isSelected()) {
+            newAnagrafica.setTipoDocumento(Documenti.PATENTE);
+        }
+        if (jRadioButtonPassaporto.isSelected()) {
+            newAnagrafica.setTipoDocumento(Documenti.PASSAPORTO);
+        }
+
+        newAnagrafica.setNumeroDocumento(jTextFieldNumeroDocumento.getText());
+        newAnagrafica.setTelefono(jTextFieldTelefono.getText());
+        newAnagrafica.setCellulare(jTextFieldCellulare.getText());
+        newAnagrafica.setEmail(jTextFieldEmail.getText());
+
+        return newAnagrafica;
+    }
+
     private void caricaNazionalita() {
-        
+
         ItemListener listener = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                
-                if(e.getItem().equals("Altro..")) {
+
+                if (e.getItem().equals("Altro..")) {
                     new UINazionalita(null, true).setVisible(true);
                 }
             }
         };
-        
+
         ICallback callback = new ICallback<ListaNazionalita>() {
             @Override
             public void onResult(ListaNazionalita obj) {
-                
-                String[] items = new String[obj.size()+1];
-                
+
+                String[] items = new String[obj.size() + 1];
+
                 int i = 0;
-                
-                for(;i<obj.size();i++) {
+
+                for (; i < obj.size(); i++) {
                     items[i] = obj.get(i).getAbbreviazione();
                 }
                 items[i] = "Altro..";
-                
+
                 jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
-                
+
             }
         };
-        
-        new NazionalitaManager().getNazionalita(callback);
-        
-        jComboBoxNazionalita.addItemListener(listener);      
-    }
-    
-    
-    private void verificaInput() {
-        
-        String telefono = jTextFieldTelefono.getText();
-        String email = jTextFieldEmail.getText().trim();
-        
-        if(telefono.length() > 0) {     
-            if(!(telefono.matches("[0-9]+"))) {
-                System.out.print("VALORI ERRATI TELEFONO");
-            }
-        }
-        
-        if(email.length() > 0) {
-            if(!(email.matches("@")) || !(email.matches("."))) {
-                System.out.print("VALORI ERRATI EMAIL");
-            }
-        }
+
+        new NazionalitaManager().readAllNazionalita(callback);
+
+        jComboBoxNazionalita.addItemListener(listener);
     }
 }

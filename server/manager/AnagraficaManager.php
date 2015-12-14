@@ -1,6 +1,7 @@
 <?php
 
 require_once '../server/entity/Anagrafica.php';
+require_once '../server/entity/Struttura.php';
 require_once 'CRUD.php';
 
 
@@ -90,9 +91,16 @@ class AnagraficaManager extends CRUD {
         return $result;
     }
 
-    function readAll() {
+    function readAllAnagraficaStruttura($obj) {
+        if (!($obj instanceof Struttura))
+            return false;
+
         $this->open();
-        $query = 'SELECT * FROM anagrafica';
+        $query = 'SELECT * FROM anagrafica JOIN anagraficastanza ON
+                . anagraficastanza.codicefiscaleproprietario = "%s" AND 
+                anagraficastanza.nomestruttura = "%s" 
+                WHERE anagraficastanza.codicefiscaleanagrafica = anagrafica.codicefiscale';
+        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getNome());
         $result = mysql_query($query);
         if (mysql_num_rows($result) <= 0)
             return false;
@@ -113,7 +121,6 @@ class AnagraficaManager extends CRUD {
             $tmp->setTelefono($res['telefono']);
             $tmp->setCellulare($res['cellulare']);
             $tmp->setEmail($res['email']);
-
             $toReturn[$i] = $tmp->toArray();
         }
 
