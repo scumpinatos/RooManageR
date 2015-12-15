@@ -150,7 +150,7 @@ if (isset($_POST['opCode'])) {
             break;
 
             
-        case "13": // READ ANAGRAFICASTANZA (Testato e funzionante)
+        case "9": // READ ANAGRAFICASTANZA (Testato e funzionante)
             require_once '../server/manager/AnagraficaStanzaManager.php';
 
             $toReturn = new AnagraficaStanza();
@@ -167,7 +167,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "14": // READ ALL ANAGRAFICASTANZA STRUTTURA
+        case "10": // READ ALL ANAGRAFICASTANZA STRUTTURA
             require_once '../server/manager/AnagraficaStanzaManager.php';
 
             $struttura = new Struttura();
@@ -179,7 +179,7 @@ if (isset($_POST['opCode'])) {
             echo json_encode($permanenze);
             break;
             
-        case "15": // INSERT ANAGRAFICASTANZA
+        case "11": // INSERT ANAGRAFICASTANZA
             require_once '../server/manager/AnagraficaStanzaManager.php';
 
             $manager = new AnagraficaStanzaManager();
@@ -191,6 +191,7 @@ if (isset($_POST['opCode'])) {
             $newAnagraficaStanza->setNomeStruttura($res['nomeStruttura']);
             $newAnagraficaStanza->setNumeroStanza($res['numeroStanza']);
             $newAnagraficaStanza->setIngresso($res['ingresso']);
+            $newAnagraficaStanza->setTipo($res['tipo']);
             $newAnagraficaStanza->setUscita($res['uscita']);
             $newAnagraficaStanza->setCosto($res['costo']);
 
@@ -200,7 +201,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "16": // UPDATE ANAGRAFICASTANZA
+        case "12": // UPDATE PERMANENZA
             require_once '../server/manager/AnagraficaStanzaManager.php';
 
             $manager = new AnagraficaStanzaManager();
@@ -212,10 +213,33 @@ if (isset($_POST['opCode'])) {
             $newAnagraficaStanza->setNomeStruttura($res['nomeStruttura']);
             $newAnagraficaStanza->setNumeroStanza($res['numeroStanza']);
             $newAnagraficaStanza->setIngresso($res['ingresso']);
+            $newAnagraficaStanza->setTipo($res['tipo']);
             $newAnagraficaStanza->setUscita($res['uscita']);
             $newAnagraficaStanza->setCosto($res['costo']);
 
-            if ($manager->update($newAnagraficaStanza)) {
+            if ($manager->updatePermanenza($newAnagraficaStanza)) {
+                echo 'DONE';
+            } else {
+                echo 'NOT DONE';
+            }
+            break;
+        case "13": // UPDATE VISITA
+            require_once '../server/manager/AnagraficaStanzaManager.php';
+
+            $manager = new AnagraficaStanzaManager();
+            $res = json_decode($_POST['json'], true);
+
+            $newAnagraficaStanza = new AnagraficaStanza();
+            $newAnagraficaStanza->setCodiceFiscaleAnagrafica($res['codiceFiscaleAnagrafica']);
+            $newAnagraficaStanza->setCodiceFiscaleProprietario($res['codiceFiscaleProprietario']);
+            $newAnagraficaStanza->setNomeStruttura($res['nomeStruttura']);
+            $newAnagraficaStanza->setNumeroStanza($res['numeroStanza']);
+            $newAnagraficaStanza->setIngresso($res['ingresso']);
+            $newAnagraficaStanza->setTipo($res['tipo']);
+            $newAnagraficaStanza->setUscita($res['uscita']);
+            $newAnagraficaStanza->setCosto($res['costo']);
+
+            if ($manager->updateVisita($newAnagraficaStanza)) {
                 echo 'DONE';
             } else {
                 echo 'NOT DONE';
@@ -224,7 +248,7 @@ if (isset($_POST['opCode'])) {
 
 
 
-        case "17": // INSERT STRUTTURA
+        case "14": // INSERT STRUTTURA
             require_once '../server/manager/StrutturaManager.php';
 
             $manager = new StrutturaManager();
@@ -243,7 +267,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "18": // UPDATE STRUTTURA
+        case "15": // UPDATE STRUTTURA
             require_once '../server/manager/StrutturaManager.php';
 
             $manager = new StrutturaManager();
@@ -262,7 +286,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "19": // READ STRUTTURA
+        case "16": // READ STRUTTURA
             require_once '../server/manager/StrutturaManager.php';
 
             $struttura = new Struttura();
@@ -274,7 +298,7 @@ if (isset($_POST['opCode'])) {
             echo json_encode($struttura->toArray());
             
             break;
-        case "20": // READ ALL STRUTTURA BY PROPRIETARIO
+        case "17": // READ ALL STRUTTURA BY PROPRIETARIO
             require_once '../server/manager/StrutturaManager.php';
             
             $proprietario = new Anagrafica();
@@ -284,7 +308,7 @@ if (isset($_POST['opCode'])) {
             $strutture = $manager->readAll($proprietario);
             echo json_encode($strutture);
             break;
-        case "21": // DELETE STRUTTURA
+        case "18": // DELETE STRUTTURA
             require_once '../server/manager/StrutturaManager.php';
 
             $struttura = new Struttura();
@@ -300,7 +324,7 @@ if (isset($_POST['opCode'])) {
             break;
 
 
-        case "22": // INSERT STANZA
+        case "19": // INSERT STANZA
             require_once '../server/manager/StanzaManager.php';
 
             $manager = new StanzaManager();
@@ -322,7 +346,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "23": // UPDATE STANZA
+        case "20": // UPDATE STANZA
             require_once '../server/manager/StanzaManager.php';
 
             $manager = new StanzaManager();
@@ -345,7 +369,7 @@ if (isset($_POST['opCode'])) {
             }
             
             break;
-        case "24": // READ STANZA
+        case "21": // READ STANZA
             require_once '../server/manager/StanzaManager.php';
 
             $manager = new StanzaManager();
@@ -358,7 +382,7 @@ if (isset($_POST['opCode'])) {
             $toReturn = $manager->read($toReturn);
             echo json_encode($toReturn->toArray());
             break;
-        case "25": // READ ALL STANZE STRUTTURA (Testato e funzionante)
+        case "22": // READ ALL STANZE STRUTTURA (Testato e funzionante)
             require_once '../server/manager/StanzaManager.php';
 
             $struttura = new Struttura();
@@ -369,7 +393,7 @@ if (isset($_POST['opCode'])) {
             $stanze = $manager->readAll($struttura);
             echo json_encode($stanze);
             break;
-        case "26": // DELETE STANZA
+        case "23": // DELETE STANZA
             require_once '../server/manager/StanzaManager.php';
 
             $manager = new StanzaManager();
@@ -393,7 +417,7 @@ if (isset($_POST['opCode'])) {
             break;
             
             
-        case "27": // INSERT ANAGRAFICA MANSIONE
+        case "24": // INSERT ANAGRAFICA MANSIONE
             require_once '../server/manager/AnagraficaMansioneManager.php';
             
             $manager = new AnagraficaMansioneManager();
@@ -412,7 +436,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "28": // UPDATE ANAGRAFICA MANSIONE
+        case "25": // UPDATE ANAGRAFICA MANSIONE
             require_once '../server/manager/AnagraficaMansioneManager.php';
             
             $manager = new AnagraficaMansioneManager();
@@ -431,7 +455,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "29": // READ ANAGRAFICA MANSIONE
+        case "26": // READ ANAGRAFICA MANSIONE
             require_once '../server/manager/AnagraficaMansioneManager.php';
 
             $manager = new AnagraficaMansioneManager();
@@ -448,7 +472,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "30": // READ ALL ANAGRAFICA MANSIONE STRUTTURA
+        case "27": // READ ALL ANAGRAFICA MANSIONE STRUTTURA
             require_once '../server/manager/AnagraficaMansioneManager.php';
 
             $manager = new AnagraficaMansioneManager();
@@ -460,7 +484,7 @@ if (isset($_POST['opCode'])) {
             $anagman = $manager->readAll($struttura);
             echo json_encode($anagman);
             break;
-        case "31": // DELETE ANAGRAFICA MANSIONE
+        case "28": // DELETE ANAGRAFICA MANSIONE
             require_once '../server/manager/AnagraficaMansioneManager.php';
 
             $manager = new AnagraficaMansioneManager();
@@ -478,8 +502,25 @@ if (isset($_POST['opCode'])) {
             
             break;
         
+        case "29": // CHECK VISITA
+            require_once '../server/manager/AnagraficaStanzaManager.php';
+
+            $toCheck = new AnagraficaStanza();
+            $toCheck->setNomeStruttura($_POST['nomeStruttura']);
+            $toCheck->setNumeroStanza($_POST['numeroStanza']);
+            $toCheck->setCodiceFiscaleProprietario($_POST['cfProprietario']);
+
+            $manager = new AnagraficaStanzaManager();
+            $toCheck = $manager->checkVisita($toCheck);
+
+            if ($toCheck != null) {
+                echo json_encode($toCheck->toArray());
+            } else {
+                echo 'NOT DONE';
+            }
+            break;
         
-        case "33": // READ ALL ANAGSTANZA IN CORSO
+        case "30": // READ ALL ANAGSTANZA IN CORSO
             require_once '../server/manager/AnagraficaStanzaManager.php';
 
             $struttura = new Struttura();

@@ -391,8 +391,10 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Inizio"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInizioVisitaActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonInizioAnagraficaStanza">
                   <Properties>
@@ -429,6 +431,9 @@
                     <Property name="text" type="java.lang.String" value="Fine"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFineVisitaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -1,13 +1,11 @@
 
 package ui;
 
-import cache.CacheManager;
+import cache.lists.ListaStanza;
 import entities.AnagraficaStanza;
-import entities.Stanza;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import web_services.AnagraficaStanzaManager;
 import web_services.StanzaManager;
@@ -154,7 +152,7 @@ public class UIAnagStaEnd extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 
-    public void popolaAnagraficaStanza(AnagraficaStanza input) {
+    public void popola(AnagraficaStanza input) {
         
         jTextFieldNumeroStanza.setText(input.getNumeroStanza());
         jTextFieldNumeroStanza.setEditable(false);
@@ -164,6 +162,8 @@ public class UIAnagStaEnd extends javax.swing.JDialog {
         jTextFieldIngresso.setEditable(false);
         if(input.getTipo() == 1)
             jTextFieldCosto.setEnabled(true);
+        else
+            jTextFieldCosto.setEnabled(false);
         dataOraAttuale();
         
         jButtonConferma.addActionListener(new ActionListener() {
@@ -171,9 +171,11 @@ public class UIAnagStaEnd extends javax.swing.JDialog {
             public void actionPerformed(ActionEvent e) {
                 
                 input.setUscita(jTextFieldUscita.getText());
-                if(jTextFieldCosto.isEnabled())
+                if(jTextFieldCosto.isEnabled()) {
                     input.setCosto(Float.parseFloat(jTextFieldCosto.getText()));
-                new AnagraficaStanzaManager().updateAnagraficaStanza(input);
+                    new AnagraficaStanzaManager().updatePermanenza(input);
+                } else
+                    new AnagraficaStanzaManager().updateVisita(input);
                 aggiornaStanze();
                 setVisible(false);
             }
@@ -188,7 +190,7 @@ public class UIAnagStaEnd extends javax.swing.JDialog {
     
     private void aggiornaStanze() {
         
-        ArrayList<Stanza> stanze = (ArrayList<Stanza>) CacheManager.getIstanza().get(CacheManager.LISTA_STANZE);
+        ListaStanza stanze = ListaStanza.getIstanza();
         stanze.get(numeroStanza).setLibera(1);
         new StanzaManager().updateStanza(stanze.get(numeroStanza));
     }

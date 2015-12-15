@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import web_services.AnagraficaStanzaManager;
 import web_services.StrutturaManager;
 
 public class UIHomePortinaio extends javax.swing.JFrame {
@@ -188,7 +189,11 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
         jButtonInizioVisita.setText("Inizio");
         jButtonInizioVisita.setToolTipText("");
-        jButtonInizioVisita.setEnabled(false);
+        jButtonInizioVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInizioVisitaActionPerformed(evt);
+            }
+        });
 
         jButtonInizioAnagraficaStanza.setText("Inizio");
         jButtonInizioAnagraficaStanza.setEnabled(false);
@@ -214,6 +219,11 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
         jButtonFineVisita.setText("Fine");
         jButtonFineVisita.setEnabled(false);
+        jButtonFineVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFineVisitaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelOperazioniStanzaLayout = new javax.swing.GroupLayout(jPanelOperazioniStanza);
         jPanelOperazioniStanza.setLayout(jPanelOperazioniStanzaLayout);
@@ -398,14 +408,14 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
     private void jButtonInizioAnagraficaStanzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInizioAnagraficaStanzaActionPerformed
 
-        new UIAnagraficaStanza(parent, true, selectedStanza).setVisible(true);
+        new UIAnagraficaStanza(parent, true, selectedStanza, 1).setVisible(true);
         aggiornaInformazioni();
     }//GEN-LAST:event_jButtonInizioAnagraficaStanzaActionPerformed
 
     private void jButtonFineAnagraficaStanzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFineAnagraficaStanzaActionPerformed
 
         UIAnagStaEnd view = new UIAnagStaEnd(parent, true, selectedStanza);
-        view.popolaAnagraficaStanza(AnagraficaStanzaTemp.getIstanza());
+        view.popola(AnagraficaStanzaTemp.getIstanza());
         view.setVisible(true);
         aggiornaInformazioni();
     }//GEN-LAST:event_jButtonFineAnagraficaStanzaActionPerformed
@@ -438,6 +448,18 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         view.setVisible(true);
         popolaRegistroOperazioni();
     }//GEN-LAST:event_jMenuItemProfiloActionPerformed
+
+    private void jButtonInizioVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInizioVisitaActionPerformed
+        new UIAnagraficaStanza(parent, true, selectedStanza, 2).setVisible(true);
+        aggiornaInformazioni();
+    }//GEN-LAST:event_jButtonInizioVisitaActionPerformed
+
+    private void jButtonFineVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFineVisitaActionPerformed
+        UIAnagStaEnd view = new UIAnagStaEnd(parent, true, selectedStanza);
+        view.popola(AnagraficaStanzaTemp.getIstanza());
+        view.setVisible(true);
+        aggiornaInformazioni();
+    }//GEN-LAST:event_jButtonFineVisitaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -565,6 +587,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
     private void stanzaOccupata() {
 
         // OPERAZIONI SULLA STANZA
+        caricaAnagraficaStanza();
         controlloVisita();
         jButtonInizioAnagraficaStanza.setEnabled(false);
         jButtonFineAnagraficaStanza.setEnabled(true);
@@ -579,10 +602,17 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         jButtonFineAnagraficaStanza.setEnabled(false);
     }
 
+    private void caricaAnagraficaStanza() {
+    
+        AnagraficaStanza toRead = new AnagraficaStanza();
+        toRead.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
+        toRead.setNomeStruttura(UtenteConnesso.getUtente().getNomeStruttura());
+        toRead.setNumeroStanza(ListaStanza.getIstanza().get(selectedStanza).getNumero());
+        new AnagraficaStanzaManager().readAnagraficaStanza(toRead);
+    }
+    
     private void controlloVisita() {
 
-        
-        
     }
     
     private void popolaElencoAnagraficaStanzaVisita() {
@@ -611,8 +641,6 @@ public class UIHomePortinaio extends javax.swing.JFrame {
 
         TableModel model = new DefaultTableModel(data, colonne);
         jTableAnagStanza.setModel(model);
-
-        // VISITE
 
     }
     

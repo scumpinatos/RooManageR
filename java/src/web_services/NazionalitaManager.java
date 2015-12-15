@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
 import entities.Nazionalita;
-import interfaces.ICallback;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -48,7 +47,7 @@ public class NazionalitaManager extends HttpConnection {
         
     }
     
-    public void readAllNazionalita(ICallback<ListaNazionalita> callback) {
+    public void readAllNazionalita() {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -57,9 +56,8 @@ public class NazionalitaManager extends HttpConnection {
                 try {
 
                     String response = getResponse(String.format("opCode=%s", ServerCodes.READ_ALL_NAZ));
-                    if (callback != null) {
-                        callback.onResult(new ObjectMapper().readValue(response, ListaNazionalita.class));
-                    }
+                    ListaNazionalita.setIstanza(new ObjectMapper().readValue(response, ListaNazionalita.class));
+                    
                 } catch (MalformedURLException ex) {
                     System.out.println("MalformerdURLException in class " + this.getClass().getName());
                 } catch (IOException ex) {

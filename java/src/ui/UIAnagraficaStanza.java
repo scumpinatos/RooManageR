@@ -1,31 +1,26 @@
 package ui;
 
 import cache.singular.AnagraficaTemp;
-import cache.lists.ListaNazionalita;
 import cache.lists.ListaStanza;
 import cache.singular.UtenteConnesso;
 import constants.Documenti;
 import entities.Anagrafica;
 import entities.AnagraficaStanza;
-import interfaces.ICallback;
 import java.awt.Frame;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import web_services.AnagraficaManager;
 import web_services.AnagraficaStanzaManager;
-import web_services.NazionalitaManager;
 import web_services.StanzaManager;
 
 public class UIAnagraficaStanza extends javax.swing.JDialog {
 
     private Boolean found = null;
-    private int numStanza;
+    private int numStanza, tipo;
 
-    public UIAnagraficaStanza(Frame frame,boolean bln, int numStanza) {
+    public UIAnagraficaStanza(Frame frame,boolean bln, int numStanza, int tipo) {
         super(frame, bln);
         initComponents();
 
@@ -33,6 +28,7 @@ public class UIAnagraficaStanza extends javax.swing.JDialog {
         dataOraAttuale();
         caricaNazionalita();
         this.numStanza = numStanza;
+        this.tipo = tipo;
         jTextFieldStanza.setText(ListaStanza.getIstanza().get(numStanza).getNumero());
         jTextFieldStanza.setEditable(false);
         this.setLocationRelativeTo(null);
@@ -495,37 +491,6 @@ public class UIAnagraficaStanza extends javax.swing.JDialog {
 
     private void caricaNazionalita() {
 
-        ItemListener listener = new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-
-                if (e.getItem().equals("Altro..")) {
-                    new UINazionalita(null, true).setVisible(true);
-                }
-            }
-        };
-
-        ICallback callback = new ICallback<ListaNazionalita>() {
-            @Override
-            public void onResult(ListaNazionalita obj) {
-
-                String[] items = new String[obj.size() + 1];
-
-                int i = 0;
-
-                for (; i < obj.size(); i++) {
-                    items[i] = obj.get(i).getAbbreviazione();
-                }
-                items[i] = "Altro..";
-
-                jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
-
-            }
-        };
-
-        new NazionalitaManager().readAllNazionalita(callback);
-
-        jComboBoxNazionalita.addItemListener(listener);
     }
 
     private void creaAnagrafica() {
@@ -566,6 +531,7 @@ public class UIAnagraficaStanza extends javax.swing.JDialog {
         newAnagraficaStanza.setIngresso(jTextFieldIngresso.getText());
         newAnagraficaStanza.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
         newAnagraficaStanza.setNomeStruttura(UtenteConnesso.getUtente().getNomeStruttura());
+        newAnagraficaStanza.setTipo(tipo);
         
         new AnagraficaStanzaManager().addAnagraficaStanza(newAnagraficaStanza);
     }

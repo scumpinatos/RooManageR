@@ -2,13 +2,9 @@ package ui;
 
 import constants.Documenti;
 import entities.Anagrafica;
-import interfaces.ICallback;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import web_services.AnagraficaManager;
-import web_services.NazionalitaManager;
 
 public class UIAnagrafica extends javax.swing.JDialog {
 
@@ -422,36 +418,5 @@ public class UIAnagrafica extends javax.swing.JDialog {
 
     private void caricaNazionalita() {
 
-        ItemListener listener = new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-
-                if (e.getItem().equals("Altro..")) {
-                    new UINazionalita(null, true).setVisible(true);
-                }
-            }
-        };
-
-        ICallback callback = new ICallback<ListaNazionalita>() {
-            @Override
-            public void onResult(ListaNazionalita obj) {
-
-                String[] items = new String[obj.size() + 1];
-
-                int i = 0;
-
-                for (; i < obj.size(); i++) {
-                    items[i] = obj.get(i).getAbbreviazione();
-                }
-                items[i] = "Altro..";
-
-                jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
-
-            }
-        };
-
-        new NazionalitaManager().readAllNazionalita(callback);
-
-        jComboBoxNazionalita.addItemListener(listener);
     }
 }

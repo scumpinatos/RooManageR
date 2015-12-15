@@ -46,7 +46,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelHome = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxStrutture1 = new javax.swing.JComboBox<String>();
+        jComboBoxStrutture1 = new javax.swing.JComboBox<>();
         jPanelElencoAnagStanza = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -57,7 +57,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         jTableVisita = new javax.swing.JTable();
         jPanelGestStruttura = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBoxStrutture2 = new javax.swing.JComboBox<String>();
+        jComboBoxStrutture2 = new javax.swing.JComboBox<>();
         jPanelElencoStanze = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableStanze = new javax.swing.JTable();
@@ -830,8 +830,6 @@ public class UIHomeProprietario extends javax.swing.JFrame {
     }
 
     private void mansioniStruttura() {
-        
-        System.out.println("AGGIORNO LE INFORMAZIONI");
         
         // SCARICO LE INFORMAZIONI
         strutturaManager.readAllAnagraficaMansioneStruttura(UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica(), selectedStrutt);
