@@ -11,9 +11,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-
+/**
+ * Classe che si occupa di gestire l'associazione tra anagrafica e stanza
+ * @author emanuelegargiulo
+ */
 public class AnagraficaStanzaManager extends HttpConnection {
     
+    /**
+     * Aggiunge l'anagrafica ad una stanza
+     * @param input
+     */
     public void addAnagraficaStanza(AnagraficaStanza input) {
         
         Runnable runnable = new Runnable() {
@@ -48,6 +55,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) {}
     }
     
+    /**
+     * Aggiorna l'entita' passata in input
+     * @param input
+     */
     public void updatePermanenza(AnagraficaStanza input) {
         
         Runnable runnable = new Runnable() {
@@ -82,6 +93,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) {}
     }
     
+ /**
+     * Aggiorna l'entita' passata in input
+     * @param input
+     */
     public void updateVisita(AnagraficaStanza input) {
         
         Runnable runnable = new Runnable() {
@@ -116,6 +131,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) {}
     }
     
+   /**
+     * Legge l'entita' passata in input
+     * @param input
+     */
     public void readAnagraficaStanza(AnagraficaStanza input) {
         
         Runnable runnable = new Runnable() {
@@ -140,6 +159,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) {}
     }
     
+    /**
+     * Controlla se l'anagrafica passata in input ha una visita in corso
+     * @param input
+     */
     public void checkVisitaInCorso(AnagraficaStanza input) {
         
         Runnable runnable = new Runnable() {

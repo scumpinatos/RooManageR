@@ -12,9 +12,16 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import static web_services.HttpConnection.getResponse;
 
-
+/**
+ * Classe che si occupa di gestire le istanze di anagrafiche relative a una struttura
+ * @author emanuelegargiulo
+ */
 public class AnagraficaMansioneManager {
     
+    /**
+     * Aggiunge un'anagrafia ad una struttura assegnandole una mansione
+     * @param input
+     */
     public void addAnagraficaMansione(AnagraficaMansione input) {
         
         Runnable runnable = new Runnable() {
@@ -45,9 +52,13 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
+       // while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Aggiorna l'istanza di anagraficaMansione passata come input
+     * @param input
+     */
     public void updateAnagraficaMansione(AnagraficaMansione input) {
         
         Runnable runnable = new Runnable() {
@@ -78,9 +89,15 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
+       // while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Legge l'anagrafica mansione dati i parametri
+     * @param cf
+     * @param nomeStruttura
+     * @param cfProprietario
+     */
     public void readAnagraficaMansione(String cf, String nomeStruttura, String cfProprietario) {
         
          Runnable runnable = new Runnable() {
@@ -99,9 +116,15 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
+       // while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Cancella l'anagrafica mansione dati i parametri
+     * @param cf
+     * @param cfProprietario
+     * @param nomeStruttura
+     */
     public void deleteAnagraficaMansione(String cf, String cfProprietario, String nomeStruttura) {
      
         Runnable runnable = new Runnable() {
@@ -127,6 +150,6 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
+      //  while(thread.getState() != Thread.State.TERMINATED) { }
     }
 }

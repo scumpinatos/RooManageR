@@ -11,8 +11,16 @@ import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+/**
+ * Classe che gestisce le nazionalita'
+ * @author emanuelegargiulo
+ */
 public class NazionalitaManager extends HttpConnection {
 
+    /**
+     * Aggiunge una nazionalita'
+     * @param input
+     */
     public void addNazionalita(Nazionalita input) {
         
         Runnable runnable = new Runnable() {
@@ -47,6 +55,9 @@ public class NazionalitaManager extends HttpConnection {
         
     }
     
+    /**
+     * Legge tutte le nazionalita'
+     */
     public void readAllNazionalita() {
 
         Runnable runnable = new Runnable() {
@@ -69,6 +80,10 @@ public class NazionalitaManager extends HttpConnection {
         new Thread(runnable).start();
     }
     
+    /**
+     * Aggiorna la nazionalita' passata in input
+     * @param input
+     */
     public void updateNazionalita(Nazionalita input) {
         
         Runnable runnable = new Runnable() {
