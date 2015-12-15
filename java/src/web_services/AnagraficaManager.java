@@ -18,9 +18,16 @@ import javax.swing.JOptionPane;
 import ui.UIHomePortinaio;
 import ui.UIHomeProprietario;
 
+/**
+ * Classe di controllo per l'entita' anagrafica
+ * @author emanuelegargiulo
+ */
 public class AnagraficaManager extends HttpConnection {
 
-
+    /**
+     * Metodo che si occupa dell'aggiunta di un'anagrafica sul database remoto
+     * @param input
+     */
     public void addAnagrafica(Anagrafica input) {
     
         Runnable runnable = new Runnable() {
@@ -55,6 +62,10 @@ public class AnagraficaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) {}
     }
     
+    /**
+     * Metodo che si occupa di aggiornare un'anagrafica sul database remoto
+     * @param input
+     */
     public void updateAnagrafica(Anagrafica input) {
     
         Runnable runnable = new Runnable() {
@@ -89,6 +100,11 @@ public class AnagraficaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) {}
     }
     
+    /**
+     * Metodo che si occupa di leggere un'anagrafica dal database remoto
+     * @param cf
+     * @return true se trova l'anagrafica, false altrimenti
+     */
     public boolean readAnagrafica(String cf) {
         
         Runnable runnable = new Runnable() {
@@ -121,6 +137,12 @@ public class AnagraficaManager extends HttpConnection {
             return false;
     }
     
+    /**
+     * Metodo che si occupa di effettuare il login 
+     * @param cf
+     * @param password
+     * @param frame
+     */
     public void login(String cf, String password, JFrame frame) {
         
 

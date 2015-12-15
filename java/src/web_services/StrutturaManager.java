@@ -16,8 +16,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+/**
+ * Classe che si occupa di gestire la struttura
+ * @author emanuelegargiulo
+ */
 public class StrutturaManager extends HttpConnection {
 
+    /**
+     * Metodo che si occupa di aggiungere una struttura al database remoto
+     * @param input
+     */
     public void addStruttura(Struttura input) {
         
         Runnable runnable = new Runnable() {
@@ -51,6 +59,11 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che legge una struttura dal database remoto
+     * @param nomeStruttura
+     * @param cfProprietario
+     */
     public void readStruttura(String nomeStruttura, String cfProprietario) {
         
         Runnable runnable = new Runnable() {
@@ -72,6 +85,10 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che agginge una struttura sul database remoto
+     * @param input
+     */
     public void updateStruttura(Struttura input) {
         
         Runnable runnable = new Runnable() {
@@ -105,6 +122,11 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che cancella la struttura dal database remoto
+     * @param cfProprietario
+     * @param nomeStruttura
+     */
     public void deleteStruttura(String cfProprietario, String nomeStruttura) {
         
         Runnable runnable = new Runnable() {
@@ -136,7 +158,12 @@ public class StrutturaManager extends HttpConnection {
     
     
     // METODI INFORMAZIONI SULLA STRUTTURA
-    public void readAllStruttureAnagrafica(String cfProprietario) {
+
+    /**
+     * Metodo che legge tutte le strutture relative a un proprietario dal database remoto
+     * @param cfProprietario
+     */
+        public void readAllStruttureAnagrafica(String cfProprietario) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -156,6 +183,11 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che legge tutte le anagrafiche di una struttura dal database remoto
+     * @param cfProprietario
+     * @param nomeStruttura
+     */
     public void readAllAnagraficheStruttura(String cfProprietario, String nomeStruttura) {
         
         Runnable runnable = new Runnable() {
@@ -176,6 +208,11 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che legge tutte le anagrafiche delle stanze di una struttura dal database remoto
+     * @param cfProprietario
+     * @param nomeStruttura
+     */
     public void readAllAnagraficaStanzaStruttura(String cfProprietario, String nomeStruttura) {
         
         Runnable runnable = new Runnable() {
@@ -196,6 +233,11 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che si occupa di leggere tutte le stanze della struttura dal database remoto
+     * @param nomeStruttura
+     * @param cfProprietario
+     */
     public void readAllStanzeStruttura(String nomeStruttura, String cfProprietario) {
 
         Runnable runnable = new Runnable() {
@@ -216,6 +258,11 @@ public class StrutturaManager extends HttpConnection {
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo per leggere dal database remoto tutte le permanenze in corso nelle stanze di una struttura
+     * @param cfProprietario
+     * @param nomeStruttura
+     */
     public void readAllInCorso(String cfProprietario, String nomeStruttura) {
         
         Runnable runnable = new Runnable() {
@@ -237,6 +284,11 @@ public class StrutturaManager extends HttpConnection {
 
     }
     
+    /**
+     * Metodo per leggere dal database remoto tutte le anagrafiche di una struttura a cui e' assegnata una mansione
+     * @param cfProprietario
+     * @param nomeStruttura
+     */
     public void readAllAnagraficaMansioneStruttura(String cfProprietario, String nomeStruttura) {
         
         Runnable runnable = new Runnable() {

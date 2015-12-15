@@ -13,9 +13,16 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import static web_services.HttpConnection.getResponse;
 
-
+/**
+ * Classe che si occupa di gestire le stanze
+ * @author emanuelegargiulo
+ */
 public class StanzaManager extends HttpConnection{
     
+    /**
+     * Metodo che si occupa di aggiungere una stanza al database remoto
+     * @param input
+     */
     public void addStanza(Stanza input) {
         
         Runnable runnable = new Runnable() {
@@ -49,6 +56,10 @@ public class StanzaManager extends HttpConnection{
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che si occupa di aggiungere le stanze al database remoto
+     * @param input
+     */
     public void addElencoStanze(ArrayList<Stanza> input) {
      
         int nStanze = input.size();
@@ -58,6 +69,10 @@ public class StanzaManager extends HttpConnection{
         }
     }
     
+    /**
+     * Metodo che si occupa di aggiornare una stanza nel database remoto
+     * @param input
+     */
     public void updateStanza(Stanza input) {
         
         Runnable runnable = new Runnable() {
@@ -91,6 +106,12 @@ public class StanzaManager extends HttpConnection{
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     * Metodo che si occupa di leggere una stanza dal database remoto
+     * @param numeroStanza
+     * @param nomeStruttura
+     * @param cfProprietario
+     */
     public void readStanza(String numeroStanza, String nomeStruttura, String cfProprietario) {
         
          Runnable runnable = new Runnable() {
@@ -112,6 +133,10 @@ public class StanzaManager extends HttpConnection{
         while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
+    /**
+     *  Metodo che si occupa di cancellare una stanza dal database remoto
+     * @param input
+     */
     public void deleteStanza(Stanza input) {
      
         Runnable runnable = new Runnable() {
