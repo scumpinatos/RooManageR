@@ -1,6 +1,5 @@
 package ui;
 
-import cache.lists.ListaNazionalita;
 import constants.Documenti;
 import entities.Anagrafica;
 import interfaces.ICallback;

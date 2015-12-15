@@ -1,11 +1,13 @@
 
 package ui;
 
-import cache.lists.ListaStanza;
+import cache.CacheManager;
 import entities.AnagraficaStanza;
+import entities.Stanza;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import web_services.AnagraficaStanzaManager;
 import web_services.StanzaManager;
@@ -186,7 +188,8 @@ public class UIAnagStaEnd extends javax.swing.JDialog {
     
     private void aggiornaStanze() {
         
-        ListaStanza.getIstanza().get(numeroStanza).setLibera(1);
-        new StanzaManager().updateStanza(ListaStanza.getIstanza().get(numeroStanza));
+        ArrayList<Stanza> stanze = (ArrayList<Stanza>) CacheManager.getIstanza().get(CacheManager.LISTA_STANZE);
+        stanze.get(numeroStanza).setLibera(1);
+        new StanzaManager().updateStanza(stanze.get(numeroStanza));
     }
 }
