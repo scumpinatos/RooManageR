@@ -53,7 +53,6 @@ public class StanzaManager extends HttpConnection{
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
     /**
@@ -103,7 +102,6 @@ public class StanzaManager extends HttpConnection{
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
     /**
@@ -130,7 +128,7 @@ public class StanzaManager extends HttpConnection{
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
+
     }
     
     /**
@@ -167,6 +165,6 @@ public class StanzaManager extends HttpConnection{
 
         Thread thread = new Thread(runnable);
         thread.start();
-        while(thread.getState() != Thread.State.TERMINATED) { }
+
     }
 }

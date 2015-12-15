@@ -16,6 +16,7 @@ import web_services.StrutturaManager;
 
 public class UIHomePortinaio extends javax.swing.JFrame {
 
+    private AnagraficaStanzaManager manager;
     private int selectedAnagStan;
     private int selectedVisita;
     private int selectedStanza;
@@ -25,6 +26,7 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         initComponents();
         parent = this;
         this.setLocationRelativeTo(null);
+        manager = new AnagraficaStanzaManager();
         aggiornaInformazioni();
         
     }
@@ -608,11 +610,16 @@ public class UIHomePortinaio extends javax.swing.JFrame {
         toRead.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
         toRead.setNomeStruttura(UtenteConnesso.getUtente().getNomeStruttura());
         toRead.setNumeroStanza(ListaStanza.getIstanza().get(selectedStanza).getNumero());
-        new AnagraficaStanzaManager().readAnagraficaStanza(toRead);
+        manager.readAnagraficaStanza(toRead);
     }
     
     private void controlloVisita() {
 
+        AnagraficaStanza toRead = new AnagraficaStanza();
+        toRead.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
+        toRead.setNomeStruttura(UtenteConnesso.getUtente().getNomeStruttura());
+        toRead.setNumeroStanza(ListaStanza.getIstanza().get(selectedStanza).getNumero());
+        manager.checkVisitaInCorso(toRead);
     }
     
     private void popolaElencoAnagraficaStanzaVisita() {

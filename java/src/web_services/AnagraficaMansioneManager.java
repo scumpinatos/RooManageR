@@ -52,7 +52,6 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-       // while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
     /**
@@ -89,7 +88,6 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-       // while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
     /**
@@ -116,7 +114,6 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-       // while(thread.getState() != Thread.State.TERMINATED) { }
     }
     
     /**
@@ -150,6 +147,5 @@ public class AnagraficaMansioneManager {
 
         Thread thread = new Thread(runnable);
         thread.start();
-      //  while(thread.getState() != Thread.State.TERMINATED) { }
     }
 }
