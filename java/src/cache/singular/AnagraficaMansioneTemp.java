@@ -4,7 +4,7 @@ package cache.singular;
 import entities.AnagraficaMansione;
 
 /**
- * Cache relativa all'anagrafica mansione che ha effettuato il login
+ * Cache contenente all'anagrafica mansione che ha effettuato il login
  * @author emanuelegargiulo
  */
 public class AnagraficaMansioneTemp {

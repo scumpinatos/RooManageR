@@ -19,7 +19,7 @@ import static web_services.HttpConnection.getResponse;
 public class AnagraficaMansioneManager {
     
     /**
-     * Aggiunge un'anagrafia ad una struttura assegnandole una mansione
+     * Aggiunge un'anagrafica ad una struttura assegnandole una mansione
      * @param input
      */
     public void addAnagraficaMansione(AnagraficaMansione input) {

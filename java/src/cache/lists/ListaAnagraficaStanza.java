@@ -13,7 +13,7 @@ public class ListaAnagraficaStanza extends ArrayList<AnagraficaStanza> {
     private static ListaAnagraficaStanza istanza;
 
     /**
-     * Restituisce l'istanza della lista delle anagrafiche relative alle stanze
+     * Restituisce la lista delle anagrafiche relative alle stanze
      * @return istanza
      */
     public static ListaAnagraficaStanza getIstanza() {

@@ -4,7 +4,7 @@ package cache.singular;
 import entities.Stanza;
 
 /**
- * Cache di una stanza
+ * Cache contenente una stanza
  * @author emanuelegargiulo
  */
 public class StanzaTemp {

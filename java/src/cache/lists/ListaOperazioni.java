@@ -4,7 +4,7 @@ package cache.lists;
 import java.util.ArrayList;
 
 /**
- * Cache relativa alla lista delle operazioni
+ * Cache contenente la lista delle operazioni
  * @author emanuelegargiulo
  */
 public class ListaOperazioni extends ArrayList<String> {
@@ -12,7 +12,7 @@ public class ListaOperazioni extends ArrayList<String> {
     private static ListaOperazioni istanza;
 
     /**
-     * Restituisce l'istanza della lista delle operazioni
+     * Restituisce la lista delle operazioni
      * @return istanza
      */
     public static ListaOperazioni getListaOperazioni() {

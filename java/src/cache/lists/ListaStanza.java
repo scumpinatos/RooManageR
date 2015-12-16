@@ -4,7 +4,7 @@ import entities.Stanza;
 import java.util.ArrayList;
 
 /**
- * Cache relativa alla lista delle stanze
+ * Cache contenente la lista delle stanze
  * @author emanuelegargiulo
  */
 public class ListaStanza extends ArrayList<Stanza> {
@@ -12,7 +12,7 @@ public class ListaStanza extends ArrayList<Stanza> {
     private static ListaStanza istanza;
 
     /**
-     * Restituisce l'istanza della lista delle stanze
+     * Restituisce la lista delle stanze
      * @return istanza
      */
     public static ListaStanza getIstanza() {

@@ -5,7 +5,7 @@ import entities.Anagrafica;
 import java.util.ArrayList;
 
 /**
- * Cache relativa alla lista delle anagrafiche
+ * Cache contenente la lista delle anagrafiche
  * @author emanuelegargiulo
  */
 public class ListaAnagrafica extends ArrayList<Anagrafica> {
@@ -13,7 +13,7 @@ public class ListaAnagrafica extends ArrayList<Anagrafica> {
     private static ListaAnagrafica istanza;
 
     /**
-     * Restituisce l'istanza di ListaAnagrafica
+     * Restituisce la lista di anagrafiche
      * @return istanza
      */
     public static ListaAnagrafica getIstanza() {
@@ -23,7 +23,7 @@ public class ListaAnagrafica extends ArrayList<Anagrafica> {
     }
 
     /**
-     * Setta l'istanza di ListaAnagrafica
+     * Setta la lista di anagrafiche
      * @param istanza
      */
     public static void setIstanza(ListaAnagrafica istanza) {

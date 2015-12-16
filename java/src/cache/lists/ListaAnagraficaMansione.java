@@ -5,7 +5,7 @@ import entities.AnagraficaMansione;
 import java.util.ArrayList;
 
 /**
- * Cache relativa alla lista delle anagrafiche delle mansioni
+ * Cache contenente la lista delle anagrafiche delle mansioni
  * @author emanuelegargiulo
  */
 public class ListaAnagraficaMansione extends ArrayList<AnagraficaMansione> {
@@ -13,7 +13,7 @@ public class ListaAnagraficaMansione extends ArrayList<AnagraficaMansione> {
     private static ListaAnagraficaMansione istanza;
 
     /**
-     * Restituisce l'istanza delle anagrafiche mansione
+     * Restituisce le anagrafiche mansione
      * @return istanza
      */
     public static ListaAnagraficaMansione getIstanza() {

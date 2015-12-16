@@ -2,7 +2,7 @@
 package entities;
 
 /**
- * Questa Classe identifica l'entita' Anagrafica 
+ * Classe che identifica l'entita' Anagrafica 
  * @author emanuelegargiulo
  */
 public class Anagrafica {

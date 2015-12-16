@@ -5,7 +5,7 @@ import entities.Nazionalita;
 import java.util.ArrayList;
 
 /**
- * Cache relativa alla lista delle nazionalità
+ * Cache contenente la lista delle nazionalità
  * @author emanuelegargiulo
  */
 public class ListaNazionalita extends ArrayList<Nazionalita> {
@@ -13,7 +13,7 @@ public class ListaNazionalita extends ArrayList<Nazionalita> {
     private static ListaNazionalita istanza;
 
     /**
-     * Restituisce l'istanza della lista delle nazionalità
+     * Restituisce la lista delle nazionalità
      * @return istanza
      */
     public static ListaNazionalita getIstanza() {

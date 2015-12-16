@@ -4,7 +4,7 @@ package cache.singular;
 import entities.AnagraficaStanza;
 
 /**
- * Cache relativa all'anagrafica della stanza 
+ * Cache contenente l'anagrafica della stanza 
  * @author emanuelegargiulo
  */
 public class AnagraficaStanzaTemp {

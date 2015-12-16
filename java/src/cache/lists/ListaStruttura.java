@@ -5,7 +5,7 @@ import entities.Struttura;
 import java.util.ArrayList;
 
 /**
- * Cache relativa alla lista delle strutture
+ * Cache contenente la lista delle strutture
  * @author emanuelegargiulo
  */
 public class ListaStruttura extends ArrayList<Struttura> {
@@ -13,7 +13,7 @@ public class ListaStruttura extends ArrayList<Struttura> {
     private static ListaStruttura istanza;
 
     /**
-     * Restituisce l'istanza della lista delle strutture
+     * Restituisce la lista delle strutture
      * @return istanza
      */
     public static ListaStruttura getIstanza() {
