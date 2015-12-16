@@ -12,9 +12,17 @@ import java.net.URL;
 import constants.StatusCodes;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Classe che si occupa della connessione HTTP con il server contenente il database
+ * @author emanuelegargiulo
+ */
 public abstract class HttpConnection {
     
+    /**
+     * Funzione che si occupa della connessione
+     * @param parameters
+     * @return 
+     */
     public static String getResponse(String parameters) {
         
         try {

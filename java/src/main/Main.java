@@ -2,9 +2,16 @@ package main;
 
 import ui.UILogin;
 
-
+/**
+ * Classe di avvio del programma
+ * @author emanuelegargiulo
+ */
 public class Main {
 
+    /**
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

@@ -1,8 +1,8 @@
 package exceptions;
 
 /**
- *
- * @author ScumpinatoS
+ * Eccezione relativa alla connessione HTTP
+ * @author emanuelegargiulo
  */
 public class HttpException extends Exception {
 

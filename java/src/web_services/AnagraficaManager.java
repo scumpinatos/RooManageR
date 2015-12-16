@@ -102,6 +102,7 @@ public class AnagraficaManager extends HttpConnection {
      * Metodo che si occupa di leggere un'anagrafica dal database remoto
      *
      * @param cf
+     * @param callback
      */
     public void readAnagrafica(String cf, ICallback<Boolean> callback) {
 
@@ -137,6 +138,7 @@ public class AnagraficaManager extends HttpConnection {
      *
      * @param cf
      * @param password
+     * @param callback
      */
     public void login(String cf, String password, ICallback<Integer> callback) {
 
