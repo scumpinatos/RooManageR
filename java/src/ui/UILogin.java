@@ -1,5 +1,6 @@
 package ui;
 
+import interfaces.ICallback;
 import web_services.AnagraficaManager;
 
 public class UILogin extends javax.swing.JFrame {
@@ -97,7 +98,12 @@ public class UILogin extends javax.swing.JFrame {
 
         AnagraficaManager manager = new AnagraficaManager();
         
-        manager.login(cf, password, this);
+        manager.login(cf, password, new ICallback<Integer>() {
+            @Override
+            public void result(Integer obj) {
+                // TODO
+            }
+        });
     }//GEN-LAST:event_jButtonAccediActionPerformed
 
     

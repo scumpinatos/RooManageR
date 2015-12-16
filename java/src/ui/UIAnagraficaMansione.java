@@ -1,18 +1,17 @@
-
 package ui;
 
 import cache.singular.UtenteConnesso;
 import entities.AnagraficaMansione;
+import interfaces.ICallback;
 import javax.swing.JOptionPane;
 import web_services.AnagraficaManager;
 import web_services.AnagraficaMansioneManager;
 
-
 public class UIAnagraficaMansione extends javax.swing.JDialog {
-    
+
     private int tipo;
     private String nomeStruttura;
-   
+
     public UIAnagraficaMansione(java.awt.Frame parent, boolean modal, int tipoMansione, String struttura) {
         super(parent, modal);
         initComponents();
@@ -21,7 +20,6 @@ public class UIAnagraficaMansione extends javax.swing.JDialog {
         nomeStruttura = struttura;
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -135,26 +133,31 @@ public class UIAnagraficaMansione extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonControllaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControllaActionPerformed
-        
-        if (new AnagraficaManager().readAnagrafica(jTextFieldCf.getText())) {
-            JOptionPane.showMessageDialog(rootPane, "Codice fiscale presente in archivio.");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Codice fiscale non presente in archivio.\n"
-                    + "Inserire manualmente la nuova anagrafica");
-            new UIAnagrafica(null, true).setVisible(true);
-        }
-        
+
+        new AnagraficaManager().readAnagrafica(jTextFieldCf.getText(), new ICallback<Boolean>() {
+            @Override
+            public void result(Boolean obj) {
+                if (obj) {
+                    JOptionPane.showMessageDialog(rootPane, "Codice fiscale presente in archivio.");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Codice fiscale non presente in archivio.\n"
+                            + "Inserire manualmente la nuova anagrafica");
+                    new UIAnagrafica(null, true).setVisible(true);
+                }
+            }
+        });
+
         jPasswordFieldPass1.setEnabled(true);
         jPasswordFieldPass2.setEnabled(true);
     }//GEN-LAST:event_jButtonControllaActionPerformed
 
     private void jButtonAnnullaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnullaActionPerformed
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAnnullaActionPerformed
 
     private void jButtonConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaActionPerformed
-        
+
         creaAnagraficaMansione();
     }//GEN-LAST:event_jButtonConfermaActionPerformed
 
@@ -173,30 +176,28 @@ public class UIAnagraficaMansione extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldCf;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     private void creaAnagraficaMansione() {
-        
+
         AnagraficaMansione newAnagraficaMansione = new AnagraficaMansione();
-        
+
         newAnagraficaMansione.setCodiceFiscaleAnagrafica(jTextFieldCf.getText());
         newAnagraficaMansione.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica());
         newAnagraficaMansione.setNomeStruttura(nomeStruttura);
         newAnagraficaMansione.setTipoMansione(tipo);
-        if(controllaNuovaPassword()) {
+        if (controllaNuovaPassword()) {
             String pass = new String(jPasswordFieldPass1.getPassword());
             newAnagraficaMansione.setPassword(pass);
             new AnagraficaMansioneManager().addAnagraficaMansione(newAnagraficaMansione);
             this.setVisible(false);
         }
     }
-    
+
     private boolean controllaNuovaPassword() {
-        
+
         String pass1 = new String(jPasswordFieldPass1.getPassword());
         String pass2 = new String(jPasswordFieldPass2.getPassword());
-        
-        if(!(pass1.equals(pass2))) {
+
+        if (!(pass1.equals(pass2))) {
             jLabelAvviso.setText("Le due password inserite non corrispondono");
             return false;
         } else {

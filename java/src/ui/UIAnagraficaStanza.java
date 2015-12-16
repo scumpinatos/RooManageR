@@ -6,6 +6,7 @@ import cache.singular.UtenteConnesso;
 import constants.Documenti;
 import entities.Anagrafica;
 import entities.AnagraficaStanza;
+import interfaces.ICallback;
 import java.awt.Frame;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -20,7 +21,7 @@ public class UIAnagraficaStanza extends javax.swing.JDialog {
     private Boolean found = null;
     private int numStanza, tipo;
 
-    public UIAnagraficaStanza(Frame frame,boolean bln, int numStanza, int tipo) {
+    public UIAnagraficaStanza(Frame frame, boolean bln, int numStanza, int tipo) {
         super(frame, bln);
         initComponents();
 
@@ -350,15 +351,20 @@ public class UIAnagraficaStanza extends javax.swing.JDialog {
 
     private void jButtonControllaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControllaActionPerformed
 
-        if (new AnagraficaManager().readAnagrafica(jTextFieldCodiceFiscale.getText())) {
-            JOptionPane.showMessageDialog(rootPane, "Codice fiscale presente in archivio.\nLe informazioni verranno inserite automaticamente");
-            popolaCampi(AnagraficaTemp.getIstanza());
-            found = true;
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Codice fiscale non presente in archivio.\nInserire manualmente le informazioni");
-            attivaCampi();
-            found = false;
-        }
+        new AnagraficaManager().readAnagrafica(jTextFieldCodiceFiscale.getText(), new ICallback<Boolean>() {
+            @Override
+            public void result(Boolean obj) {
+                if (obj) {
+                    JOptionPane.showMessageDialog(rootPane, "Codice fiscale presente in archivio.\nLe informazioni verranno inserite automaticamente");
+                    popolaCampi(AnagraficaTemp.getIstanza());
+                    found = true;
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Codice fiscale non presente in archivio.\nInserire manualmente le informazioni");
+                    attivaCampi();
+                    found = false;
+                }
+            }
+        });
 
     }//GEN-LAST:event_jButtonControllaActionPerformed
 
@@ -518,26 +524,26 @@ public class UIAnagraficaStanza extends javax.swing.JDialog {
         newAnagrafica.setTelefono(jTextFieldTelefono.getText());
         newAnagrafica.setCellulare(jTextFieldCellulare.getText());
         newAnagrafica.setEmail(jTextFieldEmail.getText());
-        
+
         new AnagraficaManager().addAnagrafica(newAnagrafica);
     }
-    
+
     private void creaAnagraficaStanza() {
-        
+
         AnagraficaStanza newAnagraficaStanza = new AnagraficaStanza();
-        
+
         newAnagraficaStanza.setCodiceFiscaleAnagrafica(jTextFieldCodiceFiscale.getText());
         newAnagraficaStanza.setNumeroStanza(jTextFieldStanza.getText());
         newAnagraficaStanza.setIngresso(jTextFieldIngresso.getText());
         newAnagraficaStanza.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
         newAnagraficaStanza.setNomeStruttura(UtenteConnesso.getUtente().getNomeStruttura());
         newAnagraficaStanza.setTipo(tipo);
-        
+
         new AnagraficaStanzaManager().addAnagraficaStanza(newAnagraficaStanza);
     }
-    
+
     private void aggiornaStanze() {
-        
+
         ListaStanza.getIstanza().get(numStanza).setLibera(0);
         new StanzaManager().updateStanza(ListaStanza.getIstanza().get(numStanza));
     }
