@@ -2,8 +2,8 @@
 package constants;
 
 /**
- * Definisce le costanti che indicano le varie nazionalità
- * @author giandomenico
+ * Definisce le costanti che indicano le varie operazioni del server
+ * @author emanuelegargiulo
  */
 public class ServerCodes {
     
