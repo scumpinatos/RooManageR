@@ -5,6 +5,7 @@ import cache.lists.ListaOperazioni;
 import cache.singular.UtenteConnesso;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import constants.Mansioni;
 import constants.ServerCodes;
 import entities.Anagrafica;
 import entities.AnagraficaMansione;
@@ -14,6 +15,9 @@ import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
+import ui.UIHomePortinaio;
+import ui.UIHomeProprietario;
+import ui.UILogin;
 
 /**
  * Classe di controllo per l'entita' anagrafica
@@ -142,8 +146,9 @@ public class AnagraficaManager extends HttpConnection {
      */
     public void login(String cf, String password, ICallback<Integer> callback) {
 
-        Runnable runnable = new Runnable() {
-
+        Runnable runnable;
+        runnable = new Runnable() {
+            
             @Override
             public void run() {
                 try {
@@ -185,6 +190,16 @@ public class AnagraficaManager extends HttpConnection {
 
                     // CHIUSURA LOGIN ED APERTURA HOMEPAGE
                     callback.result(UtenteConnesso.getUtente().getTipoMansione());
+                   //  frame.setVisible(false);
+                    switch (UtenteConnesso.getUtente().getTipoMansione()) {
+                        case Mansioni.PORTINAIO:
+                            new UIHomePortinaio().setVisible(true);
+                            break;
+                        case Mansioni.PROPRIETARIO:
+                            new UIHomeProprietario().setVisible(true);
+                            break;
+                    }
+
                 } catch (MalformedURLException ex) {
 
                 } catch (IOException ex) {

@@ -46,7 +46,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelHome = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxStrutture1 = new javax.swing.JComboBox<>();
+        jComboBoxStrutture1 = new javax.swing.JComboBox<String>();
         jPanelElencoAnagStanza = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -57,7 +57,7 @@ public class UIHomeProprietario extends javax.swing.JFrame {
         jTableVisita = new javax.swing.JTable();
         jPanelGestStruttura = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBoxStrutture2 = new javax.swing.JComboBox<>();
+        jComboBoxStrutture2 = new javax.swing.JComboBox<String>();
         jPanelElencoStanze = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableStanze = new javax.swing.JTable();
