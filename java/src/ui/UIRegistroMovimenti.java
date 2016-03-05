@@ -187,55 +187,9 @@ public class UIRegistroMovimenti extends javax.swing.JDialog {
     
     private void registroClienti() {
 
-        new StrutturaManager().readAllAnagraficheStruttura(cf, nome);
-        
-        String[] colonne = new String[4];
-        colonne[0] = "Nome";
-        colonne[1] = "Cognome";
-        colonne[2] = "Data di nascita";
-        colonne[3] = "Indirizzo";
-
-////        ListaAnagrafica clienti = ListaAnagrafica.getIstanza();
-//        int nAnag = clienti.size();
-//
-//        String[][] dati = new String[nAnag][4];
-//        for (int i = 0; i < nAnag; i++) {
-//            dati[i][0] = clienti.get(i).getNome();
-//            dati[i][1] = clienti.get(i).getCognome();
-//            dati[i][2] = clienti.get(i).getDataNascita();
-//            dati[i][3] = clienti.get(i).getIndirizzo();
-//        }
-//
-//        TableModel model = new DefaultTableModel(dati, colonne);
-//        jTable.setModel(model);
-
     }
     
     private void registroPermanenze() {
-
-        new StrutturaManager().readAllAnagraficaStanzaStruttura(cf, nome);
-        
-        String[] colonne = new String[5];
-        colonne[0] = "Codice fiscale";
-        colonne[1] = "Numero stanza";
-        colonne[2] = "Ingresso";
-        colonne[3] = "Uscita";
-        colonne[4] = "Costo";
-
-        ListaAnagraficaStanza permanenze = ListaAnagraficaStanza.getIstanza();
-        int nPerm = permanenze.size();
-
-        String[][] dati = new String[nPerm][5];
-        for (int i = 0; i < nPerm; i++) {
-            dati[i][0] = permanenze.get(i).getCodiceFiscaleAnagrafica();
-            dati[i][1] = permanenze.get(i).getNumeroStanza();
-            dati[i][2] = permanenze.get(i).getIngresso();
-            dati[i][3] = permanenze.get(i).getUscita();
-            dati[i][4] = permanenze.get(i).getCosto() + "";
-        }
-
-        TableModel model = new DefaultTableModel(dati, colonne);
-        jTable.setModel(model);
 
     }
     

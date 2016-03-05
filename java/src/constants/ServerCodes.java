@@ -17,7 +17,7 @@ public class ServerCodes {
     /**
      *
      */
-        public static final int READ_ALL_NAZ = 2;
+    public static final int READ_ALL_NAZ = 2;
 
     /**
      *
@@ -34,7 +34,7 @@ public class ServerCodes {
     /**
      *
      */
-        public static final int READ_ANAG = 5;
+    public static final int READ_ANAG = 5;
 
     /**
      *
@@ -56,7 +56,7 @@ public class ServerCodes {
     /**
      *
      */
-        public static final int READ_ANAG_STA = 9;
+    public static final int READ_ANAG_STA = 9;
 
     /**
      *
@@ -71,7 +71,7 @@ public class ServerCodes {
     /**
      *
      */
-    public static final int UPD_PERM = 12;
+    public static final int UPD_ANAG_STA = 12;
 
     /**
      *
@@ -83,7 +83,7 @@ public class ServerCodes {
     /**
      *
      */
-        public static final int INS_STR = 14;
+    public static final int INS_STR = 14;
 
     /**
      *
@@ -170,5 +170,7 @@ public class ServerCodes {
      *
      */
     public static final int READ_ANAG_STA_CORSO = 30;
+    
+    public static final int OCC_STA = 31;
     
 }

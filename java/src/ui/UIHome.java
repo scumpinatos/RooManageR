@@ -61,7 +61,8 @@ public class UIHome extends javax.swing.JFrame {
         String cf = UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica();
         this.setTitle(cf + " - PORTINAIO");
         
-        jTabbedPane.add(new JPanelElencoStanza(strutturaManager, false));
+        jTabbedPane.add(new JPanelSituazioneAttuale(strutturaManager, false));
+        jTabbedPane.add(new JPanelAnagStanza(strutturaManager, false));
         jTabbedPane.add(new JPanelRegistroOperazioni());
         this.setVisible(true);
     }
@@ -71,9 +72,9 @@ public class UIHome extends javax.swing.JFrame {
         String cf = UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica();
         this.setTitle(cf + " - PROPRIETARIO");
         
-        //jTabbedPane.add(new JPanelSituazioneGlobale(strutturaManager, true));
-        jTabbedPane.add(new JPanelElencoStanza(strutturaManager, true));
-        jTabbedPane.add(new JPanelGestioneStruttura(strutturaManager));
+        jTabbedPane.add(new JPanelSituazioneAttuale(strutturaManager, true));
+        jTabbedPane.add(new JPanelAnagStanza(strutturaManager, true));
+        jTabbedPane.add(new JPanelStruttura(strutturaManager));
         jTabbedPane.add(new JPanelRegistroOperazioni());
         this.setVisible(true);
     }

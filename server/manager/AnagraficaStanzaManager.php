@@ -20,12 +20,8 @@ class AnagraficaStanzaManager extends CRUD {
 
         return $result;
     }
-
+    
     function update($obj) {
-        ;
-    }
-    
-    function updatePermanenza($obj) {
         if (!($obj instanceof AnagraficaStanza))
             return false;
 
@@ -37,34 +33,12 @@ class AnagraficaStanzaManager extends CRUD {
                 . 'nomestruttura = "%s", codicefiscaleproprietario = "%s", '
                 . 'tipo = "%d", ingresso = "%s", uscita = "%s", costo = "%s" WHERE '
                 . 'numerostanza = "%s" AND nomestruttura = "%s" AND codicefiscaleproprietario = "%s" '
-                . 'AND tipo = 1';
+                . 'AND tipo = "%d" AND ingresso = "%s"';
         $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getNumeroStanza(), 
                 $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(), 
                 $obj->getTipo(), $obj->getIngresso(), $obj->getUscita(), $obj->getCosto(),
-                $obj->getNumeroStanza(), $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario());
-        $result = mysql_query($query);
-        $this->close();
-
-        return $result;
-    }
-    
-    function updateVisita($obj) {
-        if (!($obj instanceof AnagraficaStanza))
-            return false;
-
-        if (!$this->read($obj))
-            return false;
-
-        $this->open();
-        $query = 'UPDATE anagraficastanza SET codicefiscaleanagrafica = "%s", numerostanza = "%s", '
-                . 'nomestruttura = "%s", codicefiscaleproprietario = "%s", '
-                . 'tipo = "%d", ingresso = "%s", uscita = "%s", costo = "%s" WHERE '
-                . 'numerostanza = "%s" AND nomestruttura = "%s" AND codicefiscaleproprietario = "%s" '
-                . 'AND tipo = 2';
-        $query = sprintf($query, $obj->getCodiceFiscaleAnagrafica(), $obj->getNumeroStanza(), 
-                $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario(), 
-                $obj->getTipo(), $obj->getIngresso(), $obj->getUscita(), $obj->getCosto(),
-                $obj->getNumeroStanza(), $obj->getNomeStruttura(), $obj->getCodiceFiscaleProprietario());
+                $obj->getNumeroStanza(), $obj->getNomeStruttura(), 
+                $obj->getCodiceFiscaleProprietario(), $obj->getTipo(), $obj->getIngresso());
         $result = mysql_query($query);
         $this->close();
 
@@ -161,29 +135,4 @@ class AnagraficaStanzaManager extends CRUD {
         return $toReturn;
     }
 
-    function checkVisita($obj) {
-        if (!($obj instanceof AnagraficaStanza))
-            return false;
-
-        $this->open();
-        $query = 'SELECT * FROM anagraficastanza WHERE nomestruttura = "%s" '
-                . 'AND numerostanza = "%s" AND codicefiscaleproprietario = "%s" '
-                . 'AND tipo = 2 AND uscita = ""';
-        $query = sprintf($query, $obj->getNomeStruttura(), $obj->getNumeroStanza(), $obj->getCodiceFiscaleProprietario());
-        $result = mysql_query($query);
-        $this->close();
-
-        $res = mysql_fetch_assoc($result);
-        $toReturn = new AnagraficaStanza();
-        $toReturn->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
-        $toReturn->setNumeroStanza($res['numerostanza']);
-        $toReturn->setNomeStruttura($res['nomestruttura']);
-        $toReturn->setCodiceFiscaleProprietario($res['codicefiscaleproprietario']);
-        $toReturn->setTipo($res['tipo']);
-        $toReturn->setIngresso($res['ingresso']);
-        $toReturn->setUscita($res['uscita']);
-        $toReturn->setCosto($res['costo']);
-
-        return $toReturn;
-    }
 }

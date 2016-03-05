@@ -8,9 +8,26 @@ class Stanza {
     private $numero;
     private $tipo;
     private $agibile;
-    private $libera;
+    private $permanenza;
+    private $visita;
     private $descrizione;
     private $mq;
+    
+    function getPermanenza() {
+        return $this->permanenza;
+    }
+
+    function getVisita() {
+        return $this->visita;
+    }
+
+    function setPermanenza($permanenza) {
+        $this->permanenza = $permanenza;
+    }
+
+    function setVisita($visita) {
+        $this->visita = $visita;
+    }
 
     public function __construct() {
     }
@@ -29,10 +46,6 @@ class Stanza {
 
     function getAgibile() {
         return $this->agibile;
-    }
-
-    function getLibera() {
-        return $this->libera;
     }
 
     function getDescrizione() {
@@ -63,11 +76,6 @@ class Stanza {
         return $this;
     }
 
-    function setLibera($libera) {
-        $this->libera = $libera;
-        return $this;
-    }
-
     function setDescrizione($descrizione) {
         $this->descrizione = $descrizione;
         return $this;
@@ -94,7 +102,8 @@ class Stanza {
             "numero" => $this->numero,
             "tipo" => $this->tipo,
             "agibile" => $this->agibile,
-            "libera" => $this->libera,
+            "permanenza" => $this->permanenza,
+            "visita" => $this->visita,
             "descrizione" => $this->descrizione,
             "mq" => $this->mq
         );

@@ -23,7 +23,7 @@ public class AnagraficaManager extends HttpConnection {
      *
      * @param input
      */
-    public void addAnagrafica(Anagrafica input, ICallback<Object> callback) {
+    public void addAnagrafica(Anagrafica input, ICallback<Anagrafica> callback) {
 
         Runnable runnable = new Runnable() {
 
@@ -63,7 +63,7 @@ public class AnagraficaManager extends HttpConnection {
      *
      * @param input
      */
-    public void updateAnagrafica(Anagrafica input, ICallback<Object> callback) {
+    public void updateAnagrafica(Anagrafica input, ICallback<Anagrafica> callback) {
 
         Runnable runnable = new Runnable() {
 

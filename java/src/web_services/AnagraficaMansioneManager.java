@@ -26,7 +26,7 @@ public class AnagraficaMansioneManager {
      * Aggiunge un'anagrafica ad una struttura assegnandole una mansione
      * @param input
      */
-    public void addAnagraficaMansione(AnagraficaMansione input, ICallback<Object> callback) {
+    public void addAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -64,7 +64,7 @@ public class AnagraficaMansioneManager {
      * Aggiorna l'istanza di anagraficaMansione passata come input
      * @param input
      */
-    public void updateAnagraficaMansione(AnagraficaMansione input, ICallback<Object> callback) {
+    public void updateAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -103,7 +103,7 @@ public class AnagraficaMansioneManager {
      * @param input
      * @param callback
      */
-    public void readAnagraficaMansione(AnagraficaMansione input, ICallback<Object> callback) {
+    public void readAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
         
          Runnable runnable = new Runnable() {
             @Override
@@ -134,7 +134,7 @@ public class AnagraficaMansioneManager {
      * @param input
      * @param callback
      */
-    public void deleteAnagraficaMansione(AnagraficaMansione input, ICallback<Object> callback) {
+    public void deleteAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
      
         Runnable runnable = new Runnable() {
             @Override

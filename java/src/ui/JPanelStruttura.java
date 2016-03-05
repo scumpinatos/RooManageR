@@ -6,12 +6,10 @@ import constants.Mansioni;
 import entities.AnagraficaMansione;
 import entities.Struttura;
 import interfaces.ICallback;
-import interfaces.ICallbackGeneral;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -19,17 +17,19 @@ import javax.swing.table.TableModel;
 import web_services.AnagraficaMansioneManager;
 import web_services.StrutturaManager;
 
-public class JPanelGestioneStruttura extends javax.swing.JPanel {
+public class JPanelStruttura extends javax.swing.JPanel {
 
     private int indexSelectedStrutt;
     private static StrutturaManager strutturaManager;
     private String cfProprietario;
+    private static Struttura tempStruttura;
+    private static AnagraficaMansione tempAnagMansione;
 
-    public JPanelGestioneStruttura(StrutturaManager manager) {
+    public JPanelStruttura(StrutturaManager manager) {
         strutturaManager = manager;
         cfProprietario = UtenteConnesso.getUtente().getCodiceFiscaleProprietario();
         initComponents();
-        caricaElencoStrutture(false);
+        readAllStruttura(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -387,45 +387,40 @@ public class JPanelGestioneStruttura extends javax.swing.JPanel {
         jButtonStanze.setEnabled(true);
         jButtonRimuovi.setEnabled(true);
         visualizzaInfo(indexSelectedStrutt);
-        caricaMansioni();
+        readMansioni();
         abilita(false);
     }//GEN-LAST:event_jTableStruttureMouseClicked
 
     private void jButtonModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificaActionPerformed
-        modificaStruttura();
+        updateStruttura();
     }//GEN-LAST:event_jButtonModificaActionPerformed
 
     private void jButtonAggiungiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAggiungiActionPerformed
-        aggiungiStruttura();
+        createStruttura();
     }//GEN-LAST:event_jButtonAggiungiActionPerformed
 
     private void jButtonRimuoviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRimuoviActionPerformed
-        eliminaStruttura();
+        deleteStruttura();
     }//GEN-LAST:event_jButtonRimuoviActionPerformed
 
     private void jButtonAgibileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgibileActionPerformed
-        String text = ((JButton) evt.getSource()).getText();
-        if (text.equals("SI")) {
-            ((JButton) evt.getSource()).setText("NO");
-        } else {
-            ((JButton) evt.getSource()).setText("SI");
-        }
+        setAgibile();
     }//GEN-LAST:event_jButtonAgibileActionPerformed
 
     private void jButtonAddPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddPorActionPerformed
 
-        aggiungiMansione(1);
+        createMansione(1);
     }//GEN-LAST:event_jButtonAddPorActionPerformed
 
     private void jButtonAddDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddDirActionPerformed
 
-        aggiungiMansione(2);
+        createMansione(2);
     }//GEN-LAST:event_jButtonAddDirActionPerformed
 
     private void jLabelPortinaioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPortinaioMouseClicked
 
         new UIAnagrafica(null, true, new ICallback<String>() {
-            
+
             public void result(String obj) {
                 if (obj != null) {
                     jLabelPortinaio.setText(obj);
@@ -438,7 +433,7 @@ public class JPanelGestioneStruttura extends javax.swing.JPanel {
     private void jLabelDirettoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDirettoreMouseClicked
 
         new UIAnagrafica(null, true, new ICallback<String>() {
-            
+
             public void result(String obj) {
                 if (obj != null) {
                     jLabelDirettore.setText(obj);
@@ -449,19 +444,19 @@ public class JPanelGestioneStruttura extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabelDirettoreMouseClicked
 
     private void jButtonRemPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemPorActionPerformed
-        
-        rimuoviMansione(1);
+
+        deleteMansione(1);
     }//GEN-LAST:event_jButtonRemPorActionPerformed
 
     private void jButtonRemDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemDirActionPerformed
-        
-        rimuoviMansione(2);
+
+        deleteMansione(2);
     }//GEN-LAST:event_jButtonRemDirActionPerformed
 
     private void jButtonStanzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStanzeActionPerformed
-        
+
         String struttura = ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome();
-        new jDialogGestioneStanza(null, true, struttura, strutturaManager).setVisible(true);
+        new jDialogGestioneStanza(null, true, struttura).setVisible(true);
     }//GEN-LAST:event_jButtonStanzeActionPerformed
 
 
@@ -496,17 +491,30 @@ public class JPanelGestioneStruttura extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPass;
     // End of variables declaration//GEN-END:variables
-    
-    // GESTIONE STRUTTURA
-    private ActionListener addStruttura = new ActionListener() {
+
+    // CRUD STRUTTURA
+    private ActionListener createStruttura = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            Struttura struttura = creaStruttura();
-            strutturaManager.addStruttura(struttura, new ICallbackGeneral());
-            ListaStruttura.getIstanza().add(struttura);
-            abilita(false);
-            caricaElencoStrutture(true);
+            ICallback<Struttura> callback = new ICallback<Struttura>() {
+                @Override
+                public void result(Struttura obj) {
+
+                    if (obj == null) {
+                        ListaStruttura.getIstanza().add(tempStruttura);
+                        abilita(false);
+                        readAllStruttura(true);
+                    }
+                }
+            };
+
+            if (verificaNome(jTextFieldNome.getText())) {
+                tempStruttura = creaStruttura();
+                strutturaManager.createStruttura(tempStruttura, callback);
+            } else {
+                JOptionPane.showMessageDialog(null, "Nome inserito già presente in archivio.");
+            }
         }
     };
 
@@ -514,162 +522,230 @@ public class JPanelGestioneStruttura extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            Struttura struttura = creaStruttura();
-            strutturaManager.updateStruttura(struttura, new ICallbackGeneral());
-            ListaStruttura.getIstanza().set(indexSelectedStrutt, struttura);
-            abilita(false);
-            caricaElencoStrutture(true);
+            ICallback<Struttura> callback = new ICallback<Struttura>() {
+                @Override
+                public void result(Struttura obj) {
+                    if (obj == null) {
+                        ListaStruttura.getIstanza().set(indexSelectedStrutt, tempStruttura);
+                        abilita(false);
+                        readAllStruttura(true);
+                    }
+                }
+            };
+
+            tempStruttura = creaStruttura();
+            strutturaManager.updateStruttura(tempStruttura, callback);
         }
     };
 
-    private void aggiungiStruttura() {
+    private void createStruttura() {
 
         jTextFieldNome.setText("");
+        jTextFieldNome.setEditable(true);
         jTextAreaDescrizione.setText("");
         jTextFieldIndirizzo.setText("");
         abilita(true);
 
         jButtonConferma.removeActionListener(updateStruttura);
-        jButtonConferma.addActionListener(addStruttura);
+        jButtonConferma.addActionListener(createStruttura);
 
     }
 
-    private void modificaStruttura() {
+    private void updateStruttura() {
 
         abilita(true);
-        jButtonConferma.removeActionListener(addStruttura);
+        jButtonConferma.removeActionListener(createStruttura);
         jButtonConferma.addActionListener(updateStruttura);
     }
 
-    private void eliminaStruttura() {
+    private void readAllStruttura(boolean refresh) {
+
+        ICallback<Boolean> callback = new ICallback<Boolean>() {
+
+            public void result(Boolean obj) {
+                ListaStruttura strutture = ListaStruttura.getIstanza();
+                int nStru = strutture.size();
+
+                String[] colonne = new String[4];
+                colonne[0] = "Nome";
+                colonne[1] = "Indirizzo";
+                colonne[2] = "Agibile";
+                colonne[3] = "Descrizione";
+
+                Object[][] data = new Object[nStru][4];
+
+                for (int i = 0; i < nStru; i++) {
+                    data[i][0] = strutture.get(i).getNome();
+                    data[i][1] = strutture.get(i).getIndirizzo();
+                    data[i][2] = traduciBoolean(strutture.get(i).getAgibile());
+                    data[i][3] = strutture.get(i).getDescrizione();
+                }
+
+                TableModel model = new DefaultTableModel(data, colonne);
+                jTableStrutture.setModel(model);
+            }
+        };
+
+        if (!refresh) {
+            strutturaManager.readStruttureByAnagrafica(cfProprietario, callback);
+        } else {
+            callback.result(refresh);
+        }
+    }
+
+    private void deleteStruttura() {
+
+        ICallback<Struttura> callback = new ICallback<Struttura>() {
+            @Override
+            public void result(Struttura obj) {
+                if (obj == null) {
+                    ListaStruttura.getIstanza().remove(indexSelectedStrutt);
+                    abilita(false);
+                    readAllStruttura(true);
+                }
+            }
+        };
 
         int choice = JOptionPane.showConfirmDialog(null, "Rimuovere struttura: "
                 + ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome(), null, JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.OK_OPTION) {
-            Struttura toRemove = new Struttura();
-            toRemove.setCodiceFiscaleAnagrafica(cfProprietario);
-            toRemove.setNome(ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome());
-            strutturaManager.deleteStruttura(toRemove, new ICallbackGeneral());
-            ListaStruttura.getIstanza().remove(indexSelectedStrutt);
+            tempStruttura = new Struttura();
+            tempStruttura.setCodiceFiscaleAnagrafica(cfProprietario);
+            tempStruttura.setNome(ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome());
+            strutturaManager.deleteStruttura(tempStruttura, callback);
         }
-        caricaElencoStrutture(true);
     }
 
-    // GESTIONE MANSIONI
-    private void caricaMansioni() {
+    // CRUD ANAGRAFICA MANSIONI
+    private void createMansione(int tipo) {
 
-        ICallback<ArrayList<AnagraficaMansione>> callback = new ICallback<ArrayList<AnagraficaMansione>>() {
-            
+        String messaggio = "Controllare i valori inseriti";
+        if (tipo == 1) {
+            if (jLabelPortinaio.getText().equals("Inserisci Codice Fiscale")) {
+                JOptionPane.showMessageDialog(null, messaggio);
+                return;
+            }
+        } else if (tipo == 2) {
+            if (jLabelDirettore.getText().equals("Inserisci Codice Fiscale")) {
+                JOptionPane.showMessageDialog(null, messaggio);
+                return;
+            }
+        }
+        if (jTextFieldPass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, messaggio);
+            return;
+        }
+
+        ICallback<AnagraficaMansione> callbackAnagMans = new ICallback<AnagraficaMansione>() {
+            @Override
+            public void result(AnagraficaMansione obj) {
+
+                if (obj == null) {
+                    readMansioni();
+                }
+            }
+        };
+
+        tempAnagMansione = new AnagraficaMansione();
+        if (tipo == 1) {
+            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelPortinaio.getText());
+        }
+        if (tipo == 2) {
+            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelDirettore.getText());
+        }
+
+        tempAnagMansione.setCodiceFiscaleProprietario(cfProprietario);
+        tempAnagMansione.setNomeStruttura(ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome());
+        tempAnagMansione.setTipoMansione(tipo);
+        tempAnagMansione.setPassword(jTextFieldPass.getText());
+
+        new AnagraficaMansioneManager().addAnagraficaMansione(tempAnagMansione, callbackAnagMans);
+    }
+
+    private void readMansioni() {
+
+        ICallback<ArrayList<AnagraficaMansione>> callbackReadAnagMans = new ICallback<ArrayList<AnagraficaMansione>>() {
+
             public void result(ArrayList<AnagraficaMansione> obj) {
 
-                int nMansioni = obj.size();
-                for (int i = 0; i < nMansioni; i++) {
-                    switch (obj.get(i).getTipoMansione()) {
-                        case Mansioni.PORTINAIO:
-                            jLabelPortinaio.setText(obj.get(i).getCodiceFiscaleAnagrafica());
-                            jLabelPortinaio.setEnabled(false);
-                            jLabelPortinaio.setCursor(Cursor.getDefaultCursor());
-                            jButtonRemPor.setEnabled(true);
-                            break;
-                        case Mansioni.DIRETTORE:
-                            jLabelDirettore.setEnabled(false);
-                            jLabelDirettore.setCursor(Cursor.getDefaultCursor());
-                            jLabelDirettore.setText(obj.get(i).getCodiceFiscaleAnagrafica());
-                            jButtonRemDir.setEnabled(true);
-                            break;
+                if (obj == null) {
+                    jButtonAddPor.setEnabled(true);
+                    jButtonAddDir.setEnabled(true);
+                    jTextFieldPass.setEnabled(true);
+                    jTextFieldPass.setText("");
+                } else {
+                    int nMansioni = obj.size();
+                    for (int i = 0; i < nMansioni; i++) {
+                        switch (obj.get(i).getTipoMansione()) {
+                            case Mansioni.PORTINAIO:
+                                jLabelPortinaio.setText(obj.get(i).getCodiceFiscaleAnagrafica());
+                                jLabelPortinaio.setEnabled(false);
+                                jLabelPortinaio.setCursor(Cursor.getDefaultCursor());
+                                jButtonRemPor.setEnabled(true);
+                                jButtonAddPor.setEnabled(false);
+                                break;
+                            case Mansioni.DIRETTORE:
+                                jLabelDirettore.setEnabled(false);
+                                jLabelDirettore.setCursor(Cursor.getDefaultCursor());
+                                jLabelDirettore.setText(obj.get(i).getCodiceFiscaleAnagrafica());
+                                jButtonRemDir.setEnabled(true);
+                                jButtonAddDir.setEnabled(false);
+                                break;
+                        }
                     }
                 }
 
                 if (!jButtonRemDir.isEnabled()) {
                     jButtonAddDir.setEnabled(true);
+                    jLabelDirettore.setText("Inserisci Codice Fiscale");
+                    jLabelDirettore.setEnabled(true);
+                    jLabelDirettore.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     jTextFieldPass.setEnabled(true);
                 }
 
                 if (!jButtonRemPor.isEnabled()) {
                     jButtonAddPor.setEnabled(true);
+                    jLabelPortinaio.setText("Inserisci Codice Fiscale");
+                    jLabelPortinaio.setEnabled(true);
+                    jLabelPortinaio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     jTextFieldPass.setEnabled(true);
                 }
             }
         };
 
         String nomeStruttura = ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome();
-        strutturaManager.readMansioniStruttura(cfProprietario, nomeStruttura, callback);
+        strutturaManager.readMansioniStruttura(cfProprietario, nomeStruttura, callbackReadAnagMans);
     }
 
-    private void rimuoviMansione(int tipo) {
+    private void deleteMansione(int tipo) {
 
-        AnagraficaMansione toRemove = new AnagraficaMansione();
+        ICallback<AnagraficaMansione> callbackAnagMans = new ICallback<AnagraficaMansione>() {
+            @Override
+            public void result(AnagraficaMansione obj) {
+
+                if (obj == null) {
+                    jButtonRemDir.setEnabled(false);
+                    jButtonRemPor.setEnabled(false);
+                    readMansioni();
+                }
+            }
+        };
+
+        tempAnagMansione = new AnagraficaMansione();
         if (tipo == 1) {
-            toRemove.setCodiceFiscaleAnagrafica(jLabelPortinaio.getText());
+            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelPortinaio.getText());
         }
         if (tipo == 2) {
-            toRemove.setCodiceFiscaleAnagrafica(jLabelDirettore.getText());
+            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelDirettore.getText());
         }
 
-        toRemove.setNomeStruttura(ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome());
-        toRemove.setCodiceFiscaleProprietario(cfProprietario);
-        
-        
-        
-        new AnagraficaMansioneManager().deleteAnagraficaMansione(toRemove, new ICallbackGeneral());
-    }
+        tempAnagMansione.setNomeStruttura(ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome());
+        tempAnagMansione.setCodiceFiscaleProprietario(cfProprietario);
 
-    private void aggiungiMansione(int tipo) {
-
-        AnagraficaMansione newMansione = new AnagraficaMansione();
-        if (tipo == 1) {
-            newMansione.setCodiceFiscaleAnagrafica(jLabelPortinaio.getText());
-        }
-        if (tipo == 2) {
-            newMansione.setCodiceFiscaleAnagrafica(jLabelDirettore.getText());
-        }
-
-        newMansione.setCodiceFiscaleProprietario(cfProprietario);
-        newMansione.setNomeStruttura(ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome());
-        newMansione.setTipoMansione(tipo);
-        newMansione.setPassword(jTextFieldPass.getText());
-        
-        
-
-        new AnagraficaMansioneManager().addAnagraficaMansione(newMansione, new ICallbackGeneral());
+        new AnagraficaMansioneManager().deleteAnagraficaMansione(tempAnagMansione, callbackAnagMans);
     }
 
     // METODI DI SUPPORTO
-    private ICallback<Boolean> callbackStrutture = new ICallback<Boolean>() {
-        
-        public void result(Boolean obj) {
-            ListaStruttura strutture = ListaStruttura.getIstanza();
-            int nStru = strutture.size();
-
-            String[] colonne = new String[4];
-            colonne[0] = "Nome";
-            colonne[1] = "Indirizzo";
-            colonne[2] = "Agibile";
-            colonne[3] = "Descrizione";
-
-            Object[][] data = new Object[nStru][4];
-
-            for (int i = 0; i < nStru; i++) {
-                data[i][0] = strutture.get(i).getNome();
-                data[i][1] = strutture.get(i).getIndirizzo();
-                data[i][2] = traduciBoolean(strutture.get(i).getAgibile());
-                data[i][3] = strutture.get(i).getDescrizione();
-            }
-
-            TableModel model = new DefaultTableModel(data, colonne);
-            jTableStrutture.setModel(model);
-        }
-    };
-
-    private void caricaElencoStrutture(boolean refresh) {
-
-        if (!refresh) {
-            strutturaManager.readStruttureByAnagrafica(cfProprietario, callbackStrutture);
-        } else {
-            callbackStrutture.result(refresh);
-        }
-    }
-
     private String traduciBoolean(int input) {
 
         switch (input) {
@@ -699,13 +775,11 @@ public class JPanelGestioneStruttura extends javax.swing.JPanel {
     private void abilita(Boolean on) {
 
         if (on) {
-            jTextFieldNome.setEditable(true);
             jTextAreaDescrizione.setEditable(true);
             jTextFieldIndirizzo.setEditable(true);
             jButtonAgibile.setEnabled(true);
             jButtonConferma.setEnabled(true);
         } else {
-            jTextFieldNome.setEditable(false);
             jTextAreaDescrizione.setEditable(false);
             jTextFieldIndirizzo.setEditable(false);
             jButtonAgibile.setEnabled(false);
@@ -729,5 +803,31 @@ public class JPanelGestioneStruttura extends javax.swing.JPanel {
         }
 
         return newStruttura;
+    }
+
+    private Boolean verificaNome(String nome) {
+
+        int n = ListaStruttura.getIstanza().size();
+        if (n == 0) {
+            return true;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (ListaStruttura.getIstanza().get(i).getNome().equals(nome)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return null;
+    }
+
+    private void setAgibile() {
+        String text = jButtonAgibile.getText();
+        if (text.equals("SI")) {
+            jButtonAgibile.setText("NO");
+        } else {
+            jButtonAgibile.setText("SI");
+        }
     }
 }

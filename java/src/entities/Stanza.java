@@ -14,14 +14,16 @@ public class Stanza {
     private String descrizione;
     private float mq;
     private int agibile;
-    private int libera;
+    private int permanenza;
+    private int visita;
 
     /**
      * Costruttore della classe che inizializza agibile e libera = 1
      */
     public Stanza() {
         agibile = 1;
-        libera = 1;
+        permanenza = 0;
+        visita = 0;
     }
 
     /**
@@ -120,22 +122,23 @@ public class Stanza {
         this.agibile = agibile;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getLibera() {
-        return libera;
+    public int getPermanenza() {
+        return permanenza;
     }
 
-    /**
-     *
-     * @param libera
-     */
-    public void setLibera(int libera) {
-        this.libera = libera;
+    public void setPermanenza(int permanenza) {
+        this.permanenza = permanenza;
     }
 
+    public int getVisita() {
+        return visita;
+    }
+
+    public void setVisita(int visita) {
+        this.visita = visita;
+    }
+
+    
     /**
      *
      * @return

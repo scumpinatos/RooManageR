@@ -3,7 +3,6 @@ package ui;
 
 import cache.singular.UtenteConnesso;
 import interfaces.ICallback;
-import interfaces.ICallbackGeneral;
 import web_services.AnagraficaMansioneManager;
 
 
@@ -153,7 +152,7 @@ public class UIPassword extends javax.swing.JDialog {
             jLabelAvviso.setText("Le due password inserite non corrispondono");
         } else {
             UtenteConnesso.getUtente().setPassword(pass1);
-            new AnagraficaMansioneManager().updateAnagraficaMansione(UtenteConnesso.getUtente(), new ICallbackGeneral());
+            //new AnagraficaMansioneManager().updateAnagraficaMansione(UtenteConnesso.getUtente(), new ICallbackGeneral());
             this.setVisible(false);
         }
     }

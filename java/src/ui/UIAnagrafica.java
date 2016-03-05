@@ -4,7 +4,6 @@ import constants.Documenti;
 import entities.Anagrafica;
 import entities.Nazionalita;
 import interfaces.ICallback;
-import interfaces.ICallbackGeneral;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -15,14 +14,13 @@ public class UIAnagrafica extends javax.swing.JDialog {
 
     private static AnagraficaManager manager;
     private Boolean aggiorna, nuova;
-    private ICallback callback;
-    
+    private ICallback callbackReturn;
 
     public UIAnagrafica(java.awt.Frame parent, Boolean modal, ICallback callback) {
         super(parent, modal);
         this.setLocationRelativeTo(null);
         initComponents();
-        this.callback = callback;
+        callbackReturn = callback;
         manager = new AnagraficaManager();
         aggiorna = false;
         nuova = false;
@@ -79,36 +77,30 @@ public class UIAnagrafica extends javax.swing.JDialog {
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Nome");
-        jLabel2.setEnabled(false);
 
         jTextFieldNome.setEnabled(false);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Cognome");
-        jLabel3.setEnabled(false);
 
         jTextFieldCognome.setEnabled(false);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Data di nascita");
-        jLabel4.setEnabled(false);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Indirizzo");
-        jLabel5.setEnabled(false);
 
         jTextFieldIndirizzo.setEnabled(false);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Nazionalita");
-        jLabel6.setEnabled(false);
 
         jComboBoxNazionalita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxNazionalita.setEnabled(false);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Tipo Documento");
-        jLabel7.setEnabled(false);
 
         buttonGroupDocumento.add(jRadioButtonCartaIdentita);
         jRadioButtonCartaIdentita.setText("Carta d'identità");
@@ -124,25 +116,21 @@ public class UIAnagrafica extends javax.swing.JDialog {
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Num Documento");
-        jLabel8.setEnabled(false);
 
         jTextFieldNumeroDocumento.setEnabled(false);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Telefono *");
-        jLabel9.setEnabled(false);
 
         jTextFieldTelefono.setEnabled(false);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Cellulare *");
-        jLabel10.setEnabled(false);
 
         jTextFieldCellulare.setEnabled(false);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Email *");
-        jLabel11.setEnabled(false);
 
         jTextFieldEmail.setEnabled(false);
 
@@ -321,49 +309,21 @@ public class UIAnagrafica extends javax.swing.JDialog {
     private void jButtonAnnullaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnullaActionPerformed
 
         this.setVisible(false);
-        callback.result(null);
+        callbackReturn.result(null);
     }//GEN-LAST:event_jButtonAnnullaActionPerformed
 
     private void jButtonControllaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonControllaActionPerformed
-        
-        ICallback<Anagrafica> callback = new ICallback<Anagrafica>() {
-            
-            public void result(Anagrafica obj) {
-                if(obj != null) {
-                    String messaggio = "Anagrafica presente in archivio.\n"
-                            + "Controllare i dati inseriti.\n"
-                            + "In caso di errore, cliccare su 'Modifica'";
-                    JOptionPane.showMessageDialog(null, messaggio);
-                    visualizza(obj);
-                } else {
-                    String messaggio = "Anagrafica non presente in archivio.\n"
-                            + "Inserire i dati mancanti";
-                    JOptionPane.showMessageDialog(null, messaggio);
-                    attivaCampi();
-                    nuova = true;
-                }
-            }
-        };
-        
-        String cf = jTextFieldCodiceFiscale.getText();
-        manager.readAnagrafica(cf, callback);
+        checkAnagrafica();
     }//GEN-LAST:event_jButtonControllaActionPerformed
 
     private void jButtonModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificaActionPerformed
-        
+
         aggiorna = true;
         attivaCampi();
     }//GEN-LAST:event_jButtonModificaActionPerformed
 
     private void jButtonConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaActionPerformed
-        
-        Anagrafica anagrafica = creaAnagrafica();
-        if(aggiorna)
-            manager.updateAnagrafica(anagrafica, new ICallbackGeneral());
-        else if(nuova)
-            manager.addAnagrafica(anagrafica, new ICallbackGeneral());
-        callback.result(jTextFieldCodiceFiscale.getText());
-        this.setVisible(false);
+        conferma();
     }//GEN-LAST:event_jButtonConfermaActionPerformed
 
 
@@ -401,7 +361,51 @@ public class UIAnagrafica extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
 
-    // MODALITA NUOVA - MODIFICA
+    private void checkAnagrafica() {
+        ICallback<Anagrafica> callback = new ICallback<Anagrafica>() {
+
+            public void result(Anagrafica obj) {
+                if (obj != null) {
+                    String messaggio = "Anagrafica presente in archivio.\n"
+                            + "Controllare i dati inseriti.\n"
+                            + "In caso di errore, cliccare su 'Modifica'";
+                    JOptionPane.showMessageDialog(null, messaggio);
+                    visualizza(obj);
+                } else {
+                    String messaggio = "Anagrafica non presente in archivio.\n"
+                            + "Inserire i dati mancanti";
+                    JOptionPane.showMessageDialog(null, messaggio);
+                    attivaCampi();
+                    nuova = true;
+                }
+            }
+        };
+
+        String cf = jTextFieldCodiceFiscale.getText();
+        manager.readAnagrafica(cf, callback);
+    }
+    
+    private void conferma() {
+        
+        ICallback<Anagrafica> callback = new ICallback<Anagrafica>() {
+            @Override
+            public void result(Anagrafica obj) {
+                if(obj == null) {
+                    
+                }
+            }
+        };
+        
+        Anagrafica anagrafica = creaAnagrafica();
+        if (aggiorna) {
+            manager.updateAnagrafica(anagrafica, callback);
+        } else if (nuova) {
+            manager.addAnagrafica(anagrafica, callback);
+        }
+        callbackReturn.result(jTextFieldCodiceFiscale.getText());
+        this.setVisible(false);
+    }
+
     private void attivaCampi() {
 
         jTextFieldCodiceFiscale.setEnabled(false);
@@ -413,7 +417,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
         caricaNazionalita();
         jRadioButtonCartaIdentita.setEnabled(true);
         jRadioButtonPassaporto.setEnabled(true);
-        jRadioButtonPatente.setSelected(true);
+        jRadioButtonPatente.setEnabled(true);
         jTextFieldNumeroDocumento.setEnabled(true);
         jTextFieldTelefono.setEnabled(true);
         jTextFieldCellulare.setEnabled(true);
@@ -421,7 +425,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jButtonConferma.setEnabled(true);
 
     }
-    
+
     // MODALITA VISUALIZZA
     private void visualizza(Anagrafica input) {
 
@@ -470,7 +474,7 @@ public class UIAnagrafica extends javax.swing.JDialog {
         jLabelNota.setText("* Campi NON obbligatori");
         jButtonModifica.setEnabled(true);
         jButtonConferma.setEnabled(true);
-        
+
     }
 
     // METODI DI SUPPORTO
@@ -506,15 +510,16 @@ public class UIAnagrafica extends javax.swing.JDialog {
     private void caricaNazionalita() {
 
         ICallback<ArrayList<Nazionalita>> callback = new ICallback<ArrayList<Nazionalita>>() {
-            
+
             public void result(ArrayList<Nazionalita> obj) {
 
                 int nNaz = obj.size();
                 String[] items = new String[nNaz];
-                
-                for(int i=0; i < nNaz; i++) 
+
+                for (int i = 0; i < nNaz; i++) {
                     items[i] = obj.get(i).getAbbreviazione();
-                
+                }
+
                 jComboBoxNazionalita.setModel(new DefaultComboBoxModel(items));
             }
         };

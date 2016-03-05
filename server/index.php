@@ -201,7 +201,7 @@ if (isset($_POST['opCode'])) {
                 echo 'NOT DONE';
             }
             break;
-        case "12": // UPDATE PERMANENZA
+        case "12": // UPDATE ANAGRAFICA STANZA
             require_once '../server/manager/AnagraficaStanzaManager.php';
 
             $manager = new AnagraficaStanzaManager();
@@ -217,36 +217,13 @@ if (isset($_POST['opCode'])) {
             $newAnagraficaStanza->setUscita($res['uscita']);
             $newAnagraficaStanza->setCosto($res['costo']);
 
-            if ($manager->updatePermanenza($newAnagraficaStanza)) {
+            if ($manager->update($newAnagraficaStanza)) {
                 echo 'DONE';
             } else {
                 echo 'NOT DONE';
             }
             break;
-        case "13": // UPDATE VISITA
-            require_once '../server/manager/AnagraficaStanzaManager.php';
-
-            $manager = new AnagraficaStanzaManager();
-            $res = json_decode($_POST['json'], true);
-
-            $newAnagraficaStanza = new AnagraficaStanza();
-            $newAnagraficaStanza->setCodiceFiscaleAnagrafica($res['codiceFiscaleAnagrafica']);
-            $newAnagraficaStanza->setCodiceFiscaleProprietario($res['codiceFiscaleProprietario']);
-            $newAnagraficaStanza->setNomeStruttura($res['nomeStruttura']);
-            $newAnagraficaStanza->setNumeroStanza($res['numeroStanza']);
-            $newAnagraficaStanza->setIngresso($res['ingresso']);
-            $newAnagraficaStanza->setTipo($res['tipo']);
-            $newAnagraficaStanza->setUscita($res['uscita']);
-            $newAnagraficaStanza->setCosto($res['costo']);
-
-            if ($manager->updateVisita($newAnagraficaStanza)) {
-                echo 'DONE';
-            } else {
-                echo 'NOT DONE';
-            }
-            break;
-
-
+        
 
         case "14": // INSERT STRUTTURA
             require_once '../server/manager/StrutturaManager.php';
@@ -338,7 +315,8 @@ if (isset($_POST['opCode'])) {
             $newStanza->setDescrizione($res['descrizione']);
             $newStanza->setMq($res['mq']);
             $newStanza->setAgibile($res['agibile']);
-            $newStanza->setLibera($res['libera']);
+            $newStanza->setPermanenza($res['permanenza']);
+            $newStanza->setVisita($res['visita']);
 
             if ($manager->insert($newStanza)) {
                 echo 'DONE';
@@ -360,7 +338,8 @@ if (isset($_POST['opCode'])) {
             $newStanza->setDescrizione($res['descrizione']);
             $newStanza->setMq($res['mq']);
             $newStanza->setAgibile($res['agibile']);
-            $newStanza->setLibera($res['libera']);
+            $newStanza->setPermanenza($res['permanenza']);
+            $newStanza->setVisita($res['visita']);
 
             if ($manager->update($newStanza)) {
                 echo 'DONE';
@@ -407,7 +386,8 @@ if (isset($_POST['opCode'])) {
             $newStanza->setDescrizione($res['descrizione']);
             $newStanza->setMq($res['mq']);
             $newStanza->setAgibile($res['agibile']);
-            $newStanza->setLibera($res['libera']);
+            $newStanza->setPermanenza($res['permanenza']);
+            $newStanza->setVisita($res['visita']);
 
             if ($manager->delete($newStanza)) {
                 echo 'DONE';
@@ -530,6 +510,27 @@ if (isset($_POST['opCode'])) {
             $manager = new AnagraficaStanzaManager();
             $permanenze = $manager->readAllInCorso($struttura);
             echo json_encode($permanenze);
+            break;
+        
+        case "31": // OCCUPA STANZA
+            require_once '../server/manager/StanzaManager.php';
+
+            $manager = new StanzaManager();
+            $res = json_decode($_POST['json'], true);
+
+            $newStanza = new Stanza();
+            $newStanza->setNomeStruttura($res['nomeStruttura']);
+            $newStanza->setCodiceFiscaleProprietario($res['codiceFiscaleProprietario']);
+            $newStanza->setNumero($res['numero']);
+            $newStanza->setPermanenza($res['permanenza']);
+            $newStanza->setVisita($res['visita']);
+
+            if ($manager->occupaStanza($newStanza)) {
+                echo 'DONE';
+            } else {
+                echo 'NOT DONE';
+            }
+            
             break;
     }
 }
