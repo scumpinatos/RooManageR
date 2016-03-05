@@ -163,7 +163,7 @@ public class UIRegistroMovimenti extends javax.swing.JDialog {
 
         // CARICO LE STRUTTURE
         StrutturaManager manager = new StrutturaManager();
-        manager.readAllStruttureAnagrafica(UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica());
+        //manager.readStruttureByAnagrafica(UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica());
 
         ListaStruttura strutture = ListaStruttura.getIstanza();
         int nStru = strutture.size();
@@ -195,19 +195,19 @@ public class UIRegistroMovimenti extends javax.swing.JDialog {
         colonne[2] = "Data di nascita";
         colonne[3] = "Indirizzo";
 
-        ListaAnagrafica clienti = ListaAnagrafica.getIstanza();
-        int nAnag = clienti.size();
-
-        String[][] dati = new String[nAnag][4];
-        for (int i = 0; i < nAnag; i++) {
-            dati[i][0] = clienti.get(i).getNome();
-            dati[i][1] = clienti.get(i).getCognome();
-            dati[i][2] = clienti.get(i).getDataNascita();
-            dati[i][3] = clienti.get(i).getIndirizzo();
-        }
-
-        TableModel model = new DefaultTableModel(dati, colonne);
-        jTable.setModel(model);
+////        ListaAnagrafica clienti = ListaAnagrafica.getIstanza();
+//        int nAnag = clienti.size();
+//
+//        String[][] dati = new String[nAnag][4];
+//        for (int i = 0; i < nAnag; i++) {
+//            dati[i][0] = clienti.get(i).getNome();
+//            dati[i][1] = clienti.get(i).getCognome();
+//            dati[i][2] = clienti.get(i).getDataNascita();
+//            dati[i][3] = clienti.get(i).getIndirizzo();
+//        }
+//
+//        TableModel model = new DefaultTableModel(dati, colonne);
+//        jTable.setModel(model);
 
     }
     

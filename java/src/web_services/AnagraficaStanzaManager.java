@@ -1,12 +1,12 @@
 
 package web_services;
 
-import cache.singular.AnagraficaStanzaTemp;
 import cache.lists.ListaOperazioni;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
 import entities.AnagraficaStanza;
+import interfaces.ICallback;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -21,7 +21,7 @@ public class AnagraficaStanzaManager extends HttpConnection {
      * Aggiunge l'anagrafica ad una stanza
      * @param input
      */
-    public void addAnagraficaStanza(AnagraficaStanza input) {
+    public void addAnagraficaStanza(AnagraficaStanza input, ICallback<Object> callback) {
         
         Runnable runnable = new Runnable() {
 
@@ -40,12 +40,14 @@ public class AnagraficaStanzaManager extends HttpConnection {
                             + " AnagraficaStanza di %s nella stanza %s NON aggiunta al database.";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNumeroStanza());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " AnagraficaStanza di %s nella stanza %s aggiunta al database.";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNumeroStanza());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
             }
         };
@@ -58,7 +60,7 @@ public class AnagraficaStanzaManager extends HttpConnection {
      * Aggiorna l'entita' passata in input
      * @param input
      */
-    public void updatePermanenza(AnagraficaStanza input) {
+    public void updatePermanenza(AnagraficaStanza input, ICallback<Object> callback) {
         
         Runnable runnable = new Runnable() {
 
@@ -77,12 +79,14 @@ public class AnagraficaStanzaManager extends HttpConnection {
                             + " AnagraficaStanza di %s nella stanza %s NON aggiornata nel database.";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNumeroStanza());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " AnagraficaStanza di %s nella stanza %s aggiornata nel database.";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNumeroStanza());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
             }
         };
@@ -91,11 +95,11 @@ public class AnagraficaStanzaManager extends HttpConnection {
         thread.start();
     }
     
- /**
+    /**
      * Aggiorna l'entita' passata in input
      * @param input
      */
-    public void updateVisita(AnagraficaStanza input) {
+    public void updateVisita(AnagraficaStanza input, ICallback<Object> callback) {
         
         Runnable runnable = new Runnable() {
 
@@ -114,12 +118,14 @@ public class AnagraficaStanzaManager extends HttpConnection {
                             + " AnagraficaStanza di %s nella stanza %s NON aggiornata nel database.";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNumeroStanza());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " AnagraficaStanza di %s nella stanza %s aggiornata nel database.";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNumeroStanza());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
             }
         };
@@ -131,8 +137,9 @@ public class AnagraficaStanzaManager extends HttpConnection {
    /**
      * Legge l'entita' passata in input
      * @param input
+     * @param callback
      */
-    public void readAnagraficaStanza(AnagraficaStanza input) {
+    public void readAnagraficaStanza(AnagraficaStanza input, ICallback<AnagraficaStanza> callback) {
         
         Runnable runnable = new Runnable() {
 
@@ -143,7 +150,9 @@ public class AnagraficaStanzaManager extends HttpConnection {
                             ServerCodes.READ_ANAG_STA, input.getNumeroStanza(), 
                             input.getNomeStruttura(), input.getCodiceFiscaleProprietario()));
                     if (!(response.equals("NOT DONE"))) {
-                        AnagraficaStanzaTemp.setIstanza(new ObjectMapper().readValue(response, AnagraficaStanza.class));
+                        callback.result(new ObjectMapper().readValue(response, AnagraficaStanza.class));
+                    } else {
+                        callback.result(null);
                     }
                 } catch (IOException ex) {
                     System.out.println("IOException in class " + this.getClass().getName());
@@ -159,7 +168,7 @@ public class AnagraficaStanzaManager extends HttpConnection {
      * Controlla se l'anagrafica passata in input ha una visita in corso
      * @param input
      */
-    public void checkVisitaInCorso(AnagraficaStanza input) {
+    public void checkVisitaInCorso(AnagraficaStanza input, ICallback<AnagraficaStanza> callback) {
         
         Runnable runnable = new Runnable() {
 
@@ -170,7 +179,9 @@ public class AnagraficaStanzaManager extends HttpConnection {
                             ServerCodes.CHECK_VIS, input.getNumeroStanza(), 
                             input.getNomeStruttura(), input.getCodiceFiscaleProprietario()));
                     if (!(response.equals("NOT DONE"))) {
-                        AnagraficaStanzaTemp.setIstanza(new ObjectMapper().readValue(response, AnagraficaStanza.class));
+                        callback.result(new ObjectMapper().readValue(response, AnagraficaStanza.class));
+                    } else {
+                        callback.result(null);
                     }
                 } catch (IOException ex) {
                     System.out.println("IOException in class " + this.getClass().getName());

@@ -2,6 +2,8 @@
 package ui;
 
 import entities.Nazionalita;
+import interfaces.ICallback;
+import interfaces.ICallbackGeneral;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import web_services.NazionalitaManager;
@@ -109,7 +111,7 @@ public class UINazionalita extends javax.swing.JDialog {
             Nazionalita newNazionalita = new Nazionalita();
             newNazionalita.setAbbreviazione(jTextFieldAbb.getText());
             newNazionalita.setValore(jTextFieldValore.getText());
-            new NazionalitaManager().addNazionalita(newNazionalita);
+            new NazionalitaManager().addNazionalita(newNazionalita, new ICallbackGeneral());
             this.setVisible(false);            
         }
     }//GEN-LAST:event_jButtonConfermaActionPerformed

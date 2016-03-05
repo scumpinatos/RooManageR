@@ -2,11 +2,11 @@
 package web_services;
 
 import cache.lists.ListaOperazioni;
-import cache.singular.StanzaTemp;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
 import entities.Stanza;
+import interfaces.ICallback;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class StanzaManager extends HttpConnection{
      * Metodo che si occupa di aggiungere una stanza al database remoto
      * @param input
      */
-    public void addStanza(Stanza input) {
+    public void addStanza(Stanza input, ICallback<Object> callback) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -41,12 +41,14 @@ public class StanzaManager extends HttpConnection{
                             + " Stanza %s della struttura %s NON aggiunta al database";
                     op = String.format(op, input.getNumero(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " Stanza %s della struttura %s aggiunta al database";
                     op = String.format(op, input.getNumero(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
             }
         };
@@ -61,18 +63,13 @@ public class StanzaManager extends HttpConnection{
      */
     public void addElencoStanze(ArrayList<Stanza> input) {
      
-        int nStanze = input.size();
-        
-        for(int i=0; i<nStanze; i++) {
-            addStanza(input.get(i));
-        }
     }
     
     /**
      * Metodo che si occupa di aggiornare una stanza nel database remoto
      * @param input
      */
-    public void updateStanza(Stanza input) {
+    public void updateStanza(Stanza input, ICallback<Object> callback) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -90,12 +87,14 @@ public class StanzaManager extends HttpConnection{
                             + " Stanza %s della struttura %s NON aggiornata nel database";
                     op = String.format(op, input.getNumero(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " Stanza %s della struttura %s aggiornata nel database";
                     op = String.format(op, input.getNumero(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
             }
         };
@@ -110,18 +109,23 @@ public class StanzaManager extends HttpConnection{
      * @param nomeStruttura
      * @param cfProprietario
      */
-    public void readStanza(String numeroStanza, String nomeStruttura, String cfProprietario) {
+    public void readStanza(Stanza input, ICallback<Stanza> callback) {
         
          Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 
+                String numeroStanza = input.getNumero();
+                String nomeStruttura = input.getNomeStruttura();
+                String cfProprietario = input.getCodiceFiscaleProprietario();
                 String response = getResponse(String.format("opCode=%s&numeroStanza=%s&nomeStruttura=%s&cfProprietario=%s", 
                         ServerCodes.READ_STR, numeroStanza, nomeStruttura, cfProprietario));
                 if (!(response.equals("NOT DONE"))) {
                     try {
-                        StanzaTemp.setIstanza(new ObjectMapper().readValue(response, Stanza.class));
+                        callback.result(new ObjectMapper().readValue(response, Stanza.class));
                     } catch (IOException ex) {}
+                } else {
+                    callback.result(null);
                 }
             }
         };
@@ -135,7 +139,7 @@ public class StanzaManager extends HttpConnection{
      *  Metodo che si occupa di cancellare una stanza dal database remoto
      * @param input
      */
-    public void deleteStanza(Stanza input) {
+    public void deleteStanza(Stanza input, ICallback<Object> callback) {
      
         Runnable runnable = new Runnable() {
             @Override
@@ -153,12 +157,14 @@ public class StanzaManager extends HttpConnection{
                             + " Stanza %s della struttura %s NON rimossa dal database";
                     op = String.format(op, input.getNumero(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " Stanza %s della struttura %s rimossa dal database";
                     op = String.format(op, input.getNumero(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
             }
         };

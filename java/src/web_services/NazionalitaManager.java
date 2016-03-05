@@ -1,27 +1,30 @@
 package web_services;
 
-import cache.lists.ListaNazionalita;
 import cache.lists.ListaOperazioni;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
 import entities.Nazionalita;
+import interfaces.ICallback;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import cache.lists.ListaNazionalita;
+
 
 /**
  * Classe che gestisce le nazionalita'
  * @author emanuelegargiulo
  */
 public class NazionalitaManager extends HttpConnection {
-
+    
     /**
      * Aggiunge una nazionalita'
      * @param input
      */
-    public void addNazionalita(Nazionalita input) {
+    public void addNazionalita(Nazionalita input, ICallback<Object> callback) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -39,12 +42,14 @@ public class NazionalitaManager extends HttpConnection {
                             + " Nazionalità %s NON aggiunta al database";
                     op = String.format(op, input.getAbbreviazione());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " Nazionalità %s aggiunta al database";
                     op = String.format(op, input.getAbbreviazione());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
                 
             }
@@ -58,7 +63,7 @@ public class NazionalitaManager extends HttpConnection {
     /**
      * Legge tutte le nazionalita'
      */
-    public void readAllNazionalita() {
+    public void readAllNazionalita(ICallback<ArrayList<Nazionalita>> callback) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -67,7 +72,7 @@ public class NazionalitaManager extends HttpConnection {
                 try {
 
                     String response = getResponse(String.format("opCode=%s", ServerCodes.READ_ALL_NAZ));
-                    ListaNazionalita.setIstanza(new ObjectMapper().readValue(response, ListaNazionalita.class));
+                    callback.result(new ObjectMapper().readValue(response, ListaNazionalita.class));
                     
                 } catch (MalformedURLException ex) {
                     System.out.println("MalformerdURLException in class " + this.getClass().getName());
@@ -84,7 +89,7 @@ public class NazionalitaManager extends HttpConnection {
      * Aggiorna la nazionalita' passata in input
      * @param input
      */
-    public void updateNazionalita(Nazionalita input) {
+    public void updateNazionalita(Nazionalita input, ICallback<Object> callback) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -102,12 +107,14 @@ public class NazionalitaManager extends HttpConnection {
                             + " Nazionalità %s NON aggiornata nel database";
                     op = String.format(op, input.getAbbreviazione());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(input);
                 }
                 if(response.equals("DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " Nazionalità %s aggiornata nel database";
                     op = String.format(op, input.getAbbreviazione());
                     ListaOperazioni.getListaOperazioni().add(op);
+                    callback.result(null);
                 }
             }
         };

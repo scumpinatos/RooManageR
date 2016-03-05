@@ -1,7 +1,8 @@
-    package ui;
+package ui;
 
+import constants.Mansioni;
 import interfaces.ICallback;
-import web_services.AnagraficaManager;
+import web_services.AnagraficaMansioneManager;
 
 public class UILogin extends javax.swing.JFrame {
 
@@ -14,21 +15,17 @@ public class UILogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCf = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPasswordField = new javax.swing.JPasswordField();
         jButtonAccedi = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RooManageR");
         setResizable(false);
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/roomanager_logo.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Light", 2, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -44,6 +41,8 @@ public class UILogin extends javax.swing.JFrame {
                 jButtonAccediActionPerformed(evt);
             }
         });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/roomanager_logo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,18 +60,19 @@ public class UILogin extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
@@ -96,25 +96,30 @@ public class UILogin extends javax.swing.JFrame {
         String cf = jTextFieldCf.getText();
         String password = new String(jPasswordField.getPassword());
 
-        AnagraficaManager manager = new AnagraficaManager();
+        AnagraficaMansioneManager manager = new AnagraficaMansioneManager();
         
         manager.login(cf, password, new ICallback<Integer>() {
+            
             @Override
             public void result(Integer obj) {
-                // TODO
+                switch(obj) {
+                    case Mansioni.PORTINAIO:
+                        new UIHome().modalitaPortinaio();
+                        setVisible(false);
+                        break;
+                    case Mansioni.DIRETTORE:
+                        new UIHome().modalitaDirettore();
+                        setVisible(false);
+                        break;
+                    case Mansioni.PROPRIETARIO:
+                        new UIHome().modalitaProprietario();
+                        setVisible(false);
+                        break;
+                }
             }
         });
     }//GEN-LAST:event_jButtonAccediActionPerformed
 
-    
-    public static void main(String args[]) {
-  
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UILogin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccedi;
