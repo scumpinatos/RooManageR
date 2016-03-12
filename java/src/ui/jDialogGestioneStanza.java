@@ -1,18 +1,21 @@
 package ui;
 
-import cache.lists.ListaStanza;
-import cache.singular.UtenteConnesso;
+import cache.ListaStanza;
+import cache.UtenteConnesso;
 import constants.TipiStanza;
 import entities.Stanza;
 import interfaces.ICallback;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import web_services.StanzaManager;
 
-public class jDialogGestioneStanza extends javax.swing.JDialog {
+public class JDialogGestioneStanza extends javax.swing.JDialog {
 
     private static StanzaManager stanzaManager;
     private String selectedStruttura;
@@ -20,10 +23,11 @@ public class jDialogGestioneStanza extends javax.swing.JDialog {
     private Boolean newStanza, noStanza;
     private static Stanza temp;
 
-    public jDialogGestioneStanza(java.awt.Frame parent, boolean modal, String struttura) {
+    public JDialogGestioneStanza(java.awt.Frame parent, boolean modal, String struttura) {
         stanzaManager = new StanzaManager();
         selectedStruttura = struttura;
         initComponents();
+        centraFinestra(this);
         loadStanze(false);
     }
 
@@ -175,7 +179,7 @@ public class jDialogGestioneStanza extends javax.swing.JDialog {
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelInformazioniStanzaLayout.setVerticalGroup(
             jPanelInformazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -501,4 +505,10 @@ public class jDialogGestioneStanza extends javax.swing.JDialog {
         return null;
     }
 
+    private void centraFinestra(JDialog input) {
+        Dimension dim_schermo = Toolkit.getDefaultToolkit().getScreenSize();
+        int posX = (int) (dim_schermo.width - getWidth()) / 2;
+        int posY = (int) (dim_schermo.height - getHeight()) / 2;
+        input.setLocation(posX, posY);
+    }
 }

@@ -1,5 +1,5 @@
 
-package cache.lists;
+package cache;
 
 import java.util.ArrayList;
 

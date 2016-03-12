@@ -15,10 +15,5 @@ public class Mansioni {
     /**
      *
      */
-    public static final int DIRETTORE = 2;
-
-    /**
-     *
-     */
-    public static final int PROPRIETARIO = 3;
+    public static final int PROPRIETARIO = 2;
 }

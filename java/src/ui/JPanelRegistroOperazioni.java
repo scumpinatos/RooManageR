@@ -5,7 +5,7 @@
  */
 package ui;
 
-import cache.lists.ListaOperazioni;
+import cache.ListaOperazioni;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 

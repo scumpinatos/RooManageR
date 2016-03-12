@@ -1,5 +1,5 @@
 
-package cache.lists;
+package cache;
 
 import entities.AnagraficaStanza;
 import java.util.ArrayList;

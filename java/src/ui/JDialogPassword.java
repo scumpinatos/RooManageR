@@ -1,18 +1,23 @@
 
 package ui;
 
-import cache.singular.UtenteConnesso;
+import cache.UtenteConnesso;
+import entities.AnagraficaMansione;
 import interfaces.ICallback;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import web_services.AnagraficaMansioneManager;
 
 
-public class UIPassword extends javax.swing.JDialog {
+public class JDialogPassword extends javax.swing.JDialog {
 
     
-    public UIPassword(java.awt.Frame parent, boolean modal) {
+    public JDialogPassword(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(null);
         initComponents();
+        centraFinestra(this);
     }
 
     
@@ -145,6 +150,15 @@ public class UIPassword extends javax.swing.JDialog {
     
     private void controllaNuovaPassword() {
         
+        ICallback<AnagraficaMansione> callback = new ICallback<AnagraficaMansione>() {
+            @Override
+            public void result(AnagraficaMansione obj) {
+                if(obj != null) {
+                    JOptionPane.showMessageDialog(null, "Cambio passwordo non riuscito");
+                }
+            }
+        };
+        
         String pass1 = new String(jPasswordFieldNuova1.getPassword());
         String pass2 = new String(jPasswordFieldNuova2.getPassword());
         
@@ -152,9 +166,16 @@ public class UIPassword extends javax.swing.JDialog {
             jLabelAvviso.setText("Le due password inserite non corrispondono");
         } else {
             UtenteConnesso.getUtente().setPassword(pass1);
-            //new AnagraficaMansioneManager().updateAnagraficaMansione(UtenteConnesso.getUtente(), new ICallbackGeneral());
+            new AnagraficaMansioneManager().updateAnagraficaMansione(UtenteConnesso.getUtente(), callback);
             this.setVisible(false);
         }
+    }
+    
+    private void centraFinestra(JDialog input) {
+        Dimension dim_schermo = Toolkit.getDefaultToolkit().getScreenSize();
+        int posX = (int) (dim_schermo.width - getWidth()) / 2;
+        int posY = (int) (dim_schermo.height - getHeight()) / 2;
+        input.setLocation(posX, posY);
     }
 
 }

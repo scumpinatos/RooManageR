@@ -3,20 +3,19 @@ package ui;
 
 import entities.Nazionalita;
 import interfaces.ICallback;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import web_services.NazionalitaManager;
 
 
-public class UINazionalita extends javax.swing.JDialog {
+public class JDialogNazionalita extends javax.swing.JDialog {
     
-    JDialog dialog = null;
-    
-    public UINazionalita(java.awt.Frame parent, boolean modal) {
+    public JDialogNazionalita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.dialog = dialog;
-        this.setLocationRelativeTo(null);
         initComponents();
+        centraFinestra(this);
     }
 
     
@@ -98,21 +97,11 @@ public class UINazionalita extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnnullaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnullaActionPerformed
-       
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAnnullaActionPerformed
 
     private void jButtonConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaActionPerformed
-        
-        if(jTextFieldAbb.getText().trim().isEmpty() || jTextFieldValore.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Valore/i non inserito/i");
-        } else {
-            Nazionalita newNazionalita = new Nazionalita();
-            newNazionalita.setAbbreviazione(jTextFieldAbb.getText());
-            newNazionalita.setValore(jTextFieldValore.getText());
-            //new NazionalitaManager().addNazionalita(newNazionalita, );
-            this.setVisible(false);            
-        }
+        createNazionalita();
     }//GEN-LAST:event_jButtonConfermaActionPerformed
 
 
@@ -124,4 +113,33 @@ public class UINazionalita extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldAbb;
     private javax.swing.JTextField jTextFieldValore;
     // End of variables declaration//GEN-END:variables
+
+    private void createNazionalita() {
+        
+        ICallback<Nazionalita> callback = new ICallback<Nazionalita>() {
+            @Override
+            public void result(Nazionalita obj) {
+                if(obj != null) {
+                    JOptionPane.showMessageDialog(null, "Operazione non riuscita");
+                }
+            }
+        };
+        
+        if(jTextFieldAbb.getText().trim().isEmpty() || jTextFieldValore.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Valore/i non inserito/i");
+        } else {
+            Nazionalita newNazionalita = new Nazionalita();
+            newNazionalita.setAbbreviazione(jTextFieldAbb.getText());
+            newNazionalita.setValore(jTextFieldValore.getText());
+            new NazionalitaManager().addNazionalita(newNazionalita, callback);
+            this.setVisible(false);            
+        }
+    }
+    
+    private void centraFinestra(JDialog input) {
+        Dimension dim_schermo = Toolkit.getDefaultToolkit().getScreenSize();
+        int posX = (int) (dim_schermo.width - getWidth()) / 2;
+        int posY = (int) (dim_schermo.height - getHeight()) / 2;
+        input.setLocation(posX, posY);
+    }
 }

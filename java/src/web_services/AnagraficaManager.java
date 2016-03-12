@@ -1,6 +1,6 @@
 package web_services;
 
-import cache.lists.ListaOperazioni;
+import cache.ListaOperazioni;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;

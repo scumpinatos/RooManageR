@@ -1,12 +1,11 @@
 package ui;
 
-import cache.lists.ListaStruttura;
-import cache.singular.UtenteConnesso;
+import cache.ListaStruttura;
+import cache.UtenteConnesso;
 import constants.Mansioni;
 import entities.AnagraficaMansione;
 import entities.Struttura;
 import interfaces.ICallback;
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -45,13 +44,9 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jButtonStanze = new javax.swing.JButton();
         jPanelMansioni = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabelPortinaio = new javax.swing.JLabel();
+        jButtonCfPor = new javax.swing.JButton();
         jButtonAddPor = new javax.swing.JButton();
         jButtonRemPor = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabelDirettore = new javax.swing.JLabel();
-        jButtonAddDir = new javax.swing.JButton();
-        jButtonRemDir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldPass = new javax.swing.JTextField();
         jPanelInformazioni = new javax.swing.JPanel();
@@ -67,6 +62,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setName("Gestione Strutture"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(640, 438));
 
         jTableStrutture.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,14 +138,10 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Portinaio");
 
-        jLabelPortinaio.setFont(new java.awt.Font("Droid Sans", 2, 12)); // NOI18N
-        jLabelPortinaio.setForeground(java.awt.Color.blue);
-        jLabelPortinaio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelPortinaio.setText("Inserisci Codice Fiscale");
-        jLabelPortinaio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelPortinaio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelPortinaioMouseClicked(evt);
+        jButtonCfPor.setText("Inserisci Codice Fiscale");
+        jButtonCfPor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCfPorActionPerformed(evt);
             }
         });
 
@@ -169,36 +161,6 @@ public class JPanelStruttura extends javax.swing.JPanel {
             }
         });
 
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Direttore");
-
-        jLabelDirettore.setFont(new java.awt.Font("Droid Sans", 2, 12)); // NOI18N
-        jLabelDirettore.setForeground(java.awt.Color.blue);
-        jLabelDirettore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelDirettore.setText("Inserisci Codice Fiscale");
-        jLabelDirettore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelDirettore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelDirettoreMouseClicked(evt);
-            }
-        });
-
-        jButtonAddDir.setText("Aggiungi");
-        jButtonAddDir.setEnabled(false);
-        jButtonAddDir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddDirActionPerformed(evt);
-            }
-        });
-
-        jButtonRemDir.setText("Rimuovi");
-        jButtonRemDir.setEnabled(false);
-        jButtonRemDir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemDirActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Password");
 
         jTextFieldPass.setEnabled(false);
@@ -215,18 +177,9 @@ public class JPanelStruttura extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonRemPor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelMansioniLayout.createSequentialGroup()
-                        .addComponent(jButtonAddDir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRemDir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelMansioniLayout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelPortinaio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelMansioniLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelDirettore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCfPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMansioniLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel2)
@@ -240,19 +193,11 @@ public class JPanelStruttura extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabelPortinaio))
+                    .addComponent(jButtonCfPor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAddPor)
                     .addComponent(jButtonRemPor))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabelDirettore))
-                .addGap(13, 13, 13)
-                .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAddDir)
-                    .addComponent(jButtonRemDir))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -350,16 +295,15 @@ public class JPanelStruttura extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneElenco)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelMansioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelInformazioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPaneElenco)
-                        .addComponent(jPanelOperazioniStruttura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanelOperazioniStruttura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -412,62 +356,36 @@ public class JPanelStruttura extends javax.swing.JPanel {
         createMansione(1);
     }//GEN-LAST:event_jButtonAddPorActionPerformed
 
-    private void jButtonAddDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddDirActionPerformed
-
-        createMansione(2);
-    }//GEN-LAST:event_jButtonAddDirActionPerformed
-
-    private void jLabelPortinaioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPortinaioMouseClicked
-
-        new UIAnagrafica(null, true, new ICallback<String>() {
-
-            public void result(String obj) {
-                if (obj != null) {
-                    jLabelPortinaio.setText(obj);
-                    jLabelPortinaio.setEnabled(false);
-                }
-            }
-        }).setVisible(true);
-    }//GEN-LAST:event_jLabelPortinaioMouseClicked
-
-    private void jLabelDirettoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDirettoreMouseClicked
-
-        new UIAnagrafica(null, true, new ICallback<String>() {
-
-            public void result(String obj) {
-                if (obj != null) {
-                    jLabelDirettore.setText(obj);
-                    jLabelDirettore.setEnabled(false);
-                }
-            }
-        }).setVisible(true);
-    }//GEN-LAST:event_jLabelDirettoreMouseClicked
-
     private void jButtonRemPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemPorActionPerformed
 
         deleteMansione(1);
     }//GEN-LAST:event_jButtonRemPorActionPerformed
 
-    private void jButtonRemDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemDirActionPerformed
-
-        deleteMansione(2);
-    }//GEN-LAST:event_jButtonRemDirActionPerformed
-
     private void jButtonStanzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStanzeActionPerformed
 
         String struttura = ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome();
-        new jDialogGestioneStanza(null, true, struttura).setVisible(true);
+        new JDialogGestioneStanza(null, true, struttura).setVisible(true);
     }//GEN-LAST:event_jButtonStanzeActionPerformed
+
+    private void jButtonCfPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCfPorActionPerformed
+        
+        new JDialogAnagrafica(null, true, new ICallback<String> () {
+            @Override
+            public void result(String obj) {
+                jButtonCfPor.setText(obj);
+                jButtonCfPor.setEnabled(false);
+            }
+        }).setVisible(true);
+    }//GEN-LAST:event_jButtonCfPorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAddDir;
     private javax.swing.JButton jButtonAddPor;
     private javax.swing.JButton jButtonAggiungi;
     private javax.swing.JButton jButtonAgibile;
+    private javax.swing.JButton jButtonCfPor;
     private javax.swing.JButton jButtonConferma;
     private javax.swing.JButton jButtonModifica;
-    private javax.swing.JButton jButtonRemDir;
     private javax.swing.JButton jButtonRemPor;
     private javax.swing.JButton jButtonRimuovi;
     private javax.swing.JButton jButtonStanze;
@@ -476,10 +394,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelDirettore;
-    private javax.swing.JLabel jLabelPortinaio;
     private javax.swing.JPanel jPanelInformazioni;
     private javax.swing.JPanel jPanelMansioni;
     private javax.swing.JPanel jPanelOperazioniStruttura;
@@ -621,16 +536,12 @@ public class JPanelStruttura extends javax.swing.JPanel {
 
         String messaggio = "Controllare i valori inseriti";
         if (tipo == 1) {
-            if (jLabelPortinaio.getText().equals("Inserisci Codice Fiscale")) {
-                JOptionPane.showMessageDialog(null, messaggio);
-                return;
-            }
-        } else if (tipo == 2) {
-            if (jLabelDirettore.getText().equals("Inserisci Codice Fiscale")) {
+            if (jButtonCfPor.isEnabled()) {
                 JOptionPane.showMessageDialog(null, messaggio);
                 return;
             }
         }
+        
         if (jTextFieldPass.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, messaggio);
             return;
@@ -648,10 +559,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
 
         tempAnagMansione = new AnagraficaMansione();
         if (tipo == 1) {
-            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelPortinaio.getText());
-        }
-        if (tipo == 2) {
-            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelDirettore.getText());
+            tempAnagMansione.setCodiceFiscaleAnagrafica(jButtonCfPor.getText());
         }
 
         tempAnagMansione.setCodiceFiscaleProprietario(cfProprietario);
@@ -670,7 +578,6 @@ public class JPanelStruttura extends javax.swing.JPanel {
 
                 if (obj == null) {
                     jButtonAddPor.setEnabled(true);
-                    jButtonAddDir.setEnabled(true);
                     jTextFieldPass.setEnabled(true);
                     jTextFieldPass.setText("");
                 } else {
@@ -678,36 +585,19 @@ public class JPanelStruttura extends javax.swing.JPanel {
                     for (int i = 0; i < nMansioni; i++) {
                         switch (obj.get(i).getTipoMansione()) {
                             case Mansioni.PORTINAIO:
-                                jLabelPortinaio.setText(obj.get(i).getCodiceFiscaleAnagrafica());
-                                jLabelPortinaio.setEnabled(false);
-                                jLabelPortinaio.setCursor(Cursor.getDefaultCursor());
+                                jButtonCfPor.setText(obj.get(i).getCodiceFiscaleAnagrafica());
+                                jButtonCfPor.setEnabled(false);
                                 jButtonRemPor.setEnabled(true);
                                 jButtonAddPor.setEnabled(false);
-                                break;
-                            case Mansioni.DIRETTORE:
-                                jLabelDirettore.setEnabled(false);
-                                jLabelDirettore.setCursor(Cursor.getDefaultCursor());
-                                jLabelDirettore.setText(obj.get(i).getCodiceFiscaleAnagrafica());
-                                jButtonRemDir.setEnabled(true);
-                                jButtonAddDir.setEnabled(false);
                                 break;
                         }
                     }
                 }
 
-                if (!jButtonRemDir.isEnabled()) {
-                    jButtonAddDir.setEnabled(true);
-                    jLabelDirettore.setText("Inserisci Codice Fiscale");
-                    jLabelDirettore.setEnabled(true);
-                    jLabelDirettore.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                    jTextFieldPass.setEnabled(true);
-                }
-
                 if (!jButtonRemPor.isEnabled()) {
                     jButtonAddPor.setEnabled(true);
-                    jLabelPortinaio.setText("Inserisci Codice Fiscale");
-                    jLabelPortinaio.setEnabled(true);
-                    jLabelPortinaio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    jButtonCfPor.setText("Inserisci Codice Fiscale");
+                    jButtonCfPor.setEnabled(true);
                     jTextFieldPass.setEnabled(true);
                 }
             }
@@ -724,7 +614,6 @@ public class JPanelStruttura extends javax.swing.JPanel {
             public void result(AnagraficaMansione obj) {
 
                 if (obj == null) {
-                    jButtonRemDir.setEnabled(false);
                     jButtonRemPor.setEnabled(false);
                     readMansioni();
                 }
@@ -733,10 +622,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
 
         tempAnagMansione = new AnagraficaMansione();
         if (tipo == 1) {
-            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelPortinaio.getText());
-        }
-        if (tipo == 2) {
-            tempAnagMansione.setCodiceFiscaleAnagrafica(jLabelDirettore.getText());
+            tempAnagMansione.setCodiceFiscaleAnagrafica(jButtonCfPor.getText());
         }
 
         tempAnagMansione.setNomeStruttura(ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome());

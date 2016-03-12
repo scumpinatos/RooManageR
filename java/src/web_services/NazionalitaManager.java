@@ -1,6 +1,6 @@
 package web_services;
 
-import cache.lists.ListaOperazioni;
+import cache.ListaOperazioni;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import cache.lists.ListaNazionalita;
+import cache.ListaNazionalita;
 
 
 /**
@@ -24,7 +24,7 @@ public class NazionalitaManager extends HttpConnection {
      * Aggiunge una nazionalita'
      * @param input
      */
-    public void addNazionalita(Nazionalita input, ICallback<Object> callback) {
+    public void addNazionalita(Nazionalita input, ICallback<Nazionalita> callback) {
         
         Runnable runnable = new Runnable() {
             @Override
@@ -89,7 +89,7 @@ public class NazionalitaManager extends HttpConnection {
      * Aggiorna la nazionalita' passata in input
      * @param input
      */
-    public void updateNazionalita(Nazionalita input, ICallback<Object> callback) {
+    public void updateNazionalita(Nazionalita input, ICallback<Nazionalita> callback) {
         
         Runnable runnable = new Runnable() {
             @Override

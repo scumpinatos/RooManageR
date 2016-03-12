@@ -1,4 +1,4 @@
-package cache.lists;
+package cache;
 
 import entities.Stanza;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package ui;
 
-import cache.lists.ListaStanza;
-import cache.lists.ListaStruttura;
-import cache.singular.UtenteConnesso;
+import cache.ListaStanza;
+import cache.ListaStruttura;
+import cache.UtenteConnesso;
 import constants.TipiStanza;
 import entities.AnagraficaStanza;
 import entities.Stanza;
@@ -28,6 +28,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
     private static StrutturaManager strutturaManager;
     private static AnagraficaStanzaManager anagStaManager;
     private int selectedStanza;
+    private boolean mode;
 
     public JPanelAnagStanza(StrutturaManager manager, Boolean mode) {
 
@@ -35,6 +36,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         anagStaManager = new AnagraficaStanzaManager();
         temp = new AnagraficaStanza();
         temp.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
+        this.mode = mode;
         initComponents();
 
         if(mode) {
@@ -58,21 +60,15 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         jPanelOperazioni = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldStanza = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabelCf = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jTextFieldIngresso = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jButtonInizioPermanenza = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButtonCf = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jTextFieldIngresso1 = new javax.swing.JTextField();
-        jLabelCf1 = new javax.swing.JLabel();
+        jTextFieldIngresso = new javax.swing.JTextField();
+        jButtonInizioPermanenza = new javax.swing.JButton();
         jButtonInizioVisita = new javax.swing.JButton();
 
         setName("Gestione Clienti"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(680, 480));
+        setPreferredSize(new java.awt.Dimension(660, 480));
 
         jButtonAggiorna.setText("Aggiorna");
         jButtonAggiorna.addActionListener(new java.awt.event.ActionListener() {
@@ -100,33 +96,26 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         jPanelElenco.setLayout(jPanelElencoLayout);
         jPanelElencoLayout.setHorizontalGroup(
             jPanelElencoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelElencoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelElencoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelElencoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelElencoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonAggiorna, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
+                .addGroup(jPanelElencoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                    .addGroup(jPanelElencoLayout.createSequentialGroup()
+                        .addComponent(jComboBoxStrutture, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAggiorna, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanelElencoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelElencoLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jComboBoxStrutture, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(438, Short.MAX_VALUE)))
         );
         jPanelElencoLayout.setVerticalGroup(
             jPanelElencoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelElencoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonAggiorna)
+                .addGroup(jPanelElencoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAggiorna)
+                    .addComponent(jComboBoxStrutture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanelElencoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelElencoLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jComboBoxStrutture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(186, Short.MAX_VALUE)))
         );
 
         jPanelOperazioni.setName(""); // NOI18N
@@ -135,29 +124,21 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
 
         jTextFieldStanza.setEditable(false);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Codice fiscale");
+        jLabel3.setText("Codice fiscale");
 
-        jLabelCf.setFont(new java.awt.Font("Droid Sans", 2, 12)); // NOI18N
-        jLabelCf.setForeground(java.awt.Color.blue);
-        jLabelCf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCf.setText("Inserisci Codice Fiscale");
-        jLabelCf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelCf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelCfMouseClicked(evt);
+        jButtonCf.setText("Inserisci Codice Fiscale");
+        jButtonCf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCfActionPerformed(evt);
             }
         });
 
-        jLabel13.setText("Data e ora ingresso ");
+        jLabel15.setText("Data e ora ingresso ");
 
         jTextFieldIngresso.setEditable(false);
         jTextFieldIngresso.setVerifyInputWhenFocusTarget(false);
 
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Permanenza");
-
-        jButtonInizioPermanenza.setText("Inizio");
+        jButtonInizioPermanenza.setText("Aggiungi permanenza");
         jButtonInizioPermanenza.setEnabled(false);
         jButtonInizioPermanenza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,29 +146,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
             }
         });
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Visita");
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Codice fiscale");
-
-        jLabel15.setText("Data e ora ingresso ");
-
-        jTextFieldIngresso1.setEditable(false);
-        jTextFieldIngresso1.setVerifyInputWhenFocusTarget(false);
-
-        jLabelCf1.setFont(new java.awt.Font("Droid Sans", 2, 12)); // NOI18N
-        jLabelCf1.setForeground(java.awt.Color.blue);
-        jLabelCf1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelCf1.setText("Inserisci Codice Fiscale");
-        jLabelCf1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelCf1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelCf1MouseClicked(evt);
-            }
-        });
-
-        jButtonInizioVisita.setText("Inizio");
+        jButtonInizioVisita.setText("Aggiungi visita");
         jButtonInizioVisita.setToolTipText("");
         jButtonInizioVisita.setEnabled(false);
         jButtonInizioVisita.addActionListener(new java.awt.event.ActionListener() {
@@ -202,90 +161,62 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
             jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperazioniLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelOperazioniLayout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelCf, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelOperazioniLayout.createSequentialGroup()
-                            .addComponent(jLabel13)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonInizioPermanenza, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOperazioniLayout.createSequentialGroup()
-                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCf1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldIngresso1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOperazioniLayout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelOperazioniLayout.createSequentialGroup()
+                        .addComponent(jButtonInizioPermanenza, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonInizioVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addComponent(jButtonInizioVisita, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOperazioniLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(273, 273, 273))
+                    .addGroup(jPanelOperazioniLayout.createSequentialGroup()
+                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanelOperazioniLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelOperazioniLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel15)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanelOperazioniLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonCf, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanelOperazioniLayout.setVerticalGroup(
             jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperazioniLayout.createSequentialGroup()
-                .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelOperazioniLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel9)
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelCf)
-                            .addComponent(jLabel1))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelOperazioniLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelCf1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldIngresso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelOperazioniLayout.createSequentialGroup()
-                        .addComponent(jButtonInizioPermanenza)
-                        .addContainerGap())
-                    .addComponent(jButtonInizioVisita, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldStanza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel15)
+                    .addComponent(jTextFieldIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCf)
+                    .addComponent(jLabel3))
+                .addGap(54, 54, 54)
+                .addGroup(jPanelOperazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonInizioPermanenza)
+                    .addComponent(jButtonInizioVisita))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanelOperazioni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelElenco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelOperazioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,6 +237,10 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
             nuovaPermanenza();
         else if(selezionata.getVisita() == 0)
             nuovaVisita();
+        else {
+            jButtonInizioVisita.setEnabled(false);
+            jButtonInizioPermanenza.setEnabled(false);
+        }
     }//GEN-LAST:event_jTableStanzeMouseClicked
 
     private void jButtonInizioPermanenzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInizioPermanenzaActionPerformed
@@ -316,63 +251,46 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         createVisita();
     }//GEN-LAST:event_jButtonInizioVisitaActionPerformed
 
-    private void jLabelCfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCfMouseClicked
-        
-        new UIAnagrafica(null, true, new ICallback<String>() {
-            
-            public void result(String obj) {
-                if (obj != null) {
-                    jLabelCf.setText(obj);
-                    jLabelCf.setEnabled(false);
-                }
-            }
-        }).setVisible(true);
-    }//GEN-LAST:event_jLabelCfMouseClicked
-
-    private void jLabelCf1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCf1MouseClicked
-        
-        new UIAnagrafica(null, true, new ICallback<String>() {
-            
-            public void result(String obj) {
-                if (obj != null) {
-                    jLabelCf1.setText(obj);
-                    jLabelCf1.setEnabled(false);
-                }
-            }
-        }).setVisible(true);
-    }//GEN-LAST:event_jLabelCf1MouseClicked
-
     private void jButtonAggiornaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAggiornaActionPerformed
-        caricaStanze(false);
+        if(mode)
+            caricaStrutture();
+        else
+            caricaStanze(false);
     }//GEN-LAST:event_jButtonAggiornaActionPerformed
+
+    private void jButtonCfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCfActionPerformed
+        new JDialogAnagrafica(null, true, new ICallback<String>() {
+            @Override
+            public void result(String obj) {
+                if(obj != null) {
+                    jButtonCf.setText(obj);
+                    jButtonCf.setEnabled(false);
+                }
+            }
+        }).setVisible(true);
+    }//GEN-LAST:event_jButtonCfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAggiorna;
+    private javax.swing.JButton jButtonCf;
     private javax.swing.JButton jButtonInizioPermanenza;
     private javax.swing.JButton jButtonInizioVisita;
     private javax.swing.JComboBox<String> jComboBoxStrutture;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelCf;
-    private javax.swing.JLabel jLabelCf1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelElenco;
     private javax.swing.JPanel jPanelOperazioni;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTableStanze;
     private javax.swing.JTextField jTextFieldIngresso;
-    private javax.swing.JTextField jTextFieldIngresso1;
     private javax.swing.JTextField jTextFieldStanza;
     // End of variables declaration//GEN-END:variables
     
     private void createPermanenza() {
         
-        if(jLabelCf.getText().equals("Inserisci Codice Fiscale")) {
+        if(jButtonCf.isEnabled()) {
             JOptionPane.showMessageDialog(null, "Inserire un codice fiscale");
             return;
         }
@@ -382,7 +300,8 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
             public void result(AnagraficaStanza obj) {
                 if(obj == null) {
                     aggiornaStanza(1);
-                    jLabelCf.setText("Inserisci Codice Fiscale");
+                    jButtonCf.setText("Inserisci Codice Fiscale");
+                    jButtonCf.setEnabled(true);
                     String message = "Permanenza aggiunta al database";
                     JOptionPane.showMessageDialog(null, message);
                 }
@@ -390,7 +309,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         };
                 
         AnagraficaStanza permanenza = temp;
-        permanenza.setCodiceFiscaleAnagrafica(jLabelCf.getText());
+        permanenza.setCodiceFiscaleAnagrafica(jButtonCf.getText());
         permanenza.setIngresso(jTextFieldIngresso.getText());
         permanenza.setNumeroStanza(jTextFieldStanza.getText());
         permanenza.setTipo(1);
@@ -400,7 +319,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
     
     private void createVisita() {
         
-        if(jLabelCf1.getText().equals("Inserisci Codice Fiscale")) {
+        if(jButtonCf.isEnabled()) {
             JOptionPane.showMessageDialog(null, "Inserire un codice fiscale");
             return;
         }
@@ -409,15 +328,16 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
             @Override
             public void result(AnagraficaStanza obj) {
                 aggiornaStanza(2);
-                jLabelCf1.setText("Inserisci Codice Fiscale");
+                jButtonCf.setText("Inserisci Codice Fiscale");
+                jButtonCf.setEnabled(true);
                 String message = "Visita aggiunta al database";
                 JOptionPane.showMessageDialog(null, message);
             }
         };
         
         AnagraficaStanza visita = temp;
-        visita.setCodiceFiscaleAnagrafica(jLabelCf1.getText());
-        visita.setIngresso(jTextFieldIngresso1.getText());
+        visita.setCodiceFiscaleAnagrafica(jButtonCf.getText());
+        visita.setIngresso(jTextFieldIngresso.getText());
         visita.setNumeroStanza(jTextFieldStanza.getText());
         visita.setTipo(2);
         anagStaManager.addAnagraficaStanza(visita, callback);
@@ -425,21 +345,18 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
     
     private void nuovaPermanenza() {
 
-        jButtonInizioPermanenza.setEnabled(true);
         jTextFieldIngresso.setEnabled(true);
-        jButtonInizioVisita.setEnabled(false);
-        jTextFieldIngresso1.setEnabled(false);
         dataOraAttuale(jTextFieldIngresso);
+        
         jButtonInizioPermanenza.setEnabled(true);
+        jButtonInizioVisita.setEnabled(false);
     }
 
     private void nuovaVisita() {
 
+        jTextFieldIngresso.setEnabled(true);
+        dataOraAttuale(jTextFieldIngresso);
         jButtonInizioPermanenza.setEnabled(false);
-        jTextFieldIngresso.setEnabled(false);
-        jButtonInizioVisita.setEnabled(true);
-        jTextFieldIngresso1.setEnabled(true);
-        dataOraAttuale(jTextFieldIngresso1);
         jButtonInizioVisita.setEnabled(true);
     }
 

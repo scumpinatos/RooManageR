@@ -107,10 +107,6 @@ public class UILogin extends javax.swing.JFrame {
                         new UIHome().modalitaPortinaio();
                         setVisible(false);
                         break;
-                    case Mansioni.DIRETTORE:
-                        new UIHome().modalitaDirettore();
-                        setVisible(false);
-                        break;
                     case Mansioni.PROPRIETARIO:
                         new UIHome().modalitaProprietario();
                         setVisible(false);

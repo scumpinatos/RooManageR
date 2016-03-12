@@ -1,8 +1,9 @@
 package ui;
 
-import cache.lists.ListaAnagraficaStanza;
-import cache.lists.ListaStruttura;
-import cache.singular.UtenteConnesso;
+import cache.ListaAnagraficaStanza;
+import cache.ListaStanza;
+import cache.ListaStruttura;
+import cache.UtenteConnesso;
 import entities.AnagraficaStanza;
 import entities.Stanza;
 import interfaces.ICallback;
@@ -264,16 +265,18 @@ public class JPanelSituazioneAttuale extends javax.swing.JPanel {
         };
 
         AnagraficaStanza finish = permanenze.get(indicePermanenza);
-        String uscita = adesso();
-        Float costo = Float.parseFloat(JOptionPane.showInputDialog(null, "Inserire l'importo pagato dal cliente"));
-        String titolo = "Confermi i dati riportati";
-        String messaggio = "Uscita: " + uscita + "\nCosto: " + costo + " €";
-        int choice = JOptionPane.showConfirmDialog(null, messaggio, titolo, JOptionPane.YES_NO_OPTION);
-        if (choice == JOptionPane.YES_OPTION) {
-            finish.setUscita(uscita);
-            finish.setCosto(costo);
-            anagStaManager.updateAnagraficaStanza(finish, callback);
+        if (!checkVisita(finish.getNumeroStanza())) {
 
+            String uscita = adesso();
+            Float costo = Float.parseFloat(JOptionPane.showInputDialog(null, "Inserire l'importo pagato dal cliente"));
+            String titolo = "Confermi i dati riportati";
+            String messaggio = "Uscita: " + uscita + "\nCosto: " + costo + " €";
+            int choice = JOptionPane.showConfirmDialog(null, messaggio, titolo, JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                finish.setUscita(uscita);
+                finish.setCosto(costo);
+                anagStaManager.updateAnagraficaStanza(finish, callback);
+            }
         }
     }
 
@@ -339,17 +342,22 @@ public class JPanelSituazioneAttuale extends javax.swing.JPanel {
             @Override
             public void result(ListaAnagraficaStanza obj) {
 
-                int n = obj.size();
-                permanenze.clear();
-                visite.clear();
-                for (int i = 0; i < n; i++) {
-                    if (obj.get(i).getTipo() == 1) {
-                        permanenze.add(obj.get(i));
-                    } else {
-                        visite.add(obj.get(i));
+                if (obj == null) {
+                    jTablePermanenze.setModel(new DefaultTableModel(new Object[0][], new Object[0]));
+                    jTableVisite.setModel(new DefaultTableModel(new Object[0][], new Object[0]));
+                } else {
+                    int n = obj.size();
+                    permanenze.clear();
+                    visite.clear();
+                    for (int i = 0; i < n; i++) {
+                        if (obj.get(i).getTipo() == 1) {
+                            permanenze.add(obj.get(i));
+                        } else {
+                            visite.add(obj.get(i));
+                        }
                     }
+                    caricaElenchi();
                 }
-                caricaElenchi();
             }
         });
     }
@@ -387,22 +395,35 @@ public class JPanelSituazioneAttuale extends javax.swing.JPanel {
         String now = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime());
         return now;
     }
-    
+
     private void aggiornaStanza(int tipo) {
-        
+
         Stanza toUpdate = new Stanza();
         toUpdate.setCodiceFiscaleProprietario(cfProprietario);
         toUpdate.setNomeStruttura(nomeStruttura);
-        if(tipo == 1) {
+        if (tipo == 1) {
             toUpdate.setNumero(permanenze.get(indicePermanenza).getNumeroStanza());
             toUpdate.setPermanenza(0);
             toUpdate.setVisita(0);
-        } else if(tipo == 2) {
+        } else if (tipo == 2) {
             toUpdate.setNumero(visite.get(indiceVisita).getNumeroStanza());
             toUpdate.setVisita(0);
             toUpdate.setPermanenza(1);
         }
         new StanzaManager().occupaStanza(toUpdate, null);
+    }
+
+    private Boolean checkVisita(String numeroStanza) {
+
+        ListaStanza stanze = ListaStanza.getIstanza();
+
+        for (Stanza current : stanze) {
+            if (current.getNumero().equals(numeroStanza) && current.getVisita() == 1) {
+                JOptionPane.showMessageDialog(null, "Terminare prima la visita in corso");
+                return true;
+            }
+        }
+        return false;
     }
 
 }

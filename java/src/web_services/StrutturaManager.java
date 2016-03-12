@@ -1,8 +1,10 @@
 package web_services;
 
-import cache.lists.ListaStruttura;
-import cache.lists.ListaAnagraficaMansione;
-import cache.lists.ListaOperazioni;
+import cache.ListaAnagrafica;
+import cache.ListaStruttura;
+import cache.ListaAnagraficaMansione;
+import cache.ListaAnagraficaStanza;
+import cache.ListaOperazioni;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -207,23 +209,30 @@ public class StrutturaManager extends HttpConnection {
      * @param cfProprietario
      * @param nomeStruttura
      */
-    public void readAllAnagraficheStruttura(String cfProprietario, String nomeStruttura) {
+    public void readAllAnagraficheStruttura(Struttura struttura, ICallback<ListaAnagrafica> callback) {
 
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                
-//                String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s", 
-//                        ServerCodes.READ_ALL_ANAG, cfProprietario, nomeStruttura));
-//                try {
-//                    ListaAnagrafica.setIstanza(new ObjectMapper().readValue(response, ListaAnagrafica.class));
-//                } catch (IOException ex) {
-//                }
-//            }
-//        };
-//
-//        Thread thread = new Thread(runnable);
-//        thread.start();
+        String cf = struttura.getCodiceFiscaleAnagrafica();
+        String nome = struttura.getNome();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s",
+                        ServerCodes.READ_ALL_ANAG, cf, nome));
+                if (response.equals("false")) {
+                    callback.result(null);
+                } else {
+                    try {
+                        callback.result(new ObjectMapper().readValue(response, ListaAnagrafica.class));
+                    } catch (IOException ex) {
+                    }
+                }
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     /**
@@ -233,23 +242,30 @@ public class StrutturaManager extends HttpConnection {
      * @param cfProprietario
      * @param nomeStruttura
      */
-    public void readAllAnagraficaStanzaStruttura(String cfProprietario, String nomeStruttura) {
+    public void readAllAnagraficaStanzaStruttura(Struttura struttura, ICallback<ListaAnagraficaStanza> callback) {
 
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                
-//                String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s", 
-//                        ServerCodes.READ_ALL_ANAG_STA, cfProprietario, nomeStruttura));
-//                try {
-//                    ListaAnagraficaStanza.setIstanza(new ObjectMapper().readValue(response, ListaAnagraficaStanza.class));
-//                } catch (IOException ex) {
-//                }
-//            }
-//        };
-//
-//        Thread thread = new Thread(runnable);
-//        thread.start();
+        String cf = struttura.getCodiceFiscaleAnagrafica();
+        String nome = struttura.getNome();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s",
+                        ServerCodes.READ_ALL_ANAG_STA, cf, nome));
+                if (response.equals("false")) {
+                    callback.result(null);
+                } else {
+                    try {
+                        callback.result(new ObjectMapper().readValue(response, ListaAnagraficaStanza.class));
+                    } catch (IOException ex) {
+                    }
+                }
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     /**

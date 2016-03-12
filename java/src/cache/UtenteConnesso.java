@@ -1,5 +1,5 @@
 
-package cache.singular;
+package cache;
 
 import entities.Anagrafica;
 import entities.AnagraficaMansione;

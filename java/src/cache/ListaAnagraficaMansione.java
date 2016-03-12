@@ -1,5 +1,5 @@
 
-package cache.lists;
+package cache;
 
 import entities.AnagraficaMansione;
 import java.util.ArrayList;
