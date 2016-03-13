@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Mar 05, 2016 alle 13:42
+-- Creato il: Mar 13, 2016 alle 16:04
 -- Versione del server: 5.6.26
--- Versione PHP: 5.5.28
+-- Versione PHP: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `anagraficamansione` (
 --
 
 INSERT INTO `anagraficamansione` (`codicefiscaleanagrafica`, `password`, `nomestruttura`, `codicefiscaleproprietario`, `tipomansione`) VALUES
-('CODICEFISCALE1', '123stella', '', 'CODICEFISCALE1', 3),
+('CODICEFISCALE1', '123stella', '', 'CODICEFISCALE1', 2),
 ('CODICEFISCALE2', '123stella', 'Hotel Luna', 'CODICEFISCALE1', 1);
 
 -- --------------------------------------------------------
