@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Mar 13, 2016 alle 16:04
+-- Creato il: Mar 16, 2016 alle 11:34
 -- Versione del server: 5.6.26
 -- Versione PHP: 5.6.12
 
@@ -150,6 +150,7 @@ INSERT INTO `stanza` (`nomestruttura`, `codicefiscaleproprietario`, `numero`, `t
 CREATE TABLE IF NOT EXISTS `struttura` (
   `nome` varchar(255) NOT NULL,
   `codicefiscaleanagrafica` varchar(255) NOT NULL,
+  `nstanze` int(11) NOT NULL,
   `indirizzo` varchar(255) NOT NULL,
   `descrizione` varchar(255) NOT NULL,
   `agibile` tinyint(1) NOT NULL
@@ -159,8 +160,8 @@ CREATE TABLE IF NOT EXISTS `struttura` (
 -- Dump dei dati per la tabella `struttura`
 --
 
-INSERT INTO `struttura` (`nome`, `codicefiscaleanagrafica`, `indirizzo`, `descrizione`, `agibile`) VALUES
-('Hotel Luna', 'CODICEFISCALE1', 'IndirizzoHotelLuna', 'DescrizioneHotelLuna', 1);
+INSERT INTO `struttura` (`nome`, `codicefiscaleanagrafica`, `nstanze`, `indirizzo`, `descrizione`, `agibile`) VALUES
+('Hotel Luna', 'CODICEFISCALE1', 1, 'IndirizzoHotelLuna', 'DescrizioneHotelLuna', 1);
 
 --
 -- Indici per le tabelle scaricate
