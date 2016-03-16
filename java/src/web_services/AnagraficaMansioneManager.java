@@ -1,7 +1,7 @@
-
 package web_services;
 
 import cache.ListaOperazioni;
+import cache.Server;
 import cache.UtenteConnesso;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,21 +17,24 @@ import javax.swing.JOptionPane;
 import static web_services.HttpConnection.getResponse;
 
 /**
- * Classe che si occupa di gestire le istanze di anagrafiche relative a una struttura
+ * Classe che si occupa di gestire le istanze di anagrafiche relative a una
+ * struttura
+ *
  * @author emanuelegargiulo
  */
 public class AnagraficaMansioneManager {
-    
+
     /**
      * Aggiunge un'anagrafica ad una struttura assegnandole una mansione
+     *
      * @param input
      */
     public void addAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
-        
+
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                
+
                 ObjectMapper mapper = new ObjectMapper();
                 String json = null;
                 try {
@@ -39,15 +42,20 @@ public class AnagraficaMansioneManager {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_ANAG_MANS, json));
-                if(response.equals("NOT DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
+
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
+                if (response.equals("NOT DONE")) {
+                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaMansione %s nella struttura %s NON aggiunta al database";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
                     callback.result(input);
                 }
-                if(response.equals("DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
+                if (response.equals("DONE")) {
+                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaMansione %s nella struttura %s aggiunta al database";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
@@ -59,17 +67,18 @@ public class AnagraficaMansioneManager {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-    
+
     /**
      * Aggiorna l'istanza di anagraficaMansione passata come input
+     *
      * @param input
      */
     public void updateAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
-        
+
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                
+
                 ObjectMapper mapper = new ObjectMapper();
                 String json = null;
                 try {
@@ -77,15 +86,20 @@ public class AnagraficaMansioneManager {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_ANAG_MANS, json));
-                if(response.equals("NOT DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
+
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
+                if (response.equals("NOT DONE")) {
+                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaMansione %s nella struttura %s NON aggiornata nel database";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
                     callback.result(input);
                 }
-                if(response.equals("DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
+                if (response.equals("DONE")) {
+                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaMansione %s nella struttura %s aggiornata nel database";
                     op = String.format(op, input.getCodiceFiscaleAnagrafica(), input.getNomeStruttura());
                     ListaOperazioni.getListaOperazioni().add(op);
@@ -97,28 +111,35 @@ public class AnagraficaMansioneManager {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-    
+
     /**
      * Legge l'anagrafica mansione dati i parametri
+     *
      * @param input
      * @param callback
      */
     public void readAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
-        
-         Runnable runnable = new Runnable() {
+
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                
+
                 String cf = input.getCodiceFiscaleAnagrafica();
                 String nomeStruttura = input.getNomeStruttura();
                 String cfProprietario = input.getCodiceFiscaleProprietario();
-                
-                String response = getResponse(String.format("opCode=%s&cf=%s&nomeStruttura=%s&cfProprietario=%s", 
+
+                String response = getResponse(String.format("opCode=%s&cf=%s&nomeStruttura=%s&cfProprietario=%s",
                         ServerCodes.READ_ANAG_MANS, cf, nomeStruttura, cfProprietario));
+
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (!(response.equals("NOT DONE"))) {
                     try {
                         callback.result(new ObjectMapper().readValue(response, AnagraficaMansione.class));
-                    } catch (IOException ex) {}
+                    } catch (IOException ex) {
+                    }
                 } else {
                     callback.result(null);
                 }
@@ -128,33 +149,39 @@ public class AnagraficaMansioneManager {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-    
+
     /**
      * Cancella l'anagrafica mansione dati i parametri
+     *
      * @param input
      * @param callback
      */
     public void deleteAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
-     
+
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                
+
                 String cf = input.getCodiceFiscaleAnagrafica();
                 String nomeStruttura = input.getNomeStruttura();
                 String cfProprietario = input.getCodiceFiscaleProprietario();
-                
-                String response = getResponse(String.format("opCode=%s&cf=%s&nomeStruttura=%s&cfProprietario=%s", 
+
+                String response = getResponse(String.format("opCode=%s&cf=%s&nomeStruttura=%s&cfProprietario=%s",
                         ServerCodes.DEL_ANAG_MANS, cf, nomeStruttura, cfProprietario));
-                if(response.equals("NOT DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
+
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
+                if (response.equals("NOT DONE")) {
+                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaMansione %s NON rimossa dalla struttura %s e dal database";
                     op = String.format(op, cf, nomeStruttura);
                     ListaOperazioni.getListaOperazioni().add(op);
                     callback.result(input);
                 }
-                if(response.equals("DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
+                if (response.equals("DONE")) {
+                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaMansione %s rimossa dalla struttura %s e dal database";
                     op = String.format(op, cf, nomeStruttura);
                     ListaOperazioni.getListaOperazioni().add(op);
@@ -166,7 +193,7 @@ public class AnagraficaMansioneManager {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-    
+
     /**
      * Metodo che si occupa di effettuare il login
      *
@@ -187,6 +214,9 @@ public class AnagraficaMansioneManager {
 
                     // LETTURA INFORMAZIONI
                     String response = getResponse(String.format("opCode=%s&cf=%s", ServerCodes.LOGIN, cf));
+                    if (response == null) {
+                        Server.serverOffline(this);
+                    }
 
                     // CONTROLLO PRESENZA CF NEL DB
                     if (response.equals("NOT DONE")) {

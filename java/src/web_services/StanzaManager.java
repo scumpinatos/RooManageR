@@ -2,6 +2,7 @@ package web_services;
 
 import cache.ListaOperazioni;
 import cache.ListaStanza;
+import cache.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -37,6 +38,10 @@ public class StanzaManager extends HttpConnection {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_STA, json));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " Stanza %s della struttura %s NON aggiunta al database";
@@ -76,6 +81,10 @@ public class StanzaManager extends HttpConnection {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_STA, json));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " Stanza %s della struttura %s NON aggiornata nel database";
@@ -115,6 +124,10 @@ public class StanzaManager extends HttpConnection {
                 String cfProprietario = input.getCodiceFiscaleProprietario();
                 String response = getResponse(String.format("opCode=%s&numeroStanza=%s&nomeStruttura=%s&cfProprietario=%s",
                         ServerCodes.READ_STR, numeroStanza, nomeStruttura, cfProprietario));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (!(response.equals("NOT DONE"))) {
                     try {
                         callback.result(new ObjectMapper().readValue(response, Stanza.class));
@@ -149,6 +162,10 @@ public class StanzaManager extends HttpConnection {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.DEL_STA, json));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " Stanza %s della struttura %s NON rimossa dal database";
@@ -188,6 +205,10 @@ public class StanzaManager extends HttpConnection {
                 try {
                     String response = getResponse(String.format("opCode=%s&nomeStruttura=%s&cfProprietario=%s",
                             ServerCodes.READ_ALL_STA, nomeStruttura, cfProprietario));
+                    if (response == null) {
+                        Server.serverOffline(this);
+                    }
+
                     if (response.equals("false")) {
                         callback.result(false);
                     } else {
@@ -203,7 +224,7 @@ public class StanzaManager extends HttpConnection {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-    
+
     public void occupaStanza(Stanza input, ICallback<Stanza> callback) {
 
         Runnable runnable = new Runnable() {
@@ -217,6 +238,10 @@ public class StanzaManager extends HttpConnection {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.OCC_STA, json));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
+                
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " Stanza %s della struttura %s NON aggiornata nel database";

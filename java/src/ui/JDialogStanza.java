@@ -4,6 +4,7 @@ import cache.ListaStanza;
 import cache.UtenteConnesso;
 import constants.TipiStanza;
 import entities.Stanza;
+import entities.Struttura;
 import interfaces.ICallback;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -14,16 +15,17 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import web_services.StanzaManager;
+import web_services.StrutturaManager;
 
-public class JDialogGestioneStanza extends javax.swing.JDialog {
+public class JDialogStanza extends javax.swing.JDialog {
 
     private static StanzaManager stanzaManager;
-    private String selectedStruttura;
+    private Struttura selectedStruttura;
     private int selectedStanza;
     private Boolean newStanza, noStanza;
     private static Stanza temp;
 
-    public JDialogGestioneStanza(java.awt.Frame parent, boolean modal, String struttura) {
+    public JDialogStanza(java.awt.Frame parent, boolean modal, Struttura struttura) {
         stanzaManager = new StanzaManager();
         selectedStruttura = struttura;
         initComponents();
@@ -362,9 +364,11 @@ public class JDialogGestioneStanza extends javax.swing.JDialog {
         jTextAreaDescrizione.setText("");
         jTextFieldMq.setText("");
         updateStanza();
+        jTextFieldNumero.setEnabled(true);
     }
 
     private void updateStanza() {
+        jTextFieldNumero.setEnabled(false);
         jTextAreaDescrizione.setEnabled(true);
         jTextFieldMq.setEnabled(true);
         jComboBoxTipo.setEnabled(true);
@@ -405,23 +409,36 @@ public class JDialogGestioneStanza extends javax.swing.JDialog {
     }
 
     private void deleteStanza() {
+        if(ListaStanza.getIstanza().get(selectedStanza).getPermanenza() == 1) {
+            JOptionPane.showMessageDialog(null, "Rimuovere prima la permanenza nella stanza");
+            return;
+        }
         String messaggio = "Rimuovere la stanza: " + ListaStanza.getIstanza().get(selectedStanza).getNumero();
         int scelta = JOptionPane.showConfirmDialog(null, messaggio, null, JOptionPane.YES_NO_OPTION);
         if (scelta == JOptionPane.YES_OPTION) {
             stanzaManager.deleteStanza(ListaStanza.getIstanza().get(selectedStanza), callbackDelete);
+            selectedStruttura.setnStanze(selectedStruttura.getnStanze() - 1);
+            new StrutturaManager().updateStruttura(selectedStruttura, null);
         }
     }
 
     private void confirmOperation() {
 
-        if (!noStanza && !(controlName(jTextFieldNumero.getText()))) {
+        if (!noStanza && newStanza && !(controlName(jTextFieldNumero.getText()))) {
             JOptionPane.showMessageDialog(null, "Numero stanza già presente in archivio");
         } else {
             temp = getInsertInfo();
 
             if (newStanza) {
                 stanzaManager.createStanza(temp, callbackCreate);
+                selectedStruttura.setnStanze(selectedStruttura.getnStanze() + 1);
+                new StrutturaManager().updateStruttura(selectedStruttura, null);
+            } else if(jButtonAgibile.getText().equals("NO") && 
+                    ListaStanza.getIstanza().get(selectedStanza).getPermanenza() == 1) {
+                JOptionPane.showMessageDialog(null, "Liberare la stanza\nprima di renderla inagibile");
             } else {
+                temp.setPermanenza(ListaStanza.getIstanza().get(selectedStanza).getPermanenza());
+                temp.setVisita(ListaStanza.getIstanza().get(selectedStanza).getVisita());
                 stanzaManager.updateStanza(temp, callbackUpdate);
             }
         }
@@ -447,14 +464,13 @@ public class JDialogGestioneStanza extends javax.swing.JDialog {
         jComboBoxTipo.setEnabled(false);
         jButtonAgibile.setEnabled(false);
         jButtonConferma.setEnabled(false);
-        JOptionPane.showMessageDialog(null, "Operazione riuscita");
     }
 
     private Stanza getInsertInfo() {
 
         Stanza newStanza = new Stanza();
         newStanza.setCodiceFiscaleProprietario(UtenteConnesso.getUtente().getCodiceFiscaleProprietario());
-        newStanza.setNomeStruttura(selectedStruttura);
+        newStanza.setNomeStruttura(selectedStruttura.getNome());
 
         newStanza.setNumero(jTextFieldNumero.getText());
         newStanza.setDescrizione(jTextAreaDescrizione.getText());
@@ -485,7 +501,7 @@ public class JDialogGestioneStanza extends javax.swing.JDialog {
     private void loadStanze(boolean refresh) {
 
         if (!refresh) {
-            new StanzaManager().readStanzeStruttura(selectedStruttura,
+            new StanzaManager().readStanzeStruttura(selectedStruttura.getNome(),
                     UtenteConnesso.getUtente().getCodiceFiscaleProprietario(), callbackRead);
         } else {
             callbackRead.result(refresh);

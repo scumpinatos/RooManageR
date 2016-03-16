@@ -9,13 +9,10 @@ import entities.Stanza;
 import interfaces.ICallback;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import web_services.AnagraficaStanzaManager;
@@ -44,7 +41,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         } else {
             jComboBoxStrutture.setVisible(false);
             temp.setNomeStruttura(UtenteConnesso.getUtente().getNomeStruttura());
-            caricaStanze(false);
+            caricaStanze();
         }
     }
 
@@ -135,7 +132,6 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
 
         jLabel15.setText("Data e ora ingresso ");
 
-        jTextFieldIngresso.setEditable(false);
         jTextFieldIngresso.setVerifyInputWhenFocusTarget(false);
 
         jButtonInizioPermanenza.setText("Aggiungi permanenza");
@@ -233,7 +229,9 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         selectedStanza = ((JTable) evt.getSource()).getSelectedRow();
         Stanza selezionata = ListaStanza.getIstanza().get(selectedStanza);
         jTextFieldStanza.setText(selezionata.getNumero());
-        if(selezionata.getPermanenza() == 0)
+        if(selezionata.getAgibile() == 0) 
+            stanzaInagibile();
+        else if(selezionata.getPermanenza() == 0)
             nuovaPermanenza();
         else if(selezionata.getVisita() == 0)
             nuovaVisita();
@@ -255,7 +253,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         if(mode)
             caricaStrutture();
         else
-            caricaStanze(false);
+            caricaStanze();
     }//GEN-LAST:event_jButtonAggiornaActionPerformed
 
     private void jButtonCfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCfActionPerformed
@@ -345,19 +343,27 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
     
     private void nuovaPermanenza() {
 
-        jTextFieldIngresso.setEnabled(true);
-        dataOraAttuale(jTextFieldIngresso);
-        
+        jButtonCf.setEnabled(true);
+        jTextFieldIngresso.setEnabled(true);        
         jButtonInizioPermanenza.setEnabled(true);
         jButtonInizioVisita.setEnabled(false);
     }
 
     private void nuovaVisita() {
 
+        jButtonCf.setEnabled(true);
         jTextFieldIngresso.setEnabled(true);
-        dataOraAttuale(jTextFieldIngresso);
         jButtonInizioPermanenza.setEnabled(false);
         jButtonInizioVisita.setEnabled(true);
+    }
+    
+    private void stanzaInagibile() {
+        
+        jButtonInizioPermanenza.setEnabled(false);
+        jButtonInizioVisita.setEnabled(false);
+        jButtonCf.setEnabled(false);
+        jTextFieldIngresso.setEnabled(false);
+        jTextFieldStanza.setEnabled(false);
     }
 
     private void caricaStrutture() {
@@ -379,7 +385,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         temp.setNomeStruttura((String) jComboBoxStrutture.getSelectedItem());
-                        caricaStanze(false);
+                        caricaStanze();
                     }
                 });
 
@@ -389,7 +395,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         strutturaManager.readStruttureByAnagrafica(temp.getCodiceFiscaleProprietario(), callback);
     }
 
-    private void caricaStanze(Boolean refresh) {
+    private void caricaStanze() {
 
         ICallback<Boolean> callback = new ICallback<Boolean>() {
             
@@ -422,10 +428,7 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
             }
         };
 
-        if(!refresh)
-            new StanzaManager().readStanzeStruttura(temp.getNomeStruttura(), temp.getCodiceFiscaleProprietario(), callback);
-        else
-            callback.result(refresh);
+        new StanzaManager().readStanzeStruttura(temp.getNomeStruttura(), temp.getCodiceFiscaleProprietario(), callback);
 
     }
 
@@ -457,18 +460,12 @@ public class JPanelAnagStanza extends javax.swing.JPanel {
         return null;
     }
     
-    private void dataOraAttuale(JTextField output) {
-
-        String now = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime());
-        output.setText(now);
-    }
-
     private void aggiornaStanza(int tipo) {
         
         ICallback<Stanza> callback = new ICallback<Stanza>() {
             @Override
             public void result(Stanza obj) {
-                caricaStanze(true);
+                caricaStanze();
             }
         };
         

@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import cache.ListaNazionalita;
+import cache.Server;
 
 
 /**
@@ -37,6 +38,9 @@ public class NazionalitaManager extends HttpConnection {
                 }
 
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_NAZ, json));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
                 if(response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " Nazionalità %s NON aggiunta al database";
@@ -72,6 +76,9 @@ public class NazionalitaManager extends HttpConnection {
                 try {
 
                     String response = getResponse(String.format("opCode=%s", ServerCodes.READ_ALL_NAZ));
+                    if(response == null) {
+                    Server.serverOffline(this);
+                }
                     callback.result(new ObjectMapper().readValue(response, ListaNazionalita.class));
                     
                 } catch (MalformedURLException ex) {
@@ -102,6 +109,9 @@ public class NazionalitaManager extends HttpConnection {
                 }
 
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_NAZ, json));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
                 if(response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
                             + " Nazionalità %s NON aggiornata nel database";

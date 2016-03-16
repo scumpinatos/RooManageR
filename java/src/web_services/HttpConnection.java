@@ -1,6 +1,5 @@
 package web_services;
 
-import exceptions.HttpException;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import constants.StatusCodes;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,11 +38,6 @@ public abstract class HttpConnection {
             wr.flush();
             wr.close();
             
-            // CONTROLLO STATUS CODE
-            int responseCode = connessione.getResponseCode();
-            if(responseCode != StatusCodes.SUCCESS) {
-                throw new HttpException(responseCode);
-            }
             
             // LETTURA RISPOSTA DEL SERVER
             BufferedReader in = new BufferedReader(new InputStreamReader(connessione.getInputStream()));
@@ -62,10 +55,7 @@ public abstract class HttpConnection {
         } catch (ProtocolException ex) {
             System.out.println("ProtocolException in HttpConnection");
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Server offline. Contattare l'amministratore di sistema.");
             return null;
-        } catch (HttpException ex) {
-            System.out.println("HttpException in HttpConnection");
         }
         
         return null;

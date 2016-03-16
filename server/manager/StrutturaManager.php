@@ -12,9 +12,8 @@ class StrutturaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'INSERT INTO struttura VALUES ("%s","%s","%s","%s","%d")';
-        $query = sprintf($query, $obj->getNome(), $obj->getCodiceFiscaleAnagrafica(), 
-                $obj->getIndirizzo(), $obj->getDescrizione(), $obj->getAgibile());
+        $query = 'INSERT INTO struttura VALUES ("%s","%s","%s","%d","%s","%d")';
+        $query = sprintf($query, $obj->getNome(), $obj->getCodiceFiscaleAnagrafica(), $obj->getIndirizzo(), $obj->getNstanze(), $obj->getDescrizione(), $obj->getAgibile());
         $result = mysql_query($query);
         $this->close();
 
@@ -29,9 +28,11 @@ class StrutturaManager extends CRUD {
             return false;
 
         $this->open();
-        $query = 'UPDATE struttura SET indirizzo = "%s", descrizione = "%s", agibile = "%d" WHERE '
+        $query = 'UPDATE struttura SET indirizzo = "%s", descrizione = "%s", '
+                . 'agibile = "%d", nstanze = "%d" WHERE '
                 . 'codicefiscaleanagrafica = "%s" AND nome = "%s"';
-        $query = sprintf($query, $obj->getIndirizzo(), $obj->getDescrizione(), $obj->getAgibile(),
+        $query = sprintf($query, $obj->getIndirizzo(), $obj->getDescrizione(), 
+                $obj->getAgibile(), $obj->getNstanze(), 
                 $obj->getCodiceFiscaleAnagrafica(), $obj->getNome());
         $result = mysql_query($query);
         $this->close();
@@ -57,6 +58,7 @@ class StrutturaManager extends CRUD {
         $toReturn->setNome($res['nome']);
         $toReturn->setAgibile($res['agibile']);
         $toReturn->setIndirizzo($res['indirizzo']);
+        $toReturn->setNstanze($res['nstanze']);
         $toReturn->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
         $toReturn->setDescrizione($res['descrizione']);
 
@@ -77,9 +79,9 @@ class StrutturaManager extends CRUD {
     }
 
     function readAll($obj) {
-        if(!($obj instanceof Anagrafica))
+        if (!($obj instanceof Anagrafica))
             return false;
-        
+
         $this->open();
         $query = 'SELECT * FROM struttura WHERE codicefiscaleanagrafica = "%s"';
         $query = sprintf($query, $obj->getCodiceFiscale());
@@ -94,8 +96,9 @@ class StrutturaManager extends CRUD {
             $tmp = new Struttura();
             $tmp->setNome($res['nome']);
             $tmp->setAgibile($res['agibile']);
-            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
             $tmp->setIndirizzo($res['indirizzo']);
+            $tmp->setNstanze($res['nstanze']);
+            $tmp->setCodiceFiscaleAnagrafica($res['codicefiscaleanagrafica']);
             $tmp->setDescrizione($res['descrizione']);
 
             $toReturn[$i] = $tmp->toArray();

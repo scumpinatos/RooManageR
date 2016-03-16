@@ -363,17 +363,21 @@ public class JPanelStruttura extends javax.swing.JPanel {
 
     private void jButtonStanzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStanzeActionPerformed
 
-        String struttura = ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome();
-        new JDialogGestioneStanza(null, true, struttura).setVisible(true);
+        Struttura struttura = ListaStruttura.getIstanza().get(indexSelectedStrutt);
+        JDialogStanza dialog = new JDialogStanza(null, true, struttura);
+        dialog.setVisible(true);
+
     }//GEN-LAST:event_jButtonStanzeActionPerformed
 
     private void jButtonCfPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCfPorActionPerformed
-        
-        new JDialogAnagrafica(null, true, new ICallback<String> () {
+
+        new JDialogAnagrafica(null, true, new ICallback<String>() {
             @Override
             public void result(String obj) {
-                jButtonCfPor.setText(obj);
-                jButtonCfPor.setEnabled(false);
+                if (obj != null) {
+                    jButtonCfPor.setText(obj);
+                    jButtonCfPor.setEnabled(false);
+                }
             }
         }).setVisible(true);
     }//GEN-LAST:event_jButtonCfPorActionPerformed
@@ -448,8 +452,13 @@ public class JPanelStruttura extends javax.swing.JPanel {
                 }
             };
 
-            tempStruttura = creaStruttura();
-            strutturaManager.updateStruttura(tempStruttura, callback);
+            if (jButtonAgibile.getText().equals("NO")
+                    && ListaStruttura.getIstanza().get(indexSelectedStrutt).getnStanze() != 0) {
+                JOptionPane.showMessageDialog(null, "Rimuovere le stanze prima\n di rendere inagibile la struttura");
+            } else {
+                tempStruttura = creaStruttura();
+                strutturaManager.updateStruttura(tempStruttura, callback);
+            }
         }
     };
 
@@ -469,6 +478,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
     private void updateStruttura() {
 
         abilita(true);
+        jTextFieldNome.setEnabled(false);
         jButtonConferma.removeActionListener(createStruttura);
         jButtonConferma.addActionListener(updateStruttura);
     }
@@ -481,19 +491,21 @@ public class JPanelStruttura extends javax.swing.JPanel {
                 ListaStruttura strutture = ListaStruttura.getIstanza();
                 int nStru = strutture.size();
 
-                String[] colonne = new String[4];
+                String[] colonne = new String[5];
                 colonne[0] = "Nome";
                 colonne[1] = "Indirizzo";
                 colonne[2] = "Agibile";
                 colonne[3] = "Descrizione";
+                colonne[4] = "Numero stanze";
 
-                Object[][] data = new Object[nStru][4];
+                Object[][] data = new Object[nStru][5];
 
                 for (int i = 0; i < nStru; i++) {
                     data[i][0] = strutture.get(i).getNome();
                     data[i][1] = strutture.get(i).getIndirizzo();
                     data[i][2] = traduciBoolean(strutture.get(i).getAgibile());
                     data[i][3] = strutture.get(i).getDescrizione();
+                    data[i][4] = strutture.get(i).getnStanze();
                 }
 
                 TableModel model = new DefaultTableModel(data, colonne);
@@ -521,6 +533,10 @@ public class JPanelStruttura extends javax.swing.JPanel {
             }
         };
 
+        if (ListaStruttura.getIstanza().get(indexSelectedStrutt).getnStanze() != 0) {
+            JOptionPane.showMessageDialog(null, "Rimuovere prima tutte le stanze dalla struttura");
+            return;
+        }
         int choice = JOptionPane.showConfirmDialog(null, "Rimuovere struttura: "
                 + ListaStruttura.getIstanza().get(indexSelectedStrutt).getNome(), null, JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.OK_OPTION) {
@@ -541,7 +557,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
                 return;
             }
         }
-        
+
         if (jTextFieldPass.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, messaggio);
             return;

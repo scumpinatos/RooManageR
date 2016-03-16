@@ -1,6 +1,7 @@
 package web_services;
 
 import cache.ListaOperazioni;
+import cache.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -37,6 +38,10 @@ public class AnagraficaManager extends HttpConnection {
                 }
 
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_ANAG, json));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " Anagrafica %s NON aggiunta al database.";
@@ -77,6 +82,10 @@ public class AnagraficaManager extends HttpConnection {
                 }
 
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_ANAG, json));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + "- Anagrafica %s NON aggiornata nel database.";
@@ -112,6 +121,9 @@ public class AnagraficaManager extends HttpConnection {
             public void run() {
                 try {
                     String response = getResponse(String.format("opCode=%s&cf=%s", ServerCodes.READ_ANAG, cf));
+                    if (response == null) {
+                        Server.serverOffline(this);
+                    }
                     if (!(response.equals("NOT DONE"))) {
                         Anagrafica anagrafica = new ObjectMapper().readValue(response, Anagrafica.class);
                         callback.result(anagrafica);

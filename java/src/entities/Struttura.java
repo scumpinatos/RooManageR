@@ -10,6 +10,7 @@ public class Struttura {
     private String nome;
     private String indirizzo;
     private String codiceFiscaleAnagrafica;
+    private int nStanze;
     private String descrizione;
     private int agibile;
 
@@ -17,6 +18,7 @@ public class Struttura {
      *
      */
     public Struttura() {
+        nStanze = 0;
     }
 
     /**
@@ -97,6 +99,14 @@ public class Struttura {
      */
     public void setAgibile(int agibile) {
         this.agibile = agibile;
+    }
+
+    public int getnStanze() {
+        return nStanze;
+    }
+
+    public void setnStanze(int nStanze) {
+        this.nStanze = nStanze;
     }
     
 }

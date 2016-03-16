@@ -44,6 +44,7 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCognome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jTextFieldData = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldIndirizzo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -55,14 +56,13 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jTextFieldNumeroDocumento = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jFormattedTextFieldTel = new javax.swing.JFormattedTextField();
+        jTextFieldTelefono = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jFormattedTextFieldCel = new javax.swing.JFormattedTextField();
+        jTextFieldCellulare = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jFormattedTextFieldEm = new javax.swing.JFormattedTextField();
+        jTextFieldEmail = new javax.swing.JTextField();
         jButtonAnnulla = new javax.swing.JButton();
         jButtonConferma = new javax.swing.JButton();
-        jFormattedTextFieldData = new javax.swing.JFormattedTextField();
         jButtonModifica = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -90,6 +90,8 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Data di nascita");
+
+        jTextFieldData.setEnabled(false);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Indirizzo");
@@ -125,27 +127,17 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Telefono *");
 
-        try {
-            jFormattedTextFieldTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextFieldTel.setEnabled(false);
+        jTextFieldTelefono.setEnabled(false);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Cellulare *");
 
-        try {
-            jFormattedTextFieldCel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("+############")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextFieldCel.setEnabled(false);
+        jTextFieldCellulare.setEnabled(false);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Email *");
 
-        jFormattedTextFieldEm.setEnabled(false);
+        jTextFieldEmail.setEnabled(false);
 
         jButtonAnnulla.setText("Annulla");
         jButtonAnnulla.addActionListener(new java.awt.event.ActionListener() {
@@ -161,9 +153,6 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
                 jButtonConfermaActionPerformed(evt);
             }
         });
-
-        jFormattedTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jFormattedTextFieldData.setEnabled(false);
 
         jButtonModifica.setText("Modifica");
         jButtonModifica.setEnabled(false);
@@ -197,7 +186,7 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFormattedTextFieldData))
+                                    .addComponent(jTextFieldData))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,15 +206,15 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFormattedTextFieldTel))
+                                    .addComponent(jTextFieldTelefono))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFormattedTextFieldCel))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFormattedTextFieldEm)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextFieldCellulare)
+                                        .addComponent(jTextFieldEmail))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -254,7 +243,7 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldCodiceFiscale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonControlla)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,7 +258,7 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jFormattedTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -293,16 +282,16 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jFormattedTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jFormattedTextFieldCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCellulare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jFormattedTextFieldEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnulla)
                     .addComponent(jButtonConferma)
@@ -341,10 +330,6 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
     private javax.swing.JButton jButtonControlla;
     private javax.swing.JButton jButtonModifica;
     private javax.swing.JComboBox jComboBoxNazionalita;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCel;
-    private javax.swing.JFormattedTextField jFormattedTextFieldData;
-    private javax.swing.JFormattedTextField jFormattedTextFieldEm;
-    private javax.swing.JFormattedTextField jFormattedTextFieldTel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -360,11 +345,15 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButtonPassaporto;
     private javax.swing.JRadioButton jRadioButtonPatente;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextFieldCellulare;
     private javax.swing.JTextField jTextFieldCodiceFiscale;
     private javax.swing.JTextField jTextFieldCognome;
+    private javax.swing.JTextField jTextFieldData;
+    private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldIndirizzo;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldNumeroDocumento;
+    private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
 
     public void modalitaProfilo(Anagrafica input) {
@@ -427,7 +416,7 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         jTextFieldCodiceFiscale.setEnabled(false);
         jTextFieldNome.setEnabled(true);
         jTextFieldCognome.setEnabled(true);
-        jFormattedTextFieldData.setEnabled(true);
+        jTextFieldData.setEnabled(true);
         jTextFieldIndirizzo.setEnabled(true);
         jComboBoxNazionalita.setEnabled(true);
         caricaNazionalita();
@@ -435,9 +424,9 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         jRadioButtonPassaporto.setEnabled(true);
         jRadioButtonPatente.setEnabled(true);
         jTextFieldNumeroDocumento.setEnabled(true);
-        jFormattedTextFieldTel.setEnabled(true);
-        jFormattedTextFieldCel.setEnabled(true);
-        jFormattedTextFieldEm.setEnabled(true);
+        jTextFieldTelefono.setEnabled(true);
+        jTextFieldCellulare.setEnabled(true);
+        jTextFieldEmail.setEnabled(true);
         jButtonConferma.setEnabled(true);
 
     }
@@ -451,8 +440,8 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         jTextFieldNome.setEditable(false);
         jTextFieldCognome.setText(input.getCognome());
         jTextFieldCognome.setEditable(false);
-        jFormattedTextFieldData.setText(input.getDataNascita());
-        jFormattedTextFieldData.setEditable(false);
+        jTextFieldData.setText(input.getDataNascita());
+        jTextFieldData.setEditable(false);
         jTextFieldIndirizzo.setText(input.getIndirizzo());
         jTextFieldIndirizzo.setEditable(false);
 
@@ -480,12 +469,12 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         }
         jTextFieldNumeroDocumento.setText(input.getNumeroDocumento());
         jTextFieldNumeroDocumento.setEditable(false);
-        jFormattedTextFieldTel.setText(input.getTelefono());
-        jFormattedTextFieldTel.setEditable(false);
-        jFormattedTextFieldCel.setText(input.getCellulare());
-        jFormattedTextFieldCel.setEditable(false);
-        jFormattedTextFieldEm.setText(input.getEmail());
-        jFormattedTextFieldEm.setEditable(false);
+        jTextFieldTelefono.setText(input.getTelefono());
+        jTextFieldTelefono.setEditable(false);
+        jTextFieldCellulare.setText(input.getCellulare());
+        jTextFieldCellulare.setEditable(false);
+        jTextFieldEmail.setText(input.getEmail());
+        jTextFieldEmail.setEditable(false);
 
         jButtonModifica.setEnabled(true);
         jButtonConferma.setEnabled(true);
@@ -495,18 +484,12 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
     // METODI DI SUPPORTO
     private Anagrafica creaAnagrafica() {
 
-        if (jFormattedTextFieldCel.getText().isEmpty() || jFormattedTextFieldTel.getText().isEmpty()
-                || jFormattedTextFieldEm.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Inserire almeno UNO dei valori con *");
-            return null;
-        }
-
         Anagrafica newAnagrafica = new Anagrafica();
 
         newAnagrafica.setCodiceFiscale(jTextFieldCodiceFiscale.getText());
         newAnagrafica.setNome(jTextFieldNome.getText());
         newAnagrafica.setCognome(jTextFieldCognome.getText());
-        newAnagrafica.setDataNascita(jFormattedTextFieldData.getText());
+        newAnagrafica.setDataNascita(jTextFieldData.getText());
         newAnagrafica.setIndirizzo(jTextFieldIndirizzo.getText());
         newAnagrafica.setNazionalita((String) jComboBoxNazionalita.getSelectedItem());
 
@@ -521,9 +504,9 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
         }
 
         newAnagrafica.setNumeroDocumento(jTextFieldNumeroDocumento.getText());
-        newAnagrafica.setTelefono(jFormattedTextFieldTel.getText());
-        newAnagrafica.setCellulare(jFormattedTextFieldCel.getText());
-        newAnagrafica.setEmail(jFormattedTextFieldEm.getText());
+        newAnagrafica.setTelefono(jTextFieldTelefono.getText());
+        newAnagrafica.setCellulare(jTextFieldCellulare.getText());
+        newAnagrafica.setEmail(jTextFieldEmail.getText());
 
         return newAnagrafica;
     }
@@ -535,7 +518,7 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
             public void result(ArrayList<Nazionalita> obj) {
 
                 int nNaz = obj.size();
-                String[] items = new String[nNaz + 1];
+                String[] items = new String[nNaz];
 
                 for (int i = 0; i < nNaz; i++) {
                     items[i] = obj.get(i).getAbbreviazione();

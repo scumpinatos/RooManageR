@@ -2,6 +2,7 @@ package web_services;
 
 import cache.ListaAnagraficaStanza;
 import cache.ListaOperazioni;
+import cache.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -10,6 +11,7 @@ import interfaces.ICallback;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 import static web_services.HttpConnection.getResponse;
 
 /**
@@ -38,6 +40,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
                 }
 
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_ANAG_STA, json));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaStanza di %s nella stanza %s NON aggiunta al database.";
@@ -78,7 +84,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
                 }
 
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_ANAG_STA, json));
-                System.out.println(response);
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " AnagraficaStanza di %s nella stanza %s NON aggiornata nel database.";
@@ -116,36 +125,11 @@ public class AnagraficaStanzaManager extends HttpConnection {
                     String response = getResponse(String.format("opCode=%s&numeroStanza=%s&nomeStruttura=%s&cfProprietario=%s",
                             ServerCodes.READ_ANAG_STA, input.getNumeroStanza(),
                             input.getNomeStruttura(), input.getCodiceFiscaleProprietario()));
-                    if (!(response.equals("NOT DONE"))) {
-                        callback.result(new ObjectMapper().readValue(response, AnagraficaStanza.class));
-                    } else {
-                        callback.result(null);
+
+                    if (response == null) {
+                        Server.serverOffline(this);
                     }
-                } catch (IOException ex) {
-                    System.out.println("IOException in class " + this.getClass().getName());
-                }
-            }
-        };
 
-        Thread thread = new Thread(runnable);
-        thread.start();
-    }
-
-    /**
-     * Controlla se l'anagrafica passata in input ha una visita in corso
-     *
-     * @param input
-     */
-    public void checkVisitaInCorso(AnagraficaStanza input, ICallback<AnagraficaStanza> callback) {
-
-        Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    String response = getResponse(String.format("opCode=%s&numeroStanza=%s&nomeStruttura=%s&cfProprietario=%s",
-                            ServerCodes.CHECK_VIS, input.getNumeroStanza(),
-                            input.getNomeStruttura(), input.getCodiceFiscaleProprietario()));
                     if (!(response.equals("NOT DONE"))) {
                         callback.result(new ObjectMapper().readValue(response, AnagraficaStanza.class));
                     } else {
@@ -176,6 +160,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
 
                 String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s",
                         ServerCodes.READ_ANAG_STA_CORSO, cfProprietario, nomeStruttura));
+                if (response == null) {
+                    Server.serverOffline(this);
+                }
+
                 if (response.equals("false")) {
                     callback.result(null);
                 } else {

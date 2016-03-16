@@ -5,6 +5,7 @@ import cache.ListaStruttura;
 import cache.ListaAnagraficaMansione;
 import cache.ListaAnagraficaStanza;
 import cache.ListaOperazioni;
+import cache.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -41,6 +42,10 @@ public class StrutturaManager extends HttpConnection {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_STR, json));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
+                
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " Struttura %s NON aggiunta al database";
@@ -79,6 +84,10 @@ public class StrutturaManager extends HttpConnection {
                 String cfProprietario = input.getCodiceFiscaleAnagrafica();
                 String response = getResponse(String.format("opCode=%s&nomeStruttura=%s&cfProprietario=%s",
                         ServerCodes.READ_STR, nomeStruttura, cfProprietario));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
+                
                 if (!(response.equals("NOT DONE"))) {
                     try {
                         callback.result(new ObjectMapper().readValue(response, Struttura.class));
@@ -113,6 +122,10 @@ public class StrutturaManager extends HttpConnection {
                 } catch (JsonProcessingException ex) {
                 }
                 String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_STR, json));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
+                
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
                             + " Struttura %s NON aggiornata nel database";
@@ -151,6 +164,9 @@ public class StrutturaManager extends HttpConnection {
                 String cfProprietario = input.getCodiceFiscaleAnagrafica();
                 String response = getResponse(String.format("opCode=%s&nomeStruttura=%s&cfProprietario=%s",
                         ServerCodes.DEL_STR, nomeStruttura, cfProprietario));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
 
                 if (response.equals("NOT DONE")) {
                     String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime())
@@ -190,6 +206,9 @@ public class StrutturaManager extends HttpConnection {
 
                 String response = getResponse(String.format("opCode=%s&cfProprietario=%s",
                         ServerCodes.READ_ALL_STRU, cfProprietario));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
                 try {
                     ListaStruttura.setIstanza(new ObjectMapper().readValue(response, ListaStruttura.class));
                     callback.result(Boolean.TRUE);
@@ -220,6 +239,9 @@ public class StrutturaManager extends HttpConnection {
 
                 String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s",
                         ServerCodes.READ_ALL_ANAG, cf, nome));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
                 if (response.equals("false")) {
                     callback.result(null);
                 } else {
@@ -253,6 +275,9 @@ public class StrutturaManager extends HttpConnection {
 
                 String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s",
                         ServerCodes.READ_ALL_ANAG_STA, cf, nome));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
                 if (response.equals("false")) {
                     callback.result(null);
                 } else {
@@ -284,6 +309,9 @@ public class StrutturaManager extends HttpConnection {
 
                 String response = getResponse(String.format("opCode=%s&cfProprietario=%s&nomeStruttura=%s",
                         ServerCodes.READ_ALL_ANAG_MANS, cfProprietario, nomeStruttura));
+                if(response == null) {
+                    Server.serverOffline(this);
+                }
                 if (response.equals("false")) {
                     callback.result(null);
                 } else {

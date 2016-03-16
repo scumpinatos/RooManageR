@@ -123,7 +123,7 @@ public class UIHome extends javax.swing.JFrame {
         String struttura = UtenteConnesso.getUtente().getNomeStruttura();
         this.setTitle(cf + " - " + struttura);
         
-        jTabbedPane.add(new JPanelSituazioneAttuale(strutturaManager, false));
+        jTabbedPane.add(new JPanelPanoramica(strutturaManager, false));
         jTabbedPane.add(new JPanelAnagStanza(strutturaManager, false));
         jTabbedPane.add(new JPanelRegistroOperazioni());
         this.setVisible(true);
@@ -135,7 +135,7 @@ public class UIHome extends javax.swing.JFrame {
         String cf = UtenteConnesso.getUtente().getCodiceFiscaleAnagrafica();
         this.setTitle(cf + " - PROPRIETARIO");
         
-        jTabbedPane.add(new JPanelSituazioneAttuale(strutturaManager, true));
+        jTabbedPane.add(new JPanelPanoramica(strutturaManager, true));
         jTabbedPane.add(new JPanelAnagStanza(strutturaManager, true));
         jTabbedPane.add(new JPanelStruttura(strutturaManager));
         jTabbedPane.add(new JPanelRegistroOperazioni());

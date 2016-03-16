@@ -9,8 +9,6 @@ import entities.Stanza;
 import interfaces.ICallback;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -21,7 +19,7 @@ import web_services.AnagraficaStanzaManager;
 import web_services.StanzaManager;
 import web_services.StrutturaManager;
 
-public class JPanelSituazioneAttuale extends javax.swing.JPanel {
+public class JPanelPanoramica extends javax.swing.JPanel {
 
     private int indicePermanenza, indiceVisita;
     private String nomeStruttura, cfProprietario;
@@ -29,7 +27,7 @@ public class JPanelSituazioneAttuale extends javax.swing.JPanel {
     private static StrutturaManager strutturaManager;
     private static ListaAnagraficaStanza permanenze, visite;
 
-    public JPanelSituazioneAttuale(StrutturaManager manager, Boolean mode) {
+    public JPanelPanoramica(StrutturaManager manager, Boolean mode) {
         anagStaManager = new AnagraficaStanzaManager();
         strutturaManager = manager;
         cfProprietario = UtenteConnesso.getUtente().getCodiceFiscaleProprietario();
@@ -266,17 +264,7 @@ public class JPanelSituazioneAttuale extends javax.swing.JPanel {
 
         AnagraficaStanza finish = permanenze.get(indicePermanenza);
         if (!checkVisita(finish.getNumeroStanza())) {
-
-            String uscita = adesso();
-            Float costo = Float.parseFloat(JOptionPane.showInputDialog(null, "Inserire l'importo pagato dal cliente"));
-            String titolo = "Confermi i dati riportati";
-            String messaggio = "Uscita: " + uscita + "\nCosto: " + costo + " €";
-            int choice = JOptionPane.showConfirmDialog(null, messaggio, titolo, JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                finish.setUscita(uscita);
-                finish.setCosto(costo);
-                anagStaManager.updateAnagraficaStanza(finish, callback);
-            }
+            anagStaManager.updateAnagraficaStanza(controllaDatiInseriti(1, finish), callback);
         }
     }
 
@@ -295,17 +283,41 @@ public class JPanelSituazioneAttuale extends javax.swing.JPanel {
         };
 
         AnagraficaStanza finish = visite.get(indiceVisita);
-        String uscita = adesso();
-        String titolo = "Confermi i dati riportati";
-        String messaggio = "Uscita: " + uscita;
-        int choice = JOptionPane.showConfirmDialog(null, messaggio, titolo, JOptionPane.YES_NO_OPTION);
-        if (choice == JOptionPane.YES_OPTION) {
-            finish.setUscita(uscita);
-            anagStaManager.updateAnagraficaStanza(finish, callback);
-        }
+        anagStaManager.updateAnagraficaStanza(controllaDatiInseriti(2, finish), callback);
     }
 
     // METODI DI SUPPORTO
+    private AnagraficaStanza controllaDatiInseriti(int tipo, AnagraficaStanza finish) {
+        
+        String uscita = JOptionPane.showInputDialog(null, "Inserire la data e l'ora di uscita");
+        Float costo = null;
+        String titolo = "Confermi i dati riportati";
+        
+        if(tipo == 1) {
+            costo = Float.parseFloat(JOptionPane.showInputDialog(null, "Inserire l'importo pagato dal cliente"));
+            int choice = JOptionPane.showConfirmDialog(null, "Costo: " + costo + "\nUscita: " + uscita, 
+                    titolo, JOptionPane.YES_NO_OPTION);
+            if(choice == JOptionPane.YES_OPTION) {
+                finish.setCosto(costo);
+                finish.setUscita(uscita);
+                return finish;
+            } else {
+                return controllaDatiInseriti(1, finish);
+            }
+            
+        } else if(tipo == 2) {
+            int choice = JOptionPane.showConfirmDialog(null, "Uscita: " + uscita, 
+                    titolo, JOptionPane.YES_NO_OPTION);
+            if(choice == JOptionPane.YES_OPTION) {
+                finish.setUscita(uscita);
+                return finish;
+            } else {
+                return controllaDatiInseriti(2, finish);
+            }
+        }
+        return null;
+    }
+    
     private void caricaStrutture() {
 
         ICallback<Boolean> callback = new ICallback<Boolean>() {
@@ -389,11 +401,6 @@ public class JPanelSituazioneAttuale extends javax.swing.JPanel {
 
         jTablePermanenze.setModel(new DefaultTableModel(righePerm, colonne));
         jTableVisite.setModel(new DefaultTableModel(righeVis, colonne));
-    }
-
-    private String adesso() {
-        String now = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime());
-        return now;
     }
 
     private void aggiornaStanza(int tipo) {

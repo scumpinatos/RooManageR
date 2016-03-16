@@ -6,6 +6,7 @@ class Struttura {
     private $nome;
     private $indirizzo;
     private $codiceFiscaleAnagrafica;
+    private $nStanze;
     private $descrizione;
     private $agibile;
 
@@ -56,13 +57,21 @@ class Struttura {
         $this->agibile = $agibile;
         return $this;
     }
+    
+    function getNstanze() {
+        return $this->nStanze;
+    }
 
+    function setNstanze($nstanze) {
+        $this->nStanze = $nstanze;
+    }
     
     function toArray() {
         return array(
             "nome" => $this->nome,
             "indirizzo" => $this->indirizzo,
             "codiceFiscaleAnagrafica" => $this->codiceFiscaleAnagrafica,
+            "nStanze" => $this->nStanze,
             "descrizione" => $this->descrizione,
             "agibile" => $this->agibile
         );

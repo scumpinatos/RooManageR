@@ -73,104 +73,100 @@ public class ServerCodes {
      */
     public static final int UPD_ANAG_STA = 12;
 
-    /**
-     *
-     */
-    public static final int UPD_VISITA = 13;
     
     // OPERAZIONI STRUTTURA
 
     /**
      *
      */
-    public static final int INS_STR = 14;
+    public static final int INS_STR = 13;
 
     /**
      *
      */
-    public static final int UPD_STR = 15;
+    public static final int UPD_STR = 14;
 
     /**
      *
      */
-    public static final int READ_STR = 16;
+    public static final int READ_STR = 15;
 
     /**
      *
      */
-    public static final int READ_ALL_STRU = 17;
+    public static final int READ_ALL_STRU = 16;
 
     /**
      *
      */
-    public static final int DEL_STR = 18;
+    public static final int DEL_STR = 17;
     
     // OPERAZIONI STANZA
 
     /**
      *
      */
-        public static final int INS_STA = 19;
+        public static final int INS_STA = 18;
 
     /**
      *
      */
-    public static final int UPD_STA = 20;
+    public static final int UPD_STA = 19;
 
     /**
      *
      */
-    public static final int READ_STA = 21;
+    public static final int READ_STA = 20;
 
     /**
      *
      */
-    public static final int READ_ALL_STA = 22;
+    public static final int READ_ALL_STA = 21;
 
     /**
      *
      */
-    public static final int DEL_STA = 23;
+    public static final int DEL_STA = 22;
     
     // OPERAZIONI ANAGRAFICA MANSIONE
 
     /**
      *
      */
-        public static final int INS_ANAG_MANS = 24;
+        public static final int INS_ANAG_MANS = 23;
 
     /**
      *
      */
-    public static final int UPD_ANAG_MANS = 25;
+    public static final int UPD_ANAG_MANS = 24;
 
     /**
      *
      */
-    public static final int READ_ANAG_MANS = 26;
+    public static final int READ_ANAG_MANS = 25;
 
     /**
      *
      */
-    public static final int READ_ALL_ANAG_MANS = 27;
+    public static final int READ_ALL_ANAG_MANS = 26;
 
     /**
      *
      */
-    public static final int DEL_ANAG_MANS = 28;
+    public static final int DEL_ANAG_MANS = 27;
     
     // OPERAZIONI DI CONTROLLO
 
     /**
      *
      */
-        public static final int CHECK_VIS = 29;
+        public static final int CHECK_VIS = 28;
 
     /**
      *
      */
-    public static final int READ_ANAG_STA_CORSO = 30;
+    public static final int READ_ANAG_STA_CORSO = 29;
     
-    public static final int OCC_STA = 31;
+    public static final int OCC_STA = 30;
     
 }
