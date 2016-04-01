@@ -1,12 +1,13 @@
 
-package cache;
+package utils;
 
 import entities.Anagrafica;
 import entities.AnagraficaMansione;
 
 /**
- * Cache contenente l'anagrafica dell'utente connesso
+ * Questa implementa e salva in memoria un oggetto contenente le informazioni dell'utente connesso
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class UtenteConnesso {
 
@@ -14,7 +15,7 @@ public class UtenteConnesso {
     private static Anagrafica infoUtente;
     
     /**
-     * Restituisce l'utente connesso contenuto nella cache
+     * Restituisce l'oggetto AnagraficaMansione legato all'utente connesso
      * @return utente
      */
     public static AnagraficaMansione getUtente() {
@@ -24,7 +25,7 @@ public class UtenteConnesso {
     }
 
     /**
-     * Setta l'utente nella cache
+     * Setta l'oggetto AnagraficaMansione legato all'utente connesso
      * @param input
      */
     public static void setUtente(AnagraficaMansione input) {
@@ -32,7 +33,7 @@ public class UtenteConnesso {
     }
 
     /**
-     * Restituisce informazioni sull'utente contenuto in cache
+     * Restituisce l'oggetto Anagrafica legato all'utente connesso
      * @return infoUtente
      */
     public static Anagrafica getInfoUtente() {
@@ -42,7 +43,7 @@ public class UtenteConnesso {
     }
 
     /**
-     * Imposta le informazioni relative all'utente in cache
+     * Setta l'oggetto Anagrafica legato all'utente connesso
      * @param input
      */
     public static void setInfoUtente(Anagrafica input) {

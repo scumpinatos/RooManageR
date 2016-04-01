@@ -1,7 +1,7 @@
 package web_services;
 
-import cache.ListaOperazioni;
-import cache.Server;
+import utils.ListaOperazioni;
+import utils.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -13,16 +13,16 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
- * Classe di controllo per l'entita' anagrafica
- *
+ * Classe che implementa le operazioni di gestione degli oggetti di tipo Anagrafica
+ * @author giandomenicoizzo
  * @author emanuelegargiulo
  */
 public class AnagraficaManager extends HttpConnection {
 
     /**
-     * Metodo che si occupa dell'aggiunta di un'anagrafica sul database remoto
-     *
+     * Questo metodo aggiunge un oggetto Anagrafica nel database
      * @param input
+     * @param callback
      */
     public void addAnagrafica(Anagrafica input, ICallback<Anagrafica> callback) {
 
@@ -64,9 +64,9 @@ public class AnagraficaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che si occupa di aggiornare un'anagrafica sul database remoto
-     *
+     * Questo metodo aggiorna un oggetto Anagrafica nel database
      * @param input
+     * @param callback
      */
     public void updateAnagrafica(Anagrafica input, ICallback<Anagrafica> callback) {
 
@@ -108,8 +108,7 @@ public class AnagraficaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che si occupa di leggere un'anagrafica dal database remoto
-     *
+     * Questo metodo legge un oggetto Anagrafica nel database
      * @param cf
      * @param callback
      */

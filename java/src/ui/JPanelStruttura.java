@@ -1,7 +1,7 @@
 package ui;
 
-import cache.ListaStruttura;
-import cache.UtenteConnesso;
+import utils.ListaStruttura;
+import utils.UtenteConnesso;
 import constants.Mansioni;
 import entities.AnagraficaMansione;
 import entities.Struttura;
@@ -28,7 +28,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
         strutturaManager = manager;
         cfProprietario = UtenteConnesso.getUtente().getCodiceFiscaleProprietario();
         initComponents();
-        readAllStruttura(false);
+        readAllStruttura();
     }
 
     @SuppressWarnings("unchecked")
@@ -40,8 +40,6 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jPanelOperazioniStruttura = new javax.swing.JPanel();
         jButtonAggiungi = new javax.swing.JButton();
         jButtonModifica = new javax.swing.JButton();
-        jButtonRimuovi = new javax.swing.JButton();
-        jButtonStanze = new javax.swing.JButton();
         jPanelMansioni = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jButtonCfPor = new javax.swing.JButton();
@@ -60,9 +58,12 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jButtonAgibile = new javax.swing.JButton();
         jButtonConferma = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButtonRimuovi = new javax.swing.JButton();
+        jButtonStanze = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setName("Gestione Strutture"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(640, 438));
+        setPreferredSize(new java.awt.Dimension(676, 438));
 
         jTableStrutture.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,45 +95,23 @@ public class JPanelStruttura extends javax.swing.JPanel {
             }
         });
 
-        jButtonRimuovi.setText("Rimuovi");
-        jButtonRimuovi.setEnabled(false);
-        jButtonRimuovi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRimuoviActionPerformed(evt);
-            }
-        });
-
-        jButtonStanze.setText("Stanze");
-        jButtonStanze.setEnabled(false);
-        jButtonStanze.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStanzeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelOperazioniStrutturaLayout = new javax.swing.GroupLayout(jPanelOperazioniStruttura);
         jPanelOperazioniStruttura.setLayout(jPanelOperazioniStrutturaLayout);
         jPanelOperazioniStrutturaLayout.setHorizontalGroup(
             jPanelOperazioniStrutturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperazioniStrutturaLayout.createSequentialGroup()
                 .addComponent(jButtonAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonStanze, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonRimuovi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanelOperazioniStrutturaLayout.setVerticalGroup(
             jPanelOperazioniStrutturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOperazioniStrutturaLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(jPanelOperazioniStrutturaLayout.createSequentialGroup()
                 .addGroup(jPanelOperazioniStrutturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModifica)
-                    .addComponent(jButtonAggiungi)
-                    .addComponent(jButtonRimuovi)
-                    .addComponent(jButtonStanze))
-                .addContainerGap())
+                    .addComponent(jButtonAggiungi))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -176,32 +155,35 @@ public class JPanelStruttura extends javax.swing.JPanel {
                         .addComponent(jButtonAddPor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonRemPor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelMansioniLayout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCfPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMansioniLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMansioniLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMansioniLayout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonCfPor, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanelMansioniLayout.setVerticalGroup(
             jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMansioniLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jButtonCfPor))
+                .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCfPor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelMansioniLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAddPor)
                     .addComponent(jButtonRemPor))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelMansioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -222,7 +204,6 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jScrollPane5.setViewportView(jTextAreaDescrizione);
 
         jButtonAgibile.setBackground(java.awt.Color.green);
-        jButtonAgibile.setForeground(java.awt.Color.black);
         jButtonAgibile.setText("SI");
         jButtonAgibile.setEnabled(false);
         jButtonAgibile.addActionListener(new java.awt.event.ActionListener() {
@@ -242,30 +223,32 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jPanelInformazioniLayout.setHorizontalGroup(
             jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformazioniLayout.createSequentialGroup()
-                .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInformazioniLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelInformazioniLayout.createSequentialGroup()
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel6))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addGroup(jPanelInformazioniLayout.createSequentialGroup()
-                        .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanelInformazioniLayout.createSequentialGroup()
-                                    .addGap(42, 42, 42)
-                                    .addComponent(jLabel6))
-                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGroup(jPanelInformazioniLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addContainerGap()
+                        .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInformazioniLayout.createSequentialGroup()
+                        .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5)
-                            .addComponent(jTextFieldIndirizzo, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonAgibile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jTextFieldIndirizzo, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(17, Short.MAX_VALUE))
+                    .addGroup(jPanelInformazioniLayout.createSequentialGroup()
+                        .addComponent(jButtonAgibile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelInformazioniLayout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelInformazioniLayout.setVerticalGroup(
             jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,13 +266,36 @@ public class JPanelStruttura extends javax.swing.JPanel {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAgibile)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonConferma)
-                .addContainerGap())
+                .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInformazioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonAgibile)
+                        .addComponent(jLabel1))
+                    .addComponent(jButtonConferma))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
+
+        jButtonRimuovi.setText("Rimuovi");
+        jButtonRimuovi.setEnabled(false);
+        jButtonRimuovi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRimuoviActionPerformed(evt);
+            }
+        });
+
+        jButtonStanze.setText("Stanze");
+        jButtonStanze.setEnabled(false);
+        jButtonStanze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStanzeActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Aggiorna");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -298,21 +304,34 @@ public class JPanelStruttura extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanelOperazioniStruttura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonStanze, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonRimuovi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPaneElenco)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelMansioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelInformazioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanelOperazioniStruttura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(3, 3, 3)
                 .addComponent(jScrollPaneElenco, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelOperazioniStruttura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelOperazioniStruttura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonRimuovi)
+                        .addComponent(jButtonStanze)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -382,8 +401,14 @@ public class JPanelStruttura extends javax.swing.JPanel {
         }).setVisible(true);
     }//GEN-LAST:event_jButtonCfPorActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        readAllStruttura();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddPor;
     private javax.swing.JButton jButtonAggiungi;
     private javax.swing.JButton jButtonAgibile;
@@ -423,7 +448,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
                     if (obj == null) {
                         ListaStruttura.getIstanza().add(tempStruttura);
                         abilita(false);
-                        readAllStruttura(true);
+                        readAllStruttura();
                     }
                 }
             };
@@ -447,7 +472,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
                     if (obj == null) {
                         ListaStruttura.getIstanza().set(indexSelectedStrutt, tempStruttura);
                         abilita(false);
-                        readAllStruttura(true);
+                        readAllStruttura();
                     }
                 }
             };
@@ -483,7 +508,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jButtonConferma.addActionListener(updateStruttura);
     }
 
-    private void readAllStruttura(boolean refresh) {
+    private void readAllStruttura() {
 
         ICallback<Boolean> callback = new ICallback<Boolean>() {
 
@@ -513,11 +538,8 @@ public class JPanelStruttura extends javax.swing.JPanel {
             }
         };
 
-        if (!refresh) {
-            strutturaManager.readStruttureByAnagrafica(cfProprietario, callback);
-        } else {
-            callback.result(refresh);
-        }
+        
+        strutturaManager.readStruttureByAnagrafica(cfProprietario, callback);
     }
 
     private void deleteStruttura() {
@@ -528,7 +550,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
                 if (obj == null) {
                     ListaStruttura.getIstanza().remove(indexSelectedStrutt);
                     abilita(false);
-                    readAllStruttura(true);
+                    readAllStruttura();
                 }
             }
         };

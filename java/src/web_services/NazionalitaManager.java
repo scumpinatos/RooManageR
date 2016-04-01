@@ -1,71 +1,28 @@
 package web_services;
 
-import cache.ListaOperazioni;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
 import entities.Nazionalita;
 import interfaces.ICallback;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import cache.ListaNazionalita;
-import cache.Server;
+import utils.Server;
 
+class ListaNazionalita extends ArrayList<Nazionalita> {
+
+}
 
 /**
- * Classe che gestisce le nazionalita'
+ * Classe che implementa le operazioni di gestione degli oggetti di tipo Nazionalità
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class NazionalitaManager extends HttpConnection {
     
     /**
-     * Aggiunge una nazionalita'
-     * @param input
-     */
-    public void addNazionalita(Nazionalita input, ICallback<Nazionalita> callback) {
-        
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                ObjectMapper mapper = new ObjectMapper();
-                String json = null;
-                try {
-                    json = mapper.writeValueAsString(input);
-                } catch (JsonProcessingException ex) {
-                }
-
-                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.INS_NAZ, json));
-                if(response == null) {
-                    Server.serverOffline(this);
-                }
-                if(response.equals("NOT DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Nazionalità %s NON aggiunta al database";
-                    op = String.format(op, input.getAbbreviazione());
-                    ListaOperazioni.getListaOperazioni().add(op);
-                    callback.result(input);
-                }
-                if(response.equals("DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Nazionalità %s aggiunta al database";
-                    op = String.format(op, input.getAbbreviazione());
-                    ListaOperazioni.getListaOperazioni().add(op);
-                    callback.result(null);
-                }
-                
-            }
-        };
-
-        Thread thread = new Thread(runnable);
-        thread.start();
-        
-    }
-    
-    /**
-     * Legge tutte le nazionalita'
+     * Questo metodo legge tutti gli oggetti Nazionalita nel database
+     * @param callback il callback che si attiva a fine operazione e riceve un ArrayList di oggetti Nazionalita
      */
     public void readAllNazionalita(ICallback<ArrayList<Nazionalita>> callback) {
 
@@ -90,47 +47,6 @@ public class NazionalitaManager extends HttpConnection {
         };
 
         new Thread(runnable).start();
-    }
-    
-    /**
-     * Aggiorna la nazionalita' passata in input
-     * @param input
-     */
-    public void updateNazionalita(Nazionalita input, ICallback<Nazionalita> callback) {
-        
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                ObjectMapper mapper = new ObjectMapper();
-                String json = null;
-                try {
-                    json = mapper.writeValueAsString(input);
-                } catch (JsonProcessingException ex) {
-                }
-
-                String response = getResponse(String.format("opCode=%s&json=%s", ServerCodes.UPD_NAZ, json));
-                if(response == null) {
-                    Server.serverOffline(this);
-                }
-                if(response.equals("NOT DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Nazionalità %s NON aggiornata nel database";
-                    op = String.format(op, input.getAbbreviazione());
-                    ListaOperazioni.getListaOperazioni().add(op);
-                    callback.result(input);
-                }
-                if(response.equals("DONE")) {
-                    String op = new SimpleDateFormat("dd/MM/YYYY - HH:mm").format(new GregorianCalendar().getTime()) 
-                            + " Nazionalità %s aggiornata nel database";
-                    op = String.format(op, input.getAbbreviazione());
-                    ListaOperazioni.getListaOperazioni().add(op);
-                    callback.result(null);
-                }
-            }
-        };
-
-        Thread thread = new Thread(runnable);
-        thread.start();
     }
     
 }

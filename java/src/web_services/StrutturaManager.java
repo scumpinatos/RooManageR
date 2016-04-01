@@ -1,14 +1,13 @@
 package web_services;
 
-import cache.ListaAnagrafica;
-import cache.ListaStruttura;
-import cache.ListaAnagraficaMansione;
-import cache.ListaAnagraficaStanza;
-import cache.ListaOperazioni;
-import cache.Server;
+import utils.ListaStruttura;
+import utils.ListaAnagraficaStanza;
+import utils.ListaOperazioni;
+import utils.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
+import entities.Anagrafica;
 import entities.AnagraficaMansione;
 import entities.Struttura;
 import interfaces.ICallback;
@@ -17,17 +16,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+class ListaAnagrafica extends ArrayList<Anagrafica> {
+        
+}
+
+class ListaAnagraficaMansione extends ArrayList<AnagraficaMansione> {
+        
+}
 /**
- * Classe che si occupa di gestire la struttura
- *
+ * Classe che implementa le operazioni di gestione degli oggetti di tipo Struttura
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class StrutturaManager extends HttpConnection {
 
     /**
-     * Metodo che si occupa di aggiungere una struttura al database remoto
-     *
-     * @param input
+     * Questo metodo aggiunge un oggetto Struttura nel database
+     * @param input l'oggetto da aggiungere
+     * @param callback il callback che si attiva a fine operazione
      */
     public void createStruttura(Struttura input, ICallback<Struttura> callback) {
 
@@ -69,10 +75,9 @@ public class StrutturaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che legge una struttura dal database remoto
-     *
-     * @param nomeStruttura
-     * @param cfProprietario
+     * Questo metodo legge i dati di un oggetto Struttura nel database
+     * @param input l'oggetto da legger
+     * @param callback il callback che si attiva a fine operazione
      */
     public void readStruttura(Struttura input, ICallback<Struttura> callback) {
 
@@ -105,9 +110,9 @@ public class StrutturaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che agginge una struttura sul database remoto
-     *
-     * @param input
+     * Questo metodo aggiorna un oggetto Struttura nel database
+     * @param input l'oggetto da aggiornare
+     * @param callback il callback che si attiva a fine operazione
      */
     public void updateStruttura(Struttura input, ICallback<Struttura> callback) {
 
@@ -149,10 +154,9 @@ public class StrutturaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che cancella la struttura dal database remoto
-     *
-     * @param cfProprietario
-     * @param nomeStruttura
+     * Questo metodo rimuove un oggetto Struttura nel database
+     * @param input l'oggetto da rimuovere
+     * @param callback il callback che si attiva a fine operazione
      */
     public void deleteStruttura(Struttura input, ICallback<Struttura> callback) {
 
@@ -190,13 +194,10 @@ public class StrutturaManager extends HttpConnection {
 
     }
 
-    // METODI INFORMAZIONI SULLA STRUTTURA
     /**
-     * Metodo che legge tutte le strutture relative a un proprietario dal
-     * database remoto
-     *
-     * @param cfProprietario
-     * @param callback
+     * Questo metodo legge tutti gli oggetti Struttura nel database di un codice fiscale
+     * @param cfProprietario il codice fiscale del proprietario
+     * @param callback il callback che si attiva a fine operazione
      */
     public void readStruttureByAnagrafica(String cfProprietario, ICallback<Boolean> callback) {
 
@@ -220,15 +221,13 @@ public class StrutturaManager extends HttpConnection {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-
+    
     /**
-     * Metodo che legge tutte le anagrafiche di una struttura dal database
-     * remoto
-     *
-     * @param cfProprietario
-     * @param nomeStruttura
+     * Questo metodo legge tutti gli oggetti Anagrafica legati ad un oggetto Struttura
+     * @param struttura l'oggetto Struttura di cui leggere le informazioni
+     * @param callback il callback che si attiva a fine operazione che riceve una ListaAnagrafica
      */
-    public void readAllAnagraficheStruttura(Struttura struttura, ICallback<ListaAnagrafica> callback) {
+    public void readAllAnagraficheStruttura(Struttura struttura, ICallback<ArrayList<Anagrafica>> callback) {
 
         String cf = struttura.getCodiceFiscaleAnagrafica();
         String nome = struttura.getNome();
@@ -258,11 +257,9 @@ public class StrutturaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che legge tutte le anagrafiche delle stanze di una struttura dal
-     * database remoto
-     *
-     * @param cfProprietario
-     * @param nomeStruttura
+     * Questo metodo legge tutti gli oggetti AnagraficaStanza legati ad un oggetto Struttura
+     * @param struttura l'oggetto Struttura di cui leggere le informazioni
+     * @param callback il callback che si attiva a fine operazione che riceve una ListaAnagraficaStanza
      */
     public void readAllAnagraficaStanzaStruttura(Struttura struttura, ICallback<ListaAnagraficaStanza> callback) {
 
@@ -292,14 +289,12 @@ public class StrutturaManager extends HttpConnection {
         Thread thread = new Thread(runnable);
         thread.start();
     }
-
+    
     /**
-     * Metodo per leggere dal database remoto tutte le anagrafiche di una
-     * struttura a cui e' assegnata una mansione
-     *
-     * @param cfProprietario
-     * @param nomeStruttura
-     * @param callback
+     * Questo metodo legge tutti gli oggetti AnagraficaMansione legati ad una Struttura
+     * @param cfProprietario il codice fiscale del proprietario della struttura
+     * @param nomeStruttura il nome della struttura
+     * @param callback il callback che si attiva a fine operazione che riceve un ArrayList con tutti gli oggetti letti
      */
     public void readMansioniStruttura(String cfProprietario, String nomeStruttura, ICallback<ArrayList<AnagraficaMansione>> callback) {
 

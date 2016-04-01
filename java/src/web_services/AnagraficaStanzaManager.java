@@ -1,8 +1,8 @@
 package web_services;
 
-import cache.ListaAnagraficaStanza;
-import cache.ListaOperazioni;
-import cache.Server;
+import utils.ListaAnagraficaStanza;
+import utils.ListaOperazioni;
+import utils.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -11,20 +11,19 @@ import interfaces.ICallback;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-import javax.swing.JOptionPane;
 import static web_services.HttpConnection.getResponse;
 
 /**
- * Classe che si occupa di gestire l'associazione tra anagrafica e stanza
- *
+ * Classe che implementa le operazioni di gestione degli oggetti di tipo AnagraficaStanza
+ * @author giandomenicoizzo
  * @author emanuelegargiulo
  */
 public class AnagraficaStanzaManager extends HttpConnection {
 
     /**
-     * Aggiunge l'anagrafica ad una stanza
-     *
-     * @param input
+     * Questo metodo aggiunge un oggetto AnagraficaStanza nel database
+     * @param input l'oggetto da aggiungere
+     * @param callback il callback che si attiva a fine operazione
      */
     public void addAnagraficaStanza(AnagraficaStanza input, ICallback<AnagraficaStanza> callback) {
 
@@ -66,9 +65,9 @@ public class AnagraficaStanzaManager extends HttpConnection {
     }
 
     /**
-     * Aggiorna l'entita' passata in input
-     *
-     * @param input
+     * Questo metodo aggiorna un oggetto AnagraficaStanza nel database
+     * @param input l'oggetto da aggiunger
+     * @param callback il callback che si attiva a fine operazione
      */
     public void updateAnagraficaStanza(AnagraficaStanza input, ICallback<AnagraficaStanza> callback) {
 
@@ -110,10 +109,9 @@ public class AnagraficaStanzaManager extends HttpConnection {
     }
 
     /**
-     * Legge l'entita' passata in input
-     *
-     * @param input
-     * @param callback
+     * Questo metodo legge i dati di un oggetto AnagraficaStanza nel database
+     * @param input l'oggetto di cui leggere i dati
+     * @param callback il callback che si attiva a fine operazione
      */
     public void readAnagraficaStanza(AnagraficaStanza input, ICallback<AnagraficaStanza> callback) {
 
@@ -146,11 +144,10 @@ public class AnagraficaStanzaManager extends HttpConnection {
     }
 
     /**
-     * Metodo per leggere dal database remoto tutte le permanenze in corso nelle
-     * stanze di una struttura
-     *
-     * @param cfProprietario
-     * @param nomeStruttura
+     * Questo metodo legge sul database tutti gli oggetti AnagraficaStanza con i valori passati
+     * @param cfProprietario il codice fiscale del proprietario della struttura
+     * @param nomeStruttura il nome della struttura
+     * @param callback il callback che si attiva a fine operazione
      */
     public void readSituazioneAttuale(String cfProprietario, String nomeStruttura, ICallback<ListaAnagraficaStanza> callback) {
 

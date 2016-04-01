@@ -1,6 +1,6 @@
 package ui;
 
-import cache.UtenteConnesso;
+import utils.UtenteConnesso;
 import javax.swing.JDialog;
 import web_services.StrutturaManager;
 

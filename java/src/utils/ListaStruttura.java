@@ -1,12 +1,13 @@
 
-package cache;
+package utils;
 
 import entities.Struttura;
 import java.util.ArrayList;
 
 /**
- * Cache contenente la lista delle strutture
+ * Questa classe implementa e salva in memoria una lista di oggetti Stanza
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class ListaStruttura extends ArrayList<Struttura> {
  

@@ -1,11 +1,12 @@
-package cache;
+package utils;
 
 import entities.Stanza;
 import java.util.ArrayList;
 
 /**
- * Cache contenente la lista delle stanze
+ * Questa classe implementa e salva in memoria una lista di oggetti Stanza
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class ListaStanza extends ArrayList<Stanza> {
     

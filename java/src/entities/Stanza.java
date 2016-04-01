@@ -2,8 +2,9 @@
 package entities;
 
 /**
- * Classe che rappresenta una Stanza
+ * Classe che implementa l'entità Stanza
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class Stanza {
     
@@ -18,7 +19,8 @@ public class Stanza {
     private int visita;
 
     /**
-     * Costruttore della classe che inizializza agibile e libera = 1
+     * Costruttore della classe vuoto 
+     * Inizializza agibile = 1, permanenza = 0, visita = 0
      */
     public Stanza() {
         agibile = 1;
@@ -27,15 +29,15 @@ public class Stanza {
     }
 
     /**
-     *
-     * @return
+     * Restituisce il nome della struttura in cui si trova la stanza
+     * @return nome struttura
      */
     public String getNomeStruttura() {
         return nomeStruttura;
     }
 
     /**
-     *
+     * Setta il nome della struttura in cui si trova la stanza
      * @param nomeStruttura
      */
     public void setNomeStruttura(String nomeStruttura) {
@@ -43,15 +45,15 @@ public class Stanza {
     }
 
     /**
-     *
-     * @return
+     * Restituisce il numero che indica la stanza
+     * @return numero stanza
      */
     public String getNumero() {
         return numero;
     }
 
     /**
-     *
+     * Setta il numero che indica la stanza
      * @param numero
      */
     public void setNumero(String numero) {
@@ -59,15 +61,15 @@ public class Stanza {
     }
 
     /**
-     *
-     * @return
+     * Restituisce il tipo della stanza
+     * @return tipo
      */
     public int getTipo() {
         return tipo;
     }
 
     /**
-     *
+     * Setta il tipo della stanza
      * @param tipo
      */
     public void setTipo(int tipo) {
@@ -75,7 +77,7 @@ public class Stanza {
     }
 
     /**
-     *
+     * Restituisce la descrizione della stanza
      * @return
      */
     public String getDescrizione() {
@@ -83,7 +85,7 @@ public class Stanza {
     }
 
     /**
-     *
+     * Setta la descrizione della stanza
      * @param descrizione
      */
     public void setDescrizione(String descrizione) {
@@ -91,15 +93,15 @@ public class Stanza {
     }
 
     /**
-     *
-     * @return
+     * Restituisce i metri quadrati della stanza
+     * @return metri quadrati
      */
     public float getMq() {
         return mq;
     }
 
     /**
-     *
+     * Setta i metri quadrati della stanza
      * @param mq
      */
     public void setMq(float mq) {
@@ -107,48 +109,63 @@ public class Stanza {
     }
 
     /**
-     *
-     * @return
+     * Restituisce un intero che indica se la stanza è agibile oppure no
+     * @return agibile
      */
     public int getAgibile() {
         return agibile;
     }
 
     /**
-     *
+     * Setta un intero che indica se la stanza è agibile oppure no
      * @param agibile
      */
     public void setAgibile(int agibile) {
         this.agibile = agibile;
     }
 
+    /**
+     * Restituisce un intero che indica se nella stanza vi è una permanenza oppure no
+     * @return permanenza
+     */
     public int getPermanenza() {
         return permanenza;
     }
 
+    /**
+     * Setta un intero che indica se nella stanza vi è una permanenza oppure no
+     * @param permanenza
+     */
     public void setPermanenza(int permanenza) {
         this.permanenza = permanenza;
     }
 
+    /**
+     * Restituisce un intero che indica se nella stanza vi è una visita oppure no
+     * @return visita
+     */
     public int getVisita() {
         return visita;
     }
 
+     /**
+     * Setta un intero che indica se nella stanza vi è una visita oppure no
+     * @param visita
+     */
     public void setVisita(int visita) {
         this.visita = visita;
     }
-
     
     /**
-     *
-     * @return
+     * Restitusce il codice fiscale del proprietario della struttura
+     * @return codice fiscale proprietario
      */
     public String getCodiceFiscaleProprietario() {
         return codiceFiscaleProprietario;
     }
 
     /**
-     *
+     * Setta il codice fiscale del proprietario della struttura
      * @param codiceFiscaleProprietario
      */
     public void setCodiceFiscaleProprietario(String codiceFiscaleProprietario) {

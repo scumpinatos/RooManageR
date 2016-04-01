@@ -1,7 +1,7 @@
 package ui;
 
-import cache.ListaStanza;
-import cache.UtenteConnesso;
+import utils.ListaStanza;
+import utils.UtenteConnesso;
 import constants.TipiStanza;
 import entities.Stanza;
 import entities.Struttura;
@@ -37,7 +37,7 @@ public class JDialogStanza extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBoxStanze = new javax.swing.JComboBox<>();
+        jComboBoxStanze = new javax.swing.JComboBox<String>();
         jPanelOperazioniStanza = new javax.swing.JPanel();
         jButtonAggiungi = new javax.swing.JButton();
         jButtonModifica = new javax.swing.JButton();
@@ -46,7 +46,7 @@ public class JDialogStanza extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jTextFieldNumero = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jComboBoxTipo = new javax.swing.JComboBox<>();
+        jComboBoxTipo = new javax.swing.JComboBox<String>();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextAreaDescrizione = new javax.swing.JTextArea();
@@ -59,7 +59,7 @@ public class JDialogStanza extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jComboBoxStanze.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxStanze.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButtonAggiungi.setText("Aggiungi");
         jButtonAggiungi.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +113,7 @@ public class JDialogStanza extends javax.swing.JDialog {
 
         jLabel14.setText("Tipo");
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Singola", "Doppia", "Matrimoniale", "Tripla" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Singola", "Doppia", "Matrimoniale", "Tripla" }));
         jComboBoxTipo.setEnabled(false);
 
         jLabel12.setText("Descrizione");
@@ -138,7 +138,6 @@ public class JDialogStanza extends javax.swing.JDialog {
         });
 
         jButtonAgibile.setBackground(java.awt.Color.green);
-        jButtonAgibile.setForeground(java.awt.Color.black);
         jButtonAgibile.setText("SI");
         jButtonAgibile.setEnabled(false);
         jButtonAgibile.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +163,7 @@ public class JDialogStanza extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jButtonChiudi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanelInformazioniStanzaLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
@@ -177,10 +176,13 @@ public class JDialogStanza extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelInformazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonAgibile, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMq, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelInformazioniStanzaLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanelInformazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldMq, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelInformazioniStanzaLayout.setVerticalGroup(
@@ -207,9 +209,9 @@ public class JDialogStanza extends javax.swing.JDialog {
                     .addComponent(jButtonAgibile)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(jPanelInformazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonConferma)
-                    .addComponent(jButtonChiudi))
+                .addGroup(jPanelInformazioniStanzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonConferma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonChiudi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -230,7 +232,7 @@ public class JDialogStanza extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jComboBoxStanze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jPanelOperazioniStanza, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelOperazioniStanza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelInformazioniStanza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

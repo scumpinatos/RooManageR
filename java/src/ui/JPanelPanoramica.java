@@ -1,14 +1,16 @@
 package ui;
 
-import cache.ListaAnagraficaStanza;
-import cache.ListaStanza;
-import cache.ListaStruttura;
-import cache.UtenteConnesso;
+import utils.ListaAnagraficaStanza;
+import utils.ListaStanza;
+import utils.ListaStruttura;
+import utils.UtenteConnesso;
 import entities.AnagraficaStanza;
 import entities.Stanza;
 import interfaces.ICallback;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -264,7 +266,9 @@ public class JPanelPanoramica extends javax.swing.JPanel {
 
         AnagraficaStanza finish = permanenze.get(indicePermanenza);
         if (!checkVisita(finish.getNumeroStanza())) {
-            anagStaManager.updateAnagraficaStanza(controllaDatiInseriti(1, finish), callback);
+            finish = prelevaDati(1, finish);
+            if(finish != null)
+                anagStaManager.updateAnagraficaStanza(finish, callback);
         }
     }
 
@@ -283,26 +287,29 @@ public class JPanelPanoramica extends javax.swing.JPanel {
         };
 
         AnagraficaStanza finish = visite.get(indiceVisita);
-        anagStaManager.updateAnagraficaStanza(controllaDatiInseriti(2, finish), callback);
+        finish = prelevaDati(2, finish);
+        if(finish != null)
+            anagStaManager.updateAnagraficaStanza(finish, callback);
     }
 
     // METODI DI SUPPORTO
-    private AnagraficaStanza controllaDatiInseriti(int tipo, AnagraficaStanza finish) {
+    private AnagraficaStanza prelevaDati(int tipo, AnagraficaStanza finish) {
         
-        String uscita = JOptionPane.showInputDialog(null, "Inserire la data e l'ora di uscita");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+        String uscita = format.format(new GregorianCalendar().getTime());
         Float costo = null;
         String titolo = "Confermi i dati riportati";
         
         if(tipo == 1) {
             costo = Float.parseFloat(JOptionPane.showInputDialog(null, "Inserire l'importo pagato dal cliente"));
+            if(costo == null)
+                return null;
             int choice = JOptionPane.showConfirmDialog(null, "Costo: " + costo + "\nUscita: " + uscita, 
                     titolo, JOptionPane.YES_NO_OPTION);
             if(choice == JOptionPane.YES_OPTION) {
                 finish.setCosto(costo);
                 finish.setUscita(uscita);
                 return finish;
-            } else {
-                return controllaDatiInseriti(1, finish);
             }
             
         } else if(tipo == 2) {
@@ -311,8 +318,6 @@ public class JPanelPanoramica extends javax.swing.JPanel {
             if(choice == JOptionPane.YES_OPTION) {
                 finish.setUscita(uscita);
                 return finish;
-            } else {
-                return controllaDatiInseriti(2, finish);
             }
         }
         return null;

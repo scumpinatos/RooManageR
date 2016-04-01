@@ -1,11 +1,12 @@
 
-package cache;
+package utils;
 
 import java.util.ArrayList;
 
 /**
- * Cache contenente la lista delle operazioni
+ * Questa classe implementa il registro di operazioni effettuate durante l'esecuzione del programma
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class ListaOperazioni extends ArrayList<String> {
     
@@ -22,7 +23,7 @@ public class ListaOperazioni extends ArrayList<String> {
     }
 
     /**
-     * Setta l'istanza della lista delle iperazioni
+     * Setta l'istanza della lista delle operazioni
      * @param istanza
      */
     public static void setListaOperazioni(ListaOperazioni istanza) {

@@ -8,29 +8,27 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import javax.swing.JOptionPane;
 
 /**
- * Classe che si occupa della connessione HTTP con il server contenente il database
+ * Classe che implementa la connessione HTTP con il server
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public abstract class HttpConnection {
     
     /**
-     * Funzione che si occupa della connessione
+     * Funzione che si occupa di effettuare la connessione, inviare la richiesta e restituire la risposta
      * @param parameters
-     * @return 
+     * @return risposta del server
      */
     public static String getResponse(String parameters) {
         
         try {
-            // APERTURA CONNESSIONE
             String url = "http://localhost/RooManageR/server/index.php";
             URL obj = new URL(url);
             HttpURLConnection connessione = (HttpURLConnection) obj.openConnection();
             connessione.setRequestProperty("User-Agent", "Mozilla/5.0");
             
-            // SETTAGGIO TIPO DI RICHIESTA ED INSERIMENTO DATI
             connessione.setRequestMethod("POST");
             connessione.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(connessione.getOutputStream());
@@ -38,8 +36,6 @@ public abstract class HttpConnection {
             wr.flush();
             wr.close();
             
-            
-            // LETTURA RISPOSTA DEL SERVER
             BufferedReader in = new BufferedReader(new InputStreamReader(connessione.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
@@ -50,10 +46,7 @@ public abstract class HttpConnection {
             
             in.close();
             return response.toString();
-        } catch (MalformedURLException ex) {
-            System.out.println("MalformedURLException in HttpConnection");
-        } catch (ProtocolException ex) {
-            System.out.println("ProtocolException in HttpConnection");
+        } catch (MalformedURLException | ProtocolException ex) {
         } catch (IOException ex) {
             return null;
         }

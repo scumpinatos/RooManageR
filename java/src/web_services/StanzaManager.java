@@ -1,8 +1,8 @@
 package web_services;
 
-import cache.ListaOperazioni;
-import cache.ListaStanza;
-import cache.Server;
+import utils.ListaOperazioni;
+import utils.ListaStanza;
+import utils.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -14,16 +14,16 @@ import java.util.GregorianCalendar;
 import static web_services.HttpConnection.getResponse;
 
 /**
- * Classe che si occupa di gestire le stanze
- *
+ * Classe che implementa le operazioni di gestione degli oggetti di tipo Stanza
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class StanzaManager extends HttpConnection {
 
     /**
-     * Metodo che si occupa di aggiungere una stanza al database remoto
-     *
-     * @param input
+     * Questo metodo aggiunge un oggetto Stanza nel database
+     * @param input l'oggetto da aggiungere
+     * @param callback il callback che si attiva a fine operazione
      */
     public void createStanza(Stanza input, ICallback<Stanza> callback) {
 
@@ -64,9 +64,9 @@ public class StanzaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che si occupa di aggiornare una stanza nel database remoto
-     *
-     * @param input
+     * Questo metodo aggiorna un oggetto Stanza nel database
+     * @param input l'oggetto da aggiornare
+     * @param callback il callback che si attiva a fine operazione
      */
     public void updateStanza(Stanza input, ICallback<Stanza> callback) {
 
@@ -107,11 +107,9 @@ public class StanzaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che si occupa di leggere una stanza dal database remoto
-     *
-     * @param numeroStanza
-     * @param nomeStruttura
-     * @param cfProprietario
+     * Questo metodo legge i dati di un oggetto Stanza nel database
+     * @param input l'oggetto da leggere
+     * @param callback il callback che si attiva fine operazione
      */
     public void readStanza(Stanza input, ICallback<Stanza> callback) {
 
@@ -145,9 +143,9 @@ public class StanzaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che si occupa di cancellare una stanza dal database remoto
-     *
-     * @param input
+     * Questo metodo rimuove un oggetto Stanza nel database
+     * @param input l'oggetto da rimuovere
+     * @param callback il callback che si attiva a fine operazione
      */
     public void deleteStanza(Stanza input, ICallback<Stanza> callback) {
 
@@ -189,12 +187,10 @@ public class StanzaManager extends HttpConnection {
     }
 
     /**
-     * Metodo che si occupa di leggere tutte le stanze della struttura dal
-     * database remoto
-     *
-     * @param nomeStruttura
-     * @param cfProprietario
-     * @param callback
+     * Questo metodo legge tutti gli oggetti Stanza nel database di una struttura
+     * @param nomeStruttura il nome della struttura
+     * @param cfProprietario il codice fiscale del proprietario della struttura
+     * @param callback il callback che si attiva a fine operazione
      */
     public void readStanzeStruttura(String nomeStruttura, String cfProprietario, ICallback<Boolean> callback) {
 
@@ -225,6 +221,11 @@ public class StanzaManager extends HttpConnection {
         thread.start();
     }
 
+    /**
+     * Questo metodo aggiorna un oggetto Stanza nel database dopo l'aggiunta di un oggetto AnagraficaStanza
+     * @param input l'oggetto da aggiornare
+     * @param callback il callback che si attiva a fine operazione
+     */
     public void occupaStanza(Stanza input, ICallback<Stanza> callback) {
 
         Runnable runnable = new Runnable() {

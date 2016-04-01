@@ -2,8 +2,9 @@
 package entities;
 
 /**
- * Classe che rappresenta l'associazione tra un'Anagrafica e la rispettiva mansione all'interno di una struttura
+ * Classe che implementa una mansione all'interno di una struttura
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class AnagraficaMansione {
     
@@ -14,21 +15,21 @@ public class AnagraficaMansione {
     private int tipoMansione;
 
     /**
-     *
+     * Costrutture vuoto
      */
     public AnagraficaMansione() {
     }
     
     /**
-     *
-     * @return
+     * Restituisce il codice fiscale dell'anagrafica che svolge la mansione
+     * @return codice fiscale
      */
     public String getCodiceFiscaleAnagrafica() {
         return codiceFiscaleAnagrafica;
     }
 
     /**
-     *
+     * Setta il codice fiscale dell'anagrafica che svolge la mansione
      * @param codiceFiscaleAnagrafica
      */
     public void setCodiceFiscaleAnagrafica(String codiceFiscaleAnagrafica) {
@@ -36,15 +37,15 @@ public class AnagraficaMansione {
     }
 
     /**
-     *
-     * @return
+     * Restituisce la password per accedere al programma scelta dall'anagrafica
+     * @return password
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     *
+     * Setta la password scelta dall'utente
      * @param password
      */
     public void setPassword(String password) {
@@ -52,15 +53,15 @@ public class AnagraficaMansione {
     }
 
     /**
-     *
-     * @return
+     * Restituisce il nome della struttura in cui viene svolta la mansione
+     * @return nome struttura
      */
     public String getNomeStruttura() {
         return nomeStruttura;
     }
 
     /**
-     *
+     * Setta il nome della struttura in cui viene svolta la mansione
      * @param nomeStruttura
      */
     public void setNomeStruttura(String nomeStruttura) {
@@ -68,15 +69,15 @@ public class AnagraficaMansione {
     }
 
     /**
-     *
-     * @return
+     * Restituisce il tipo di mansione svolta
+     * @return tipo mansione
      */
     public int getTipoMansione() {
         return tipoMansione;
     }
 
     /**
-     *
+     * Setta il tipo di mansione svolta
      * @param tipoMansione
      */
     public void setTipoMansione(int tipoMansione) {
@@ -84,15 +85,15 @@ public class AnagraficaMansione {
     }
 
     /**
-     *
-     * @return
+     * Restituisce il codice fiscale del proprietario della struttura
+     * @return codice fiscale proprietario
      */
     public String getCodiceFiscaleProprietario() {
         return codiceFiscaleProprietario;
     }
 
     /**
-     *
+     * Setta il codice fiscale del proprietario della struttura
      * @param codiceFiscaleProprietario
      */
     public void setCodiceFiscaleProprietario(String codiceFiscaleProprietario) {

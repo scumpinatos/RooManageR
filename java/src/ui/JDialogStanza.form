@@ -38,7 +38,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jComboBoxStanze" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="12" max="32767" attributes="0"/>
-              <Component id="jPanelOperazioniStanza" min="-2" pref="35" max="-2" attributes="0"/>
+              <Component id="jPanelOperazioniStanza" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelInformazioniStanza" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -128,7 +128,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonChiudi" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButtonConferma" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="jButtonConferma" min="-2" pref="94" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
@@ -143,10 +143,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jButtonAgibile" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
-                      <Component id="jTextFieldMq" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="jComboBoxTipo" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldNumero" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                      <Component id="jScrollPane6" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane6" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="jTextFieldMq" min="-2" pref="60" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -181,9 +186,9 @@
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButtonConferma" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonChiudi" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButtonConferma" max="32767" attributes="0"/>
+                      <Component id="jButtonChiudi" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -268,9 +273,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="ff" id="green" palette="1" red="0" type="palette"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
             </Property>
             <Property name="text" type="java.lang.String" value="SI"/>
             <Property name="enabled" type="boolean" value="false"/>

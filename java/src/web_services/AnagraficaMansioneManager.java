@@ -1,8 +1,8 @@
 package web_services;
 
-import cache.ListaOperazioni;
-import cache.Server;
-import cache.UtenteConnesso;
+import utils.ListaOperazioni;
+import utils.Server;
+import utils.UtenteConnesso;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.ServerCodes;
@@ -17,17 +17,16 @@ import javax.swing.JOptionPane;
 import static web_services.HttpConnection.getResponse;
 
 /**
- * Classe che si occupa di gestire le istanze di anagrafiche relative a una
- * struttura
- *
+ * Classe che implementa le operazioni di gestione degli oggetti di tipo AnagraficaMansione
+ * @author giandomenicoizzo
  * @author emanuelegargiulo
  */
 public class AnagraficaMansioneManager {
 
     /**
-     * Aggiunge un'anagrafica ad una struttura assegnandole una mansione
-     *
+     * Questo metodo aggiunge un oggetto AnagraficaMansione nel database
      * @param input
+     * @param callback
      */
     public void addAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
 
@@ -69,9 +68,9 @@ public class AnagraficaMansioneManager {
     }
 
     /**
-     * Aggiorna l'istanza di anagraficaMansione passata come input
-     *
+     * Questo metodo aggiorna un oggetto AnagraficaMansione nel database
      * @param input
+     * @param callback
      */
     public void updateAnagraficaMansione(AnagraficaMansione input, ICallback<AnagraficaMansione> callback) {
 
@@ -113,8 +112,7 @@ public class AnagraficaMansioneManager {
     }
 
     /**
-     * Legge l'anagrafica mansione dati i parametri
-     *
+     * Questo metodo legge i dati di un oggetto AnagraficaMansione dal database
      * @param input
      * @param callback
      */
@@ -151,8 +149,7 @@ public class AnagraficaMansioneManager {
     }
 
     /**
-     * Cancella l'anagrafica mansione dati i parametri
-     *
+     * Questo metodo rimuove un oggetto AnagraficaMansione dal database
      * @param input
      * @param callback
      */
@@ -195,8 +192,7 @@ public class AnagraficaMansioneManager {
     }
 
     /**
-     * Metodo che si occupa di effettuare il login
-     *
+     * Questo metodo implementa l'operazione di Login
      * @param cf
      * @param password
      * @param callback

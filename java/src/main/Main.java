@@ -5,6 +5,7 @@ import ui.UILogin;
 /**
  * Classe di avvio del programma
  * @author emanuelegargiulo
+ * @author giandomenicoizzo
  */
 public class Main {
 

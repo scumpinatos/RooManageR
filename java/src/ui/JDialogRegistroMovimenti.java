@@ -1,15 +1,16 @@
 package ui;
 
-import cache.ListaAnagrafica;
-import cache.ListaAnagraficaStanza;
-import cache.ListaStruttura;
-import cache.UtenteConnesso;
+import entities.Anagrafica;
+import utils.ListaAnagraficaStanza;
+import utils.ListaStruttura;
+import utils.UtenteConnesso;
 import entities.Struttura;
 import interfaces.ICallback;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -184,9 +185,9 @@ public class JDialogRegistroMovimenti extends javax.swing.JDialog {
 
     private void registroClienti() {
 
-        ICallback<ListaAnagrafica> callback = new ICallback<ListaAnagrafica>() {
+        ICallback<ArrayList<Anagrafica>> callback = new ICallback<ArrayList<Anagrafica>>() {
             @Override
-            public void result(ListaAnagrafica obj) {
+            public void result(ArrayList<Anagrafica> obj) {
                 if (obj != null) {
 
                     int n = obj.size();

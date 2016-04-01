@@ -1,10 +1,11 @@
-package cache;
+package utils;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author giandomenico
+ * Questa classe implementa l'eccezione Server Offline
+ * @author giandomenicoizzo
+ * @author gargiuloemanuele
  */
 public class Server {
     
