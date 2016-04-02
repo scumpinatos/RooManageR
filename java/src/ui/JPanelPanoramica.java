@@ -353,8 +353,12 @@ public class JPanelPanoramica extends javax.swing.JPanel {
         strutturaManager.readStruttureByAnagrafica(cfProprietario, callback);
     }
 
-    private void scaricaDati() {
+     private void scaricaDati() {
 
+        if (jComboBoxStrutture.isVisible()) {
+            caricaStrutture();
+        }
+        
         anagStaManager.readSituazioneAttuale(cfProprietario, nomeStruttura, new ICallback<ListaAnagraficaStanza>() {
             @Override
             public void result(ListaAnagraficaStanza obj) {
