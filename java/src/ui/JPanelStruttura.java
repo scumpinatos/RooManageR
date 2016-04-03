@@ -458,7 +458,7 @@ public class JPanelStruttura extends javax.swing.JPanel {
         }
     };
 
-    private void createStruttura() {
+ private void createStruttura() {
 
         jTextFieldNome.setText("");
         jTextFieldNome.setEditable(true);
@@ -466,8 +466,13 @@ public class JPanelStruttura extends javax.swing.JPanel {
         jTextFieldIndirizzo.setText("");
         abilita(true);
 
-        jButtonConferma.removeActionListener(updateStruttura);
-        jButtonConferma.addActionListener(createStruttura);
+        ActionListener[] listeners = jButtonConferma.getActionListeners();
+        if (listeners.length == 0) {
+            jButtonConferma.addActionListener(createStruttura);
+        } else if (listeners[0] == updateStruttura) {
+            jButtonConferma.removeActionListener(updateStruttura);
+            jButtonConferma.addActionListener(createStruttura);
+        }
 
     }
 
@@ -475,8 +480,15 @@ public class JPanelStruttura extends javax.swing.JPanel {
 
         abilita(true);
         jTextFieldNome.setEnabled(false);
-        jButtonConferma.removeActionListener(createStruttura);
-        jButtonConferma.addActionListener(updateStruttura);
+
+        ActionListener[] listeners = jButtonConferma.getActionListeners();
+        if (listeners.length == 0) {
+            jButtonConferma.addActionListener(updateStruttura);
+        } else if (listeners[0] == createStruttura) {
+            jButtonConferma.removeActionListener(createStruttura);
+            jButtonConferma.addActionListener(updateStruttura);
+        }
+
     }
 
     private void readAllStruttura(boolean refresh) {

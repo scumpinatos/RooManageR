@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Mar 16, 2016 alle 11:34
+-- Creato il: Apr 03, 2016 alle 12:35
 -- Versione del server: 5.6.26
 -- Versione PHP: 5.6.12
 
@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
 --
 
 INSERT INTO `anagrafica` (`codicefiscale`, `nome`, `cognome`, `datanascita`, `indirizzo`, `nazionalita`, `numerodocumento`, `tipodocumento`, `telefono`, `cellulare`, `email`) VALUES
-('CODICEFISCALE1', 'Nome1', 'Cognome1', '27/02/1993', 'Indirizzo1', 'ITA', 'Ndoc1', 1, 'Telefono1', 'Cellulare1', 'Email1'),
-('CODICEFISCALE2', 'Nome2', 'Cognome2', '27/02/1993', 'Indirizzo2', 'ENG', 'Ndoc2', 1, 'Telefono2', 'Cellulare2', 'Email2'),
-('CODICEFISCALE3', 'Nome3', 'Cognome3', '27/02/1993', 'Indirizzo3', 'FRA', 'Ndoc3', 1, 'Telefono3', 'Cellulare3', 'Email3');
+('CODICEFISCALE1', '', '', '', '', 'ITA', '', 0, '', '', ''),
+('CODICEFISCALE2', 'Nome2', 'Cognome2', '27/02/1993', 'Indirizzo2', 'ITA', 'Ndoc2', 1, '0815368956', ' 323243243242', 'prova'),
+('CODICEFISCALE3', 'Robert', 'Kubica', '27/01/1991', 'Via Viosa 4', 'FRA', 'Ndoc3', 1, '0000001', '00000002', 'em@ail.it');
 
 -- --------------------------------------------------------
 
@@ -68,8 +68,7 @@ CREATE TABLE IF NOT EXISTS `anagraficamansione` (
 --
 
 INSERT INTO `anagraficamansione` (`codicefiscaleanagrafica`, `password`, `nomestruttura`, `codicefiscaleproprietario`, `tipomansione`) VALUES
-('CODICEFISCALE1', '123stella', '', 'CODICEFISCALE1', 2),
-('CODICEFISCALE2', '123stella', 'Hotel Luna', 'CODICEFISCALE1', 1);
+('CODICEFISCALE1', '123stella', '', 'CODICEFISCALE1', 2);
 
 -- --------------------------------------------------------
 
@@ -93,8 +92,8 @@ CREATE TABLE IF NOT EXISTS `anagraficastanza` (
 --
 
 INSERT INTO `anagraficastanza` (`codicefiscaleanagrafica`, `numerostanza`, `nomestruttura`, `codicefiscaleproprietario`, `tipo`, `ingresso`, `uscita`, `costo`) VALUES
-('CODICEFISCALE3', '1A', 'Hotel Luna', 'CODICEFISCALE1', 1, '05/03/2016 - 13:35', '05/03/2016 - 13:41', 50),
-('CODICEFISCALE3', '1A', 'Hotel Luna', 'CODICEFISCALE1', 2, '05/03/2016 - 13:36', '05/03/2016 - 13:40', 0);
+('CODICEFISCALE5', '1A', 'Hotel Luna', 'CODICEFISCALE1', 1, '12:09 - 03/04/2016', '12:28 - 03/04/2016', 10),
+('CODICEFISCALE3', '1A', 'Hotel Sole', 'CODICEFISCALE1', 1, '12:33 - 03/04/2016', '', 0);
 
 -- --------------------------------------------------------
 
@@ -112,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `nazionalita` (
 --
 
 INSERT INTO `nazionalita` (`abbreviazione`, `valore`) VALUES
+('DEU', 'Tedesca'),
 ('ENG', 'Inglese'),
 ('FRA', 'Francese'),
 ('ITA', 'Italiana');
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `stanza` (
 --
 
 INSERT INTO `stanza` (`nomestruttura`, `codicefiscaleproprietario`, `numero`, `tipo`, `descrizione`, `mq`, `agibile`, `permanenza`, `visita`) VALUES
-('Hotel Luna', 'CODICEFISCALE1', '1A', 1, 'DescrizioneStanza1A	', 20, 1, 0, 0);
+('Hotel Sole', 'CODICEFISCALE1', '1A', 1, 'Prova', 20, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -150,8 +150,8 @@ INSERT INTO `stanza` (`nomestruttura`, `codicefiscaleproprietario`, `numero`, `t
 CREATE TABLE IF NOT EXISTS `struttura` (
   `nome` varchar(255) NOT NULL,
   `codicefiscaleanagrafica` varchar(255) NOT NULL,
-  `nstanze` int(11) NOT NULL,
   `indirizzo` varchar(255) NOT NULL,
+  `nstanze` int(11) NOT NULL,
   `descrizione` varchar(255) NOT NULL,
   `agibile` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -160,8 +160,8 @@ CREATE TABLE IF NOT EXISTS `struttura` (
 -- Dump dei dati per la tabella `struttura`
 --
 
-INSERT INTO `struttura` (`nome`, `codicefiscaleanagrafica`, `nstanze`, `indirizzo`, `descrizione`, `agibile`) VALUES
-('Hotel Luna', 'CODICEFISCALE1', 1, 'IndirizzoHotelLuna', 'DescrizioneHotelLuna', 1);
+INSERT INTO `struttura` (`nome`, `codicefiscaleanagrafica`, `indirizzo`, `nstanze`, `descrizione`, `agibile`) VALUES
+('Hotel Sole', 'CODICEFISCALE1', 'Indirizzo Hotel Sole', 1, 'Descrizione Hotel Sole', 1);
 
 --
 -- Indici per le tabelle scaricate

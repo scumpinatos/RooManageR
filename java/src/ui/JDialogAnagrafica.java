@@ -432,18 +432,18 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
     }
 
     // MODALITA VISUALIZZA
-    private void visualizza(Anagrafica input) {
+ private void visualizza(Anagrafica input) {
 
         jTextFieldCodiceFiscale.setText(input.getCodiceFiscale());
-        jTextFieldCodiceFiscale.setEditable(false);
+        jTextFieldCodiceFiscale.setEnabled(false);
         jTextFieldNome.setText(input.getNome());
-        jTextFieldNome.setEditable(false);
+        jTextFieldNome.setEnabled(false);
         jTextFieldCognome.setText(input.getCognome());
-        jTextFieldCognome.setEditable(false);
+        jTextFieldCognome.setEnabled(false);
         jTextFieldData.setText(input.getDataNascita());
-        jTextFieldData.setEditable(false);
+        jTextFieldData.setEnabled(false);
         jTextFieldIndirizzo.setText(input.getIndirizzo());
-        jTextFieldIndirizzo.setEditable(false);
+        jTextFieldIndirizzo.setEnabled(false);
 
         String[] items = new String[1];
         items[0] = input.getNazionalita();
@@ -468,13 +468,13 @@ public class JDialogAnagrafica extends javax.swing.JDialog {
                 break;
         }
         jTextFieldNumeroDocumento.setText(input.getNumeroDocumento());
-        jTextFieldNumeroDocumento.setEditable(false);
+        jTextFieldNumeroDocumento.setEnabled(false);
         jTextFieldTelefono.setText(input.getTelefono());
-        jTextFieldTelefono.setEditable(false);
+        jTextFieldTelefono.setEnabled(false);
         jTextFieldCellulare.setText(input.getCellulare());
-        jTextFieldCellulare.setEditable(false);
+        jTextFieldCellulare.setEnabled(false);
         jTextFieldEmail.setText(input.getEmail());
-        jTextFieldEmail.setEditable(false);
+        jTextFieldEmail.setEnabled(false);
 
         jButtonModifica.setEnabled(true);
         jButtonConferma.setEnabled(true);
