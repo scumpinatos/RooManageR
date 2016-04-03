@@ -339,14 +339,19 @@ public class JPanelPanoramica extends javax.swing.JPanel {
 
                 jComboBoxStrutture.setModel(new DefaultComboBoxModel<String>(items));
 
-                jComboBoxStrutture.addActionListener(new ActionListener() {
+                ActionListener listener = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
                         nomeStruttura = (String) ((JComboBox) e.getSource()).getSelectedItem();
-                        scaricaDati();
+                        if(!nomeStruttura.equals("Selezionare una struttura..."))
+                            scaricaDati();
                     }
-                });
+                };
+                
+                if(jComboBoxStrutture.getActionListeners().length == 0) {
+                    jComboBoxStrutture.addActionListener(listener);
+                }
             }
         };
 
