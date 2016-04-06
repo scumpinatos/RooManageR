@@ -21,12 +21,12 @@ public class ConclusioneVisita {
                 + "Codice fiscale anagrafica: CODICEFISCALE\n"
                 + "Codice fiscale proprietario: CODICEFISCALE2\n"
                 + "Nome struttura: Hotel Luna\n"
-                + "Numero stanza: 1A"
-                + "Tipo: 2"
+                + "Numero stanza: 1A\n"
+                + "Tipo: 2\n"
                 + "Ingresso: 4/4/2016 19:00\n");
         
         System.out.println("NUOVI DATI \n"
-                + "Uscita: 5/4/2016 00:00");
+                + "Uscita: 5/4/2016 00:00\n");
         
         AnagraficaStanza anagStanza = new AnagraficaStanza();
         
@@ -60,8 +60,8 @@ public class ConclusioneVisita {
                                         obj.getCodiceFiscaleProprietario() + "\n" + 
                                         obj.getNomeStruttura() + "\n" +
                                         obj.getNumeroStanza() + "\n" +
-                                        obj.getTipo() + "\n" +
-                                        obj.getIngresso());
+                                        obj.getIngresso() +"\n" +
+                                        obj.getUscita());
                             } else {
                                 System.out.println("VISITA NON TROVATA NEL DATABASE");
                             }

@@ -16,8 +16,8 @@ public class InizioCaricaPermanenza {
                 + "Codice fiscale anagrafica: CODICEFISCALE\n"
                 + "Codice fiscale proprietario: CODICEFISCALE1\n"
                 + "Nome struttura: Hotel Luna\n"
-                + "Numero stanza: 1A"
-                + "Tipo: 1"
+                + "Numero stanza: 1A\n"
+                + "Tipo: 1\n"
                 + "Ingresso: 4/4/2016 19:00\n");
         
         AnagraficaStanza anagStanza = new AnagraficaStanza();

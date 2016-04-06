@@ -63,7 +63,8 @@ public class ConclusionePermanenza {
                                         obj.getNomeStruttura() + "\n" +
                                         obj.getNumeroStanza() + "\n" +
                                         obj.getTipo() + "\n" +
-                                        obj.getIngresso());
+                                        obj.getIngresso() +"\n" +
+                                        obj.getUscita());
                             } else {
                                 System.out.println("PERMANENZA NON TROVATA NEL DATABASE");
                             }

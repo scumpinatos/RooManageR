@@ -21,9 +21,9 @@ public class InizioCaricaVisita {
                 + "Codice fiscale anagrafica: CODICEFISCALE\n"
                 + "Codice fiscale proprietario: CODICEFISCALE2\n"
                 + "Nome struttura: Hotel Luna\n"
-                + "Numero stanza: 1A"
-                + "Tipo: 2"
-                + "Ingresso: 4/4/2016 19:00");
+                + "Numero stanza: 1A\n"
+                + "Tipo: 2\n"
+                + "Ingresso: 4/4/2016 19:00\n");
         
         AnagraficaStanza anagStanza = new AnagraficaStanza();
         
