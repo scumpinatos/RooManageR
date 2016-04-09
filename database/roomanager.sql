@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Apr 03, 2016 alle 12:35
+-- Creato il: Apr 09, 2016 alle 16:11
 -- Versione del server: 5.6.26
 -- Versione PHP: 5.6.12
 
@@ -45,9 +45,10 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
 --
 
 INSERT INTO `anagrafica` (`codicefiscale`, `nome`, `cognome`, `datanascita`, `indirizzo`, `nazionalita`, `numerodocumento`, `tipodocumento`, `telefono`, `cellulare`, `email`) VALUES
-('CODICEFISCALE1', '', '', '', '', 'ITA', '', 0, '', '', ''),
+('CODICEFISCALE1', 'Luca', 'Monesi', '18/09/1985', 'Via Ferrara 5', 'ITA', 'Documento1', 1, '0805553312', '3339955642', 'monesi@hotel.it'),
 ('CODICEFISCALE2', 'Nome2', 'Cognome2', '27/02/1993', 'Indirizzo2', 'ITA', 'Ndoc2', 1, '0815368956', ' 323243243242', 'prova'),
-('CODICEFISCALE3', 'Robert', 'Kubica', '27/01/1991', 'Via Viosa 4', 'FRA', 'Ndoc3', 1, '0000001', '00000002', 'em@ail.it');
+('CODICEFISCALE3', 'Robert', 'Kubica', '27/01/1991', 'Via Viosa 4', 'FRA', 'Ndoc3', 1, '0000001', '00000002', 'em@ail.it'),
+('PORTINAIO', 'Nicola', 'Il Portinaio', '05/05/1958', 'Portineria', 'FRA', 'NESS00N0', 1, '00155', '393555111', 'mail@mail.it');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `anagraficamansione` (
 --
 
 INSERT INTO `anagraficamansione` (`codicefiscaleanagrafica`, `password`, `nomestruttura`, `codicefiscaleproprietario`, `tipomansione`) VALUES
-('CODICEFISCALE1', '123stella', '', 'CODICEFISCALE1', 2);
+('CODICEFISCALE1', '123stella', '', 'CODICEFISCALE1', 2),
+('PORTINAIO', '123stella', 'Hotel Sole', 'CODICEFISCALE1', 1);
 
 -- --------------------------------------------------------
 
